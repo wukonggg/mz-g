@@ -1,0 +1,106 @@
+开发指南
+
+1、包结构介绍
+
++ /
+- DEV-GUIDE.TXT                  开发指南
+- LICENSE.TXT                    开源许可证
+- VERSION.TXT                    版本信息
+- README.MD                      介绍
+
++ /sql
+- mz-g-deploy.sql                开发/测试数据库脚本
+- mz-g-select.sql                写起来比较麻烦的查询
+- mz-g-view.sql                  视图的sql
+
+
++ src/main/resources
+- log4j.properties               log4j配置文件
+- db.properties                  数据库连接配置文件
+- db.js                          数据源配置文件
+- beans.js                       ioc bean的配置文件
+
++ src/main/java
+- band.wukong.mz                 top package
+- band.wukong.mz.base            基础类包
+- band.wukong.mz.g               MZ-G PROJECT顶层包
+- band.wukong.mz.nutz            nutz框架相关的内容
+- band.wukong.mz.tablib          自封装的tag
+- band.wukong.mz.util            工具类
+
+
++ /test
+- 不说了
+
++ src/main/webapp
+- src/main/webapp/assets                    这里放着所有非component的资源
+- src/main/webapp/component                 这里存放所有项目需要用到的完整前端组件。按照/项目名称/版本号/内容的目录排放
+- src/main/webapp/component/raw             这部分是自己写的组件
+- src/main/webapp/gimg                      上传图片目录
+- src/main/webapp/css                       自定义css目录
+- src/main/webapp/img                       自定义图片目录
+- src/main/webapp/js                        自研组件。mess系列，大多为组件，和页面关联较大，有通用性但比raw的抽象度更低。mz系列是和业务相关联的
+- src/main/webapp/sample                    一些例子
+- src/main/webapp/WEB-INF/view/common       基础、公共画面
+- src/main/webapp/WEB-INF/view/其他目录      业务系统画面
+- src/main/webapp/WEB-INF/tld               tld文件夹
+
+
+2、开发规约
++ 软件的MVC分层
+- 不同的Layer之间传输使用的PO时，如不是特殊情况，不要改变传入参数PO的值
+- 和页面相关的const统一放在各个module中
+
+
++ Java代码命名约定
+- ×××Const：常量类
+- ***Validator：一般用来做入参校验，面向module，service和dao
+- ***Impl: 一般为service或者dao的实现类
+
++ HTML代码命名约定
+- element id: {'btn/rad/inp_xx_yy': 'dom元素缩写_业务名称_业务名称'}
+- element name：根据用途视情况而定。如为了form提交的参数，则根据服务端pojo；如为了页面选择器，则可以视页面情况，建议与参照id的命名规范。
+- element class: {'页内样式': 'mz-ic-xxx','外部公共样式文件':'mz-xxx'}
+
++ 类方法排序
+- module中核心方法排序依次为：public的list、add、save、mod、upd、rm，然后是自身特有public方法，最后是private方法
+- service中核心方法排序依次为：public的save、find、upd、rm、list，然后是自身特有public方法，最后是private方法
+- dao中核心方法排序依次为：public的insert、find、upd、rm、list，然后是自身特有public方法，最后是private方法
+
+
++ jsp
+- 页面js顺序，尽量放到body中的最下方，引用的js文件在上，嵌入的js文本在下。在无法正常运行的情况下，才放到head中。
+  在head中时，放到css的上方。
+
++ js
+- 会被多页面引用的js放到js文件中，js文件中的代码应使用命名空间
+- 你可能看到了，怎么既有raw.*，又有mess.*，还TM有mz.*，这都是什么鬼？实际上他们是有划分的
+- raw系列： 目标是奔组件去的，和页面关联较小，因为水平比较菜所以起名叫raw
+- mess系列：这个就比较混乱一点，没有raw系列完善
+- mz系列：  和mz-g这个项目绑定的，解决其业务的都在这里
+
++ TODO的类型说明
+- // TODO            普通
+- // FIXME           待修复的bug
+- // NOW             马上要做的工作
+- // REQ             需求
+- // CASE            样板代码
+
+
+4、FAQ
++ 框架的前后台有没有Sample？
+- 到处都是sample，都是奔着最佳实践去的。如果你觉得还不够好，那就告诉我，如果你愿意的话，自己动手来改然后提交git吧！
+
++ 如何使用异常？
+- band.wukong.mz.base.exception中已经封装了一些异常。
+- 所有的异常都应被catch掉。
+- 原则上module负责最异常的总控，只向外抛出AppRuntimeException。错误画面会获得这个异常，并getMessage。
+- service layer和工具类等各种代码可以使用非运行时Exception。但最终到了module中都应被catch。
+
++ module中抛出异常如何处理？
+- 所有的Module、Service、Dao都可能throw AppRuntimeException if invalid params.
+  提示信息示例：Invalid param was found during pre-insert check.
+
++ 日志如何处理？
+- JAVA: 所有入参统一log格式为"log.debug("Input params - ${beanName}: \n" + ${var});"
+- JS: 使用raw.log.js或直接console.log。不要alert！！！
