@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>one</short-name>
+    <uri>http://www.wukong.band</uri>
+
+    <function>
+        <description>dateToStringLong</description>
+        <name>dateToStringLong</name>
+        <function-class>band.wukong.mz.taglib.OneTag</function-class>
+        <function-signature>java.lang.String dateToStringLong(java.util.Date)</function-signature>
+    </function>
+
+    <function>
+        <description>dateToStringShort</description>
+        <name>dateToStringShort</name>
+        <function-class>band.wukong.mz.taglib.OneTag</function-class>
+        <function-signature>java.lang.String dateToStringShort(java.util.Date)</function-signature>
+    </function>
+
+    <function>
+        <description>objectToString</description>
+        <name>objectToString</name>
+        <function-class>band.wukong.mz.taglib.OneTag</function-class>
+        <function-signature>java.lang.String objectToString(java.lang.Object)</function-signature>
+    </function>
+
+    <function>
+        <description>string4short</description>
+        <name>string4short</name>
+        <function-class>band.wukong.mz.taglib.OneTag</function-class>
+        <function-signature>java.lang.String string4short(java.lang.String,int)</function-signature>
+    </function>
+    <function>
+        <description>isZero</description>
+        <name>isZero</name>
+        <function-class>band.wukong.mz.taglib.OneTag</function-class>
+        <function-signature>boolean isZero(int)</function-signature>
+    </function>
+
+</taglib>

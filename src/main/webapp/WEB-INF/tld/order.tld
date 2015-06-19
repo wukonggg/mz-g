@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>order</short-name>
+    <uri>http://www.wukong.band</uri>
+
+    <function>
+        <description>discountInDouble</description>
+        <name>discountInDouble</name>
+        <function-class>band.wukong.mz.g.sale.OrderTag</function-class>
+        <function-signature>double discountInDouble(java.lang.String,double)</function-signature>
+    </function>
+
+    <function>
+        <description>discountInString</description>
+        <name>discountInString</name>
+        <function-class>band.wukong.mz.g.sale.OrderTag</function-class>
+        <function-signature>java.lang.String discountInString(java.lang.String,double)</function-signature>
+    </function>
+
+    <function>
+        <description>discountInText</description>
+        <name>discountInText</name>
+        <function-class>band.wukong.mz.g.sale.OrderTag</function-class>
+        <function-signature>java.lang.String discountInText(java.lang.String,double)</function-signature>
+    </function>
+
+    <function>
+        <description>calcDpriceInDouble</description>
+        <name>calcDpriceInDouble</name>
+        <function-class>band.wukong.mz.g.sale.OrderTag</function-class>
+        <function-signature>double calcDpriceInDouble(java.lang.String,double,double,int)</function-signature>
+    </function>
+
+    <function>
+        <description>calcDpriceInString</description>
+        <name>calcDpriceInString</name>
+        <function-class>band.wukong.mz.g.sale.OrderTag</function-class>
+        <function-signature>java.lang.String calcDpriceInString(java.lang.String,double,double,int,java.lang.String)</function-signature>
+    </function>
+
+</taglib>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<table border="1px">
+    <thead>
+        <tr>
+            <th>radio</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="data-line-1">
+            <td><input type="radio" id="rd1" name="rd" value="1"></td>
+            <td>radio1</td>
+        </tr>
+        <tr class="data-line-2">
+            <td><input type="radio" id="rd2" name="rd" value="2"></td>
+            <td>radio2</td>
+        </tr>
+        <tr class="data-line-3">
+            <td><input type="radio" id="rd3" name="rd" value="3"></td>
+            <td>radio3</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<script src="../component/jquery/2.1.3/jquery.min.js"></script>
+<script src="../component/raw/raw.log.js"></script>
+<script>
+    $(function () {
+        $("tr[class^='data-line-']").click(function() {
+            raw.log.raw("tr class: " + $(this).attr("class"));
+            var idd = $(this).attr("class").replace("data-line-", "");
+            var radio = $("#rd" + idd);
+            raw.log.raw("radio before: rd" + idd + ": " + radio.prop("checked"));
+            radio.prop("checked", true);
+            raw.log.raw("radio before: rd" + idd + ": " + radio.prop("checked"));
+        });
+    });
+</script>
+</body>
+</html>

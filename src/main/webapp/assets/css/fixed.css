@@ -1,0 +1,96 @@
+/* 固定元素-bottom-right */
+.mz-sticky-br {
+  position:fixed;
+  right:25px;
+  bottom:0;
+}
+
+.mz-admin-qcond-fixed {
+  height: 39px;
+}
+
+.mz-admin-tbl-td-image {
+  max-height: 30px;
+  width: auto;
+  padding: 0,
+  margin: 0
+}
+
+.mz-admin-tbl-check {
+  width: 35px;
+  text-align: center;
+}
+
+.mz-admin-tbl-th-count {
+  width: 30px;
+}
+
+
+.mz-admin-tbl-th-img {
+  width: 55px;
+  text-align: center;
+}
+
+.mz-admin-tbl-td-img {
+    width: 55px;
+    text-align: center;
+    margin: 0;
+}
+
+
+.mz-admin-label-fixed {
+  font-weight: 100;
+  padding: 0 !important;
+}
+.mz-admin-select-fixed {
+  padding: 5px !important;
+  height: 39px !important;
+}
+.mz-admin-input-desc-fixed {
+  font-weight: 100;
+  padding: 5px;
+}
+
+.mz-am-alert-fixed {
+  padding: 3px !important;
+  height: 30px;
+  font-weight: 100;
+}
+
+
+.mz-text-grey {
+  color: #9c9c9c;
+}
+
+.mz-panel-text {
+  font-size: 12px;
+}
+
+.mz-panel-text-bold {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.mz-order-panel-table {
+  font-size: 12px;
+  word-break:break-all;
+}
+.mz-order-panel-table img {
+  max-height: 60px;
+  width: auto;
+  padding: 0;
+  margin: 0
+}
+
+.mz-order-sprice {
+    font-family: verdana,monospace !important;
+    text-decoration: line-through;
+    color: #9c9c9c;
+}
+.mz-order-dprice {
+    font-family: verdana,monospace !important;
+}
+.mz-order-dprice-highlight {
+    font-family: verdana,monospace !important;
+    color: #f40;
+}

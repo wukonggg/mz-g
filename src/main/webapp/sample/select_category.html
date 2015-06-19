@@ -1,0 +1,51 @@
+<!--
+  Desc: ajax动态加载商品分类选择框的例子。对应module：CategoryModule.java
+  User: wukong(wukonggg@139.com)
+-->
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<select id="cateCode" name="cateCode">
+    <%--<option value="99999">lala</option>--%>
+</select>
+
+<script src="../component/jquery/2.1.3/jquery.min.js"></script>
+<script src="../component/raw/raw.util.js"></script>
+<script src="../component/raw/raw.prototype.js"></script>
+<script src="../component/raw/raw.log.js"></script>
+<script>
+    $(function () {
+        loadCategory();
+    });
+    function loadCategory() {
+        $.ajax({
+            type: 'POST',
+            url: "../category/list.io",
+            dataType: "json",
+            success: function(data){
+                raw.log.debug("typeof data: " + typeof data);
+                raw.log.debug("JSON.stringify(data): " + JSON.stringify(data));
+                var template = "<option value='#code#'>#title#</option>  ";
+                var options = "";
+                $.each(data, function(i, lin){
+                    raw.log.debug("JSON.stringify(lin): " + JSON.stringify(lin));
+                    raw.log.debug("JSON.stringify(data[i]): " + JSON.stringify(data[i]));
+                    var option = template.replace("#code#", lin.code);
+                    option = option.replace("#title#", lin.title);
+                    options = options + option;
+                });
+                raw.log.debug("options: " + options);
+                $("#cateCode").append(options);
+                raw.log.debug('$("#cateCode").html(): ' + $("#cateCode").html());
+            },
+            error: function() {
+                alert("载入商品目录出错啦！快去找悟空！")
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="raw.wc.loading.css">
+</head>
+<body>
+<button type="button" id="load" onclick="load();">开始</button>
+
+<div class="raw-wc-loading-background"></div>
+<div class="raw-wc-loading-img"><img src="loading.gif"/></div>
+
+<script src="raw.wc.loading.js"></script>
+<script>
+    function load() {
+        raw.wc.loading.show();
+        setInterval(function(){
+            raw.wc.loading.hide();
+        }, 2000);
+    }
+</script>
+</body>
+</html>
