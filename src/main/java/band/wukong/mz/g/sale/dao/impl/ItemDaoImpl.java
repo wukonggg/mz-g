@@ -31,8 +31,10 @@ public class ItemDaoImpl implements ItemDao {
     private Dao dao;
 
     @Override
-    public void save(Item i) {
+    public void insert(Item i) {
         if (!ItemDaoValidator.save(i)) {
+            log.error("insert item failed:");
+            log.error(i);
             throw new IllegalParameterException();
         }
         dao.insert(i);

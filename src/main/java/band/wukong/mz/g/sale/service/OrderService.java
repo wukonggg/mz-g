@@ -60,14 +60,13 @@ public interface OrderService {
      * 退货
      * 1、查到item
      * 2、update item： 原item减去要退货的数量，计算新的交易金额
-     * 3、insert item：退货的数量，计算新的交易金额，状态为'退货'，同时保存退货的时间和说明
+     * 3、insert item：退货的数量，计算新的交易金额（负数），状态为'退货'，同时保存退货的时间和说明
      * 4、恢复库存
      * 5、如果商品是服装类，还要更新paymentClothing
      *
-     * @param item   使用id, returnCount, returnReason, returnDesc
-     * @param userId 当前用户id
+     * @param item   使用id, returnUserId, returnCount, returnReason, returnDesc
      */
-    void returnItem(Item item, long userId);
+    void returnItem(Item item);
 
 
 }

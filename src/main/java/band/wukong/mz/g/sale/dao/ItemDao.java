@@ -12,11 +12,11 @@ import java.util.List;
 public interface ItemDao {
 
     /**
-     * save
+     * insert
      *
      * @param item
      */
-    void save(Item item);
+    void insert(Item item);
 
     /**
      * find

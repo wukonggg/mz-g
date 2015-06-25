@@ -105,9 +105,9 @@ CREATE TABLE IF NOT EXISTS `t_goods` (
   `utime` datetime DEFAULT NULL,
   `state` char(2) NOT NULL COMMENT '0：已删除；1：有效；',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
 
--- 正在导出表  mz-g.t_goods 的数据：~11 rows (大约)
+-- 正在导出表  mz-g.t_goods 的数据：~4 rows (大约)
 DELETE FROM `t_goods`;
 /*!40000 ALTER TABLE `t_goods` DISABLE KEYS */;
 INSERT INTO `t_goods` (`id`, `cate_code`, `gname`, `words`, `img`, `ctime`, `utime`, `state`) VALUES
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `t_item` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_item 的数据：~9 rows (大约)
+-- 正在导出表  mz-g.t_item 的数据：~10 rows (大约)
 DELETE FROM `t_item`;
 /*!40000 ALTER TABLE `t_item` DISABLE KEYS */;
 INSERT INTO `t_item` (`id`, `sku_id`, `sku_more_id`, `cate_code_snapshot`, `sprice_snapshot`, `dprice`, `dcount`, `payment`, `return_time`, `return_user_id`, `return_reason`, `return_desc`, `state`, `order_id`) VALUES
@@ -149,7 +149,8 @@ INSERT INTO `t_item` (`id`, `sku_id`, `sku_more_id`, `cate_code_snapshot`, `spri
 	(6, 13, 92, '0', 120, 106, 1, 105, NULL, 0, NULL, '0', '1', 4),
 	(7, 12, 113, '0', 100, 88, 1, 88, NULL, 0, NULL, '0', '1', 4),
 	(8, 13, 92, '0', 120, 120, 1, 120, NULL, 0, NULL, '0', '1', 5),
-	(9, 12, 113, '0', 100, 100, 2, 200, NULL, 0, NULL, '0', '1', 6);
+	(9, 12, 113, '0', 100, 100, 1, 100, NULL, 0, NULL, '0', '1', 6),
+	(10, 12, 113, '0', 100, 100, 1, -100, '2015-06-25 14:30:29', 1, '2', 'desc', '2', 6);
 /*!40000 ALTER TABLE `t_item` ENABLE KEYS */;
 
 
@@ -190,9 +191,9 @@ CREATE TABLE IF NOT EXISTS `t_sku` (
   `state` char(2) NOT NULL COMMENT '0：已删除；1：上架；2：下架',
   `goods_id` int(11) NOT NULL COMMENT '商品id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='商品SKU主表';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='商品SKU主表';
 
--- 正在导出表  mz-g.t_sku 的数据：~10 rows (大约)
+-- 正在导出表  mz-g.t_sku 的数据：~6 rows (大约)
 DELETE FROM `t_sku`;
 /*!40000 ALTER TABLE `t_sku` DISABLE KEYS */;
 INSERT INTO `t_sku` (`id`, `sid`, `model`, `type`, `ptime`, `pprice`, `sprice`, `img`, `ctime`, `utime`, `state`, `goods_id`) VALUES
@@ -213,9 +214,9 @@ CREATE TABLE IF NOT EXISTS `t_sku_more` (
   `count` int(11) unsigned NOT NULL COMMENT '数量',
   `remark` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=utf8 COMMENT='商品SKU更多表';
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8 COMMENT='商品SKU更多表';
 
--- 正在导出表  mz-g.t_sku_more 的数据：~36 rows (大约)
+-- 正在导出表  mz-g.t_sku_more 的数据：~28 rows (大约)
 DELETE FROM `t_sku_more`;
 /*!40000 ALTER TABLE `t_sku_more` DISABLE KEYS */;
 INSERT INTO `t_sku_more` (`id`, `sku_id`, `size`, `count`, `remark`) VALUES
@@ -226,7 +227,7 @@ INSERT INTO `t_sku_more` (`id`, `sku_id`, `size`, `count`, `remark`) VALUES
 	(96, 13, '140', 10, '备注备注备注'),
 	(97, 13, '150', 10, '备注备注备注'),
 	(98, 13, '160', 10, '备注备注备注'),
-	(113, 12, '100', 6, '备'),
+	(113, 12, '100', 7, '备'),
 	(114, 12, '110', 9, '备注备注备注'),
 	(115, 12, '120', 10, '备注备注备注'),
 	(116, 12, '130', 10, '备注'),

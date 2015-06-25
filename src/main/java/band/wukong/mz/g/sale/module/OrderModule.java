@@ -161,6 +161,7 @@ public class OrderModule {
     @Ok("redirect:/sale/order/list.io")
     public void return_s2(@Param("..") Item i, HttpSession session) {
         User u = (User) session.getAttribute("me");
-        oservice.returnItem(i, u.getId());
+        i.setReturnUserId(u.getId());
+        oservice.returnItem(i);
     }
 }

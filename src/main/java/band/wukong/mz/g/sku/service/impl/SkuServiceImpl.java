@@ -159,7 +159,15 @@ public class SkuServiceImpl implements SkuService {
 
     @Override
     public int addStock(long skuMoreId, int count) {
-        return 0;
+        if (skuMoreId <= 0 || count <= 0) {
+            throw new IllegalParameterException();
+        }
+
+        SkuMore sm = skuMoreDao.find(skuMoreId);
+        sm.setCount(sm.getCount() + count);
+        skuMoreDao.update(sm);
+
+        return sm.getCount();
     }
 
 }

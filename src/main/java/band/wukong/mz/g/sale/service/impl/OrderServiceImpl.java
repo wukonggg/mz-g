@@ -29,7 +29,10 @@ import org.nutz.log.Logs;
 import org.nutz.trans.Atom;
 import org.nutz.trans.Trans;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * As you see....
@@ -150,34 +153,38 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void returnItem(Item i, long userId) {
-        //1、查到item
-        Item item4buy = itemDao.find(i.getId());
+    public void returnItem(final Item i) {
+        Trans.exec(new Atom() {
+            public void run() {
+                //1、查到item
+                Item item4buy = itemDao.find(i.getId());
 
-        //2、update item： 原item减去要退货的数量，计算新的交易金额
-        int newDcount = item4buy.getDcount() - i.getDcount();
-        if (newDcount < 0) {
-            throw new AppRuntimeException("尼玛！退货数量比购买数量还多？");
-        }
-        item4buy.setDcount(newDcount);
-        item4buy.setPayment(item4buy.getDprice() * item4buy.getDcount());
-        itemDao.update(item4buy);
+                //2、update item： 原item减去要退货的数量，计算新的交易金额
+                int newDcount = item4buy.getDcount() - i.getDcount();
+                if (newDcount < 0) {
+                    throw new AppRuntimeException("尼玛！退货数量比购买数量还多？");
+                }
+                item4buy.setDcount(newDcount);
+                item4buy.setPayment(item4buy.getDprice() * item4buy.getDcount());
+                itemDao.update(item4buy);
 
-        //3、insert item：退货的数量，计算新的交易金额，状态为'退货'，同时保存退货的时间和说明
-        HashMap<String, Object> itemMap = Lang.obj2map(item4buy, HashMap.class);
-        Item item4return = Lang.map2Object(itemMap, Item.class);
-        item4return.setId(0);
-        item4return.setDcount(i.getDcount());
-        item4return.setPayment(item4return.getDprice() * item4return.getDcount());
-        item4return.setState(Item.STATE_RETURN);
-        item4return.setReturnTime(new Date());
-        item4return.setReturnUserId(userId);
-        item4return.setReturnReason(i.getReturnReason());
-        item4return.setReturnDesc(i.getReturnDesc());
+                //3、insert item：退货的数量，计算新的交易金额（负数），状态为'退货'，同时保存退货的时间和说明
+                HashMap<String, Object> itemMap = Lang.obj2map(item4buy, HashMap.class);
+                Item item4return = Lang.map2Object(itemMap, Item.class);
+                item4return.setId(0);
+                item4return.setDcount(i.getDcount());
+                item4return.setPayment(0 - item4return.getDprice() * item4return.getDcount());  //取负数
+                item4return.setReturnTime(new Date());
+                item4return.setReturnUserId(i.getReturnUserId());
+                item4return.setReturnReason(i.getReturnReason());
+                item4return.setReturnDesc(i.getReturnDesc());
+                item4return.setState(Item.STATE_RETURN);
+                itemDao.insert(item4return);
 
-        //4、恢复库存
-        skuService.addStock(item4return.getSkuMoreId(), i.getDcount());
-
+                //4、恢复库存
+                skuService.addStock(item4return.getSkuMoreId(), i.getDcount());
+            }
+        });
         //CASE arch:layer 这里对item的操作，应该放在哪？OrderService里，还是ItemService里？
         //还是orderService中。因为针对这里item的操作并非独立的，它必须存在于order的环境中。
     }
