@@ -44,13 +44,13 @@ Temporary Items
 
 
 # ignoree by wukong
-.idea
-log
-target
+.idea/
+log/
+target/
 mz-g.iml
-#src/main/webapp/gimg/goods
-#src/main/webapp/gimg/goods_rm
-#src/main/webapp/gimg/sku
-#src/main/webapp/gimg/sku_rm
-src/main/resources/beans.js
-
+src/main/java/band/wukong/mz/g/whisper/
+src/main/webapp/gimg/goods/
+src/main/webapp/gimg/goods_rm/
+src/main/webapp/gimg/sku/
+src/main/webapp/gimg/sku_rm/
+src/test/java/band/wukong/mz/g/whisper/
