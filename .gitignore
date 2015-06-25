@@ -52,5 +52,5 @@ mz-g.iml
 #src/main/webapp/gimg/goods_rm
 #src/main/webapp/gimg/sku
 #src/main/webapp/gimg/sku_rm
-
+src/main/resources/beans.js
 
