@@ -141,5 +141,17 @@ public class CustomerService {
 
         return "[\n" + custs.toString().substring(2) + "\n]";
     }
+
+    /**
+     * udpate payment 在order的支付（pay）和退货（return）时用
+     *
+     * @param c
+     */
+    public void updatePayment(Customer c) {
+        if (!CustomerServiceValidator.updatePayment(c)) {
+            throw new IllegalParameterException();
+        }
+        dao.update(c);
+    }
 }
 

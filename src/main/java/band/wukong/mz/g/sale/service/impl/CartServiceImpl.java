@@ -45,7 +45,7 @@ public class CartServiceImpl implements CartService {
 
         Customer cust = null;
         if (Strings.isBlank(cid)) {
-            cust = dao.fetch(Customer.class, Cnd.where("name", "=", Customer.NAME_NON_MEMBER));
+            cust = dao.fetch(Customer.class, Cnd.where("name", "=", Customer.NON_MEMBER_NAME));
         } else {
             cust = dao.fetch(Customer.class, cid);
         }

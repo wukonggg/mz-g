@@ -27,17 +27,17 @@ public class Customer {
     /**
      * id-非会员顾客
      */
-    public static final long ID_NON_MEMBER = 1L;
+    public static final long NON_MEMBER_ID = 1L;
 
     /**
      * 会员卡号-非会员顾客
      */
-    public static final String CID_NON_MEMBER = "00000004";
+    public static final String NON_MEMBER_CID = "00000004";
 
     /**
      * 姓名-非会员顾客
      */
-    public static final String NAME_NON_MEMBER = "非会员顾客";
+    public static final String NON_MEMBER_NAME = "非会员顾客";
 
     @Id
     private long id;

@@ -112,9 +112,17 @@
                                 付&nbsp;&nbsp;&nbsp;&nbsp;款：<span class="mz-order-dprice mz-ic-payment">${i.payment}</span>
                             </td>
                             <td style="width:80px;">
-                                <a href="#">订单详情</a><br>
-                                <a href="#">————</a><br>
-                                <a href="#" id="a_restore" val="${i.id}">退货/退款</a>
+                                <%--<a href="#">订单详情</a><br>--%>
+                                <%--<a href="#" id="#"></a>--%>
+                                <%-- //CASE jstl:c  if中判断字符串 --%>
+                                <c:set var="item_state_ok" scope="page" value="<%=Item.STATE_OK%>"/>
+                                <c:set var="item_state_return" scope="page" value="<%=Item.STATE_RETURN%>"/>
+                                <c:if test="${i.state == item_state_ok}">
+                                        <a href="#" id="a_restore" val="${i.id}">退货/退款</a>
+                                    </c:if>
+                                <c:if test="${i.state == item_state_return}">
+                                    <span class="mz-text-grey">已退货</span>
+                                </c:if>
                             </td>
                             <%
                                 if (num < size - 1) {
@@ -133,9 +141,17 @@
                                 付&nbsp;&nbsp;&nbsp;&nbsp;款：<span class="mz-order-dprice mz-ic-payment">${i.payment}</span>
                             </td>
                             <td style="width:80px;">
-                                <a href="#">订单详情</a><br>
-                                <a href="#">————</a><br>
-                                <a href="#">调换尺码</a>
+                                <%--<a href="#">订单详情</a><br>--%>
+                                <%--<a href="#" id="#"></a>--%>
+                                <%-- //CASE jstl:c  if中判断字符串 --%>
+                                <c:set var="item_state_ok" scope="page" value="<%=Item.STATE_OK%>"/>
+                                <c:set var="item_state_return" scope="page" value="<%=Item.STATE_RETURN%>"/>
+                                <c:if test="${i.state == item_state_ok}">
+                                    <a href="#" id="a_restore" val="${i.id}">退货/退款</a>
+                                </c:if>
+                                <c:if test="${i.state == item_state_return}">
+                                    <span class="mz-text-grey">已退货</span>
+                                </c:if>
                             </td>
                             <%
                                } else {

@@ -2,7 +2,7 @@
 -- 主机:                           127.0.0.1
 -- 服务器版本:                        5.6.19 - MySQL Community Server (GPL)
 -- 服务器操作系统:                      Win64
--- HeidiSQL 版本:                  9.1.0.4867
+-- HeidiSQL 版本:                  9.2.0.4974
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -85,7 +85,7 @@ DELETE FROM `t_customer`;
 /*!40000 ALTER TABLE `t_customer` DISABLE KEYS */;
 INSERT INTO `t_customer` (`id`, `cid`, `name`, `birth`, `msisdn`, `address`, `remark`, `payment_clothing`, `state`) VALUES
 	(1, '00000004', '非会员顾客', '2014-11-16', '0', '0', NULL, 0, '1'),
-	(2, '99999999999', 'Abel', '2015-04-10', '18181798763', 'sdf', '11', 3000, '1'),
+	(2, '99999999999', 'Abel', '2015-04-10', '18181798763', 'sdf', '11', 2900, '1'),
 	(3, '99999999998', 'Black', '2015-04-10', '18982746372', NULL, NULL, 1000, '1'),
 	(4, '99999999997', 'Candy', '2015-04-10', '18238374659', NULL, NULL, 5000, '1'),
 	(5, '99999999996', 'Daniel', '2015-04-10', '18928374678', NULL, NULL, 0, '1'),
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `t_goods` (
   `utime` datetime DEFAULT NULL,
   `state` char(2) NOT NULL COMMENT '0：已删除；1：有效；',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
 
 -- 正在导出表  mz-g.t_goods 的数据：~4 rows (大约)
 DELETE FROM `t_goods`;
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `t_item` (
   `state` char(2) NOT NULL DEFAULT '0' COMMENT '0：已删除；1：有效；2：退货',
   `order_id` int(11) NOT NULL DEFAULT '0' COMMENT 'order表pk',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  mz-g.t_item 的数据：~10 rows (大约)
 DELETE FROM `t_item`;
@@ -149,8 +149,9 @@ INSERT INTO `t_item` (`id`, `sku_id`, `sku_more_id`, `cate_code_snapshot`, `spri
 	(6, 13, 92, '0', 120, 106, 1, 105, NULL, 0, NULL, '0', '1', 4),
 	(7, 12, 113, '0', 100, 88, 1, 88, NULL, 0, NULL, '0', '1', 4),
 	(8, 13, 92, '0', 120, 120, 1, 120, NULL, 0, NULL, '0', '1', 5),
-	(9, 12, 113, '0', 100, 100, 1, 100, NULL, 0, NULL, '0', '1', 6),
-	(10, 12, 113, '0', 100, 100, 1, -100, '2015-06-25 14:30:29', 1, '2', 'desc', '2', 6);
+	(9, 12, 113, '0', 100, 100, 2, 100, NULL, 0, NULL, '0', '1', 6),
+	(19, 12, 113, '0', 100, 100, -1, -100, '2015-07-03 00:43:12', 1, '2', '就不告诉你。。。', '2', 6),
+	(23, 12, 113, '0', 100, 100, -1, -100, '2015-07-03 01:41:37', 1, '2', '就不告诉你。。。', '2', 6);
 /*!40000 ALTER TABLE `t_item` ENABLE KEYS */;
 
 
@@ -172,7 +173,7 @@ INSERT INTO `t_order` (`id`, `user_id`, `cust_id`, `dtime`) VALUES
 	(3, 1, 3, '2015-06-01 14:48:03'),
 	(4, 1, 3, '2015-06-07 16:17:31'),
 	(5, 1, 1, '2015-06-10 14:45:35'),
-	(6, 1, 1, '2015-06-10 15:11:26');
+	(6, 1, 2, '2015-06-10 15:11:26');
 /*!40000 ALTER TABLE `t_order` ENABLE KEYS */;
 
 
@@ -227,7 +228,7 @@ INSERT INTO `t_sku_more` (`id`, `sku_id`, `size`, `count`, `remark`) VALUES
 	(96, 13, '140', 10, '备注备注备注'),
 	(97, 13, '150', 10, '备注备注备注'),
 	(98, 13, '160', 10, '备注备注备注'),
-	(113, 12, '100', 7, '备'),
+	(113, 12, '100', 11, '备'),
 	(114, 12, '110', 9, '备注备注备注'),
 	(115, 12, '120', 10, '备注备注备注'),
 	(116, 12, '130', 10, '备注'),

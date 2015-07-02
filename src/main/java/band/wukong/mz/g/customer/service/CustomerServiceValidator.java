@@ -23,4 +23,10 @@ public class CustomerServiceValidator {
                 && Strings.isNotBlank(c.getCid())
                 && Strings.isNotBlank(c.getMsisdn());
     }
+
+    public static boolean updatePayment(Customer c) {
+        return null != c
+                && c.getId() > 0
+                && c.getPaymentClothing() > 0;
+    }
 }

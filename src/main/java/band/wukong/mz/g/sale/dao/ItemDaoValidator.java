@@ -14,17 +14,16 @@ public class ItemDaoValidator {
                 && i.getSkuid() > 0
                 && i.getSkuMoreId() > 0
                 && i.getSprice() > 0
-                && i.getDprice() > 0
-                && i.getDcount() > 0;
+                && i.getDprice() > 0;
         if (!ok) {
             return false;
         }
 
         //当state为有效时为正数，state为退货时为负数
         if (Item.STATE_OK.equals(i.getState())) {
-            return i.getPayment() > 0;
+            return i.getDcount() > 0 && i.getPayment() > 0;
         } else if (Item.STATE_RETURN.equals(i.getState())) {
-            return i.getPayment() < 0;
+            return i.getDcount() < 0 && i.getPayment() < 0;
         }
         return false;
     }

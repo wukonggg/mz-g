@@ -58,15 +58,15 @@ public interface OrderService {
 
     /**
      * 退货
-     * 1、查到item
-     * 2、update item： 原item减去要退货的数量，计算新的交易金额
-     * 3、insert item：退货的数量，计算新的交易金额（负数），状态为'退货'，同时保存退货的时间和说明
-     * 4、恢复库存
-     * 5、如果商品是服装类，还要更新paymentClothing
+     * 1、check要退货的数量是否不大于购买数量。如果大于则抛出异常
+     * 2、insert item：退货的数量（负数），计算新的交易金额（负数），状态为'退货'，同时保存退货的时间和说明
+     * 3、恢复库存
+     * 4、如果商品是服装类，就更新用户表服装paymentClothing的值，新值为原有值+新单中服装类商品的成交价（成交价为负值）
+     * 4.1、如果是非会员客户就不用算paymentClothing了
      *
-     * @param item   使用id, returnUserId, returnCount, returnReason, returnDesc
+     * @param item   使用id, state, dcount, returnUserId, returnReason, returnDesc
      */
-    void returnItem(Item item);
+    Item returnItem(Item item);
 
 
 }

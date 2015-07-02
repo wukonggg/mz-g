@@ -16,7 +16,7 @@ public interface ItemDao {
      *
      * @param item
      */
-    void insert(Item item);
+    Item insert(Item item);
 
     /**
      * find
@@ -46,4 +46,12 @@ public interface ItemDao {
      * @return item list
      */
     List<Item> listWithSkuByOrder(long orderId);
+
+    /**
+     * 找出（同一个order中）相同的item
+     *
+     * @param itemId
+     * @return
+     */
+    List<Item> listSameItems(long itemId);
 }

@@ -13,10 +13,7 @@ import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.bean.Order;
 import band.wukong.mz.g.sale.dao.ItemDao;
 import band.wukong.mz.g.sale.dao.OrderDao;
-import band.wukong.mz.g.sale.service.CartService;
-import band.wukong.mz.g.sale.service.DiscountRule;
-import band.wukong.mz.g.sale.service.OrderService;
-import band.wukong.mz.g.sale.service.OrderServiceValidator;
+import band.wukong.mz.g.sale.service.*;
 import band.wukong.mz.g.sku.bean.SkuMoreView;
 import band.wukong.mz.g.sku.service.SkuMoreViewService;
 import band.wukong.mz.g.sku.service.SkuService;
@@ -131,9 +128,9 @@ public class OrderServiceImpl implements OrderService {
 
                 // 4、看下单内容中有无服装类。看cust是不是非会员顾客，是会员才会更新paymentclothing
                 // 有就更新用户表服装paymentClothing的值，新值为原有值+新单中服装类商品的成交价
-                if (o.getCustId() != Customer.ID_NON_MEMBER && newPaymentClothing > nowPaymentClothing) {
+                if (o.getCustId() != Customer.NON_MEMBER_ID && newPaymentClothing > nowPaymentClothing) {
                     cust.setPaymentClothing(newPaymentClothing);
-                    custService.update(cust);
+                    custService.updatePayment(cust);
                 }
 
                 //6、删除购物车中已下单的产品
@@ -153,40 +150,70 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void returnItem(final Item i) {
+    public Item returnItem(final Item i) {
+        final Item[] item_returned = {null};
         Trans.exec(new Atom() {
             public void run() {
-                //1、查到item
-                Item item4buy = itemDao.find(i.getId());
+                //1、check要退货的数量是否不大于购买数量。如果大于则抛出异常
+                Item item4buy = null;
+                int item4buy_dcount_bought = 0;
+                int item4buy_dcount_returned = 0;
+                List<Item> items = itemDao.listSameItems(i.getId());
+                for (Item i : items) {
+                    if (Item.STATE_OK.equals(i.getState())) {
+                        if (item4buy_dcount_bought != 0) {
+                            throw new AppRuntimeException();
+                        }
+                        item4buy_dcount_bought = i.getDcount();
+                        item4buy = i;
 
-                //2、update item： 原item减去要退货的数量，计算新的交易金额
-                int newDcount = item4buy.getDcount() - i.getDcount();
-                if (newDcount < 0) {
-                    throw new AppRuntimeException("尼玛！退货数量比购买数量还多？");
+                    } else if (Item.STATE_RETURN.equals(i.getState())) {
+                        item4buy_dcount_returned += i.getDcount();
+                    }
                 }
-                item4buy.setDcount(newDcount);
-                item4buy.setPayment(item4buy.getDprice() * item4buy.getDcount());
-                itemDao.update(item4buy);
+                if (item4buy_dcount_bought < item4buy_dcount_returned) {
+                    throw new AppRuntimeException("尼玛！退货数量比购买数量还多？");
 
-                //3、insert item：退货的数量，计算新的交易金额（负数），状态为'退货'，同时保存退货的时间和说明
-                HashMap<String, Object> itemMap = Lang.obj2map(item4buy, HashMap.class);
+                } else if (item4buy_dcount_bought + item4buy_dcount_returned < 0) {
+                    throw new AppRuntimeException("尼玛！之前不是退过了吗怎么又退？退货总数量大于购买数量！");
+                }
+                if (null == item4buy) {
+                    String msg = "SHIT！这个item怎么只有退货没有购买！";
+                    log.error(msg);
+                    log.error("入参：" + i);
+                    throw new AppRuntimeException(msg);
+                }
+
+                //2、insert item：退货的数量（负数），计算新的交易金额（负数），状态为'退货'，同时保存退货的时间和说明
+                HashMap itemMap = Lang.obj2map(item4buy, HashMap.class);
                 Item item4return = Lang.map2Object(itemMap, Item.class);
                 item4return.setId(0);
-                item4return.setDcount(i.getDcount());
-                item4return.setPayment(0 - item4return.getDprice() * item4return.getDcount());  //取负数
+                item4return.setDcount(-i.getDcount());
+                item4return.setPayment(item4return.getDprice() * item4return.getDcount());  //取负数
                 item4return.setReturnTime(new Date());
                 item4return.setReturnUserId(i.getReturnUserId());
                 item4return.setReturnReason(i.getReturnReason());
                 item4return.setReturnDesc(i.getReturnDesc());
                 item4return.setState(Item.STATE_RETURN);
-                itemDao.insert(item4return);
+                item_returned[0] = itemDao.insert(item4return);
 
-                //4、恢复库存
-                skuService.addStock(item4return.getSkuMoreId(), i.getDcount());
+                //3、恢复库存
+                skuService.addStock(item_returned[0].getSkuMoreId(), i.getDcount());
+
+                //4、如果商品是服装类，就更新用户表服装paymentClothing的值，新值为原有值+新单中服装类商品的成交价（成交价为负值）
+                //4.1、如果是非会员客户就不用算paymentClothing了
+                Order order = orderDao.find(item_returned[0].getOid());
+                if (order.getCustId() != Customer.NON_MEMBER_ID) {
+                    Customer cust = custService.find(order.getCustId());
+                    cust.setPaymentClothing(cust.getPaymentClothing() + item_returned[0].getPayment());
+                    custService.updatePayment(cust);
+                }
             }
         });
         //CASE arch:layer 这里对item的操作，应该放在哪？OrderService里，还是ItemService里？
         //还是orderService中。因为针对这里item的操作并非独立的，它必须存在于order的环境中。
+
+        return item_returned[0];
     }
 
     /**

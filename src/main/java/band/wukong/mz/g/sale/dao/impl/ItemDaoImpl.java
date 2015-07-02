@@ -1,10 +1,12 @@
 package band.wukong.mz.g.sale.dao.impl;
 
+import band.wukong.mz.base.exception.AppRuntimeException;
 import band.wukong.mz.base.exception.IllegalParameterException;
 import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.bean.Sku4Item;
 import band.wukong.mz.g.sale.dao.ItemDao;
 import band.wukong.mz.g.sale.dao.ItemDaoValidator;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.entity.Record;
@@ -31,13 +33,13 @@ public class ItemDaoImpl implements ItemDao {
     private Dao dao;
 
     @Override
-    public void insert(Item i) {
+    public Item insert(Item i) {
         if (!ItemDaoValidator.save(i)) {
             log.error("insert item failed:");
             log.error(i);
             throw new IllegalParameterException();
         }
-        dao.insert(i);
+        return dao.insert(i);
     }
 
     @Override
@@ -93,6 +95,17 @@ public class ItemDaoImpl implements ItemDao {
         }
 
         return itemList;
+    }
+
+    @Override
+    public List<Item> listSameItems(long itemId) {
+        Item item = dao.fetch(Item.class, itemId);
+        if (null == item) {
+            throw new AppRuntimeException("木有找到该item");
+        }
+
+        return dao.query(Item.class, Cnd.where("oid", "=", item.getOid()).and("skuMoreId", "=", item.getSkuMoreId()));
+
     }
 }
 

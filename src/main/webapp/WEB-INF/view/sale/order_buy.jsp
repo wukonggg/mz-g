@@ -195,7 +195,7 @@
 //                        mess.modal.alert("请选择会员~");
 //                        promptInput.val("");
 //                        return;
-                        cid = "<%=Customer.CID_NON_MEMBER%>";
+                        cid = "<%=Customer.NON_MEMBER_CID%>";
                     }
                     var params = {cid:cid, skuMoreIds:skuMoreIds};
                     $.post("${base}/sale/order/cart/add.io",

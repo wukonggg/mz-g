@@ -19,10 +19,8 @@ import java.util.UUID;
 public class MainTest {
 
     public static void main(String[] args) throws Exception {
-        System.out.println(33 >> 5);
-        System.out.println(-33 >> 5);
-        System.out.println(33 >>> 5);
-        System.out.println(-33 >>> 5);
+        int a = 1;
+        System.out.println(-a);
     }
 
 
