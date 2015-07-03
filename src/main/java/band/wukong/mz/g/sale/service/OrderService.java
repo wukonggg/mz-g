@@ -65,6 +65,7 @@ public interface OrderService {
      * 4.1、如果是非会员客户就不用算paymentClothing了
      *
      * @param item   使用id, state, dcount, returnUserId, returnReason, returnDesc
+     * @return return的item
      */
     Item returnItem(Item item);
 
