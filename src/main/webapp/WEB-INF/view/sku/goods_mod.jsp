@@ -60,7 +60,7 @@
                     <div class="am-g am-margin-top-sm">
                         <label for="words" class="am-u-sm-2 am-form-label mz-admin-label-fixed">商品描述</label>
                         <div class="am-u-sm-7 am-u-end">
-                            <textarea id="words" name="words" rows="3" placeholder="写点介绍文字吧！">${g.words}</textarea>
+                            <textarea id="words" name="words" rows="3" placeholder="写点介绍文字吧！" class="am-input-sm">${g.words}</textarea>
                         </div>
                     </div>
                     <div class="am-g am-margin-top-sm">
