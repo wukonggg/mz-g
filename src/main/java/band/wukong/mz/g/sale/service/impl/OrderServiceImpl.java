@@ -11,10 +11,13 @@ import band.wukong.mz.g.sale.OutOfStockException;
 import band.wukong.mz.g.sale.bean.Cart;
 import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.bean.Order;
+import band.wukong.mz.g.sale.bean.Sku4Item;
 import band.wukong.mz.g.sale.dao.ItemDao;
 import band.wukong.mz.g.sale.dao.OrderDao;
 import band.wukong.mz.g.sale.service.*;
+import band.wukong.mz.g.sku.bean.SkuMore;
 import band.wukong.mz.g.sku.bean.SkuMoreView;
+import band.wukong.mz.g.sku.dao.SkuMoreDao;
 import band.wukong.mz.g.sku.service.SkuMoreViewService;
 import band.wukong.mz.g.sku.service.SkuService;
 import org.nutz.dao.QueryResult;
@@ -146,6 +149,7 @@ public class OrderServiceImpl implements OrderService {
         if (itemId <= 0) {
             throw new IllegalParameterException();
         }
+
         return itemDao.findWithOrder(itemId);
     }
 

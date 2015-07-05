@@ -153,13 +153,16 @@ public class OrderModule {
 
     @At("/return/s1")
     @Ok("jsp:view.sale.order_return")
-    public void return_s1(@Param("itemId") long itemId) {
-        oservice.findItemWithOrder(itemId);
+    public Item return_s1(@Param("id") long itemId) {
+        log.debug("Input params - itemId: " + itemId);
+        return oservice.findItemWithOrder(itemId);
     }
 
     @At("/return/s2")
     @Ok("redirect:/sale/order/list.io")
     public void return_s2(@Param("..") Item i, HttpSession session) {
+        log.debug("Input params - item: " + i);
+
         User u = (User) session.getAttribute("me");
         i.setReturnUserId(u.getId());
         oservice.returnItem(i);

@@ -344,7 +344,7 @@
 //            console.log(skuMoreId.val());
 //            console.log(dprice.val());
             var currDcount = $(this).val();
-            if (!raw.re.pattern.integer_gt0.test(currDcount)) {
+            if (!raw.re.patterns.integer_gt0.test(currDcount)) {
                 currDcount = 1;
                 $(this).val(currDcount);
             }

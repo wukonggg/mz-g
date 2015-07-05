@@ -4,11 +4,11 @@ window.raw = window.raw || {};
 window.raw.re = window.raw.re || {};
 
 
-window.raw.re.pattern = (function (ns, undefined) {
+window.raw.re.patterns = (function (ns, undefined) {
     var number =  /^[0-9]+.?[0-9]*$/;
     var integer_gt0  = /^[1-9]+[0-9]*]*$/;
     return {
         number: number,
         integer_gt0: integer_gt0
     };
-})(window.raw.re.pattern);
+})(window.raw.re.patterns);

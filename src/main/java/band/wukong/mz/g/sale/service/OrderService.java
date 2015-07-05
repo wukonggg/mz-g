@@ -50,7 +50,7 @@ public interface OrderService {
     void pay(Cart[] carts, Long userId);
 
     /**
-     * 查询item及其所在的order
+     * 查询item，包括sku4item及其所在的order
      *
      * @param itemId
      */
@@ -68,6 +68,7 @@ public interface OrderService {
      * @return return的item
      */
     Item returnItem(Item item);
+
 
 
 }

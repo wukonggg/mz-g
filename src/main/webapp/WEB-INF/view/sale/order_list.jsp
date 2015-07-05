@@ -52,8 +52,8 @@
     <input type="hidden" id="id" name="id" value="">
     <div class="admin-content">
         <jsp:include page="../base/admin_breadcrumb.jsp">
-            <jsp:param name="info1" value="销售"/>
-            <jsp:param name="info2" value="订单"/>
+            <jsp:param name="info1" value="SALE"/>
+            <jsp:param name="info2" value="Order"/>
         </jsp:include>
 
         <div class="am-g">
@@ -108,7 +108,7 @@
                             <td style="width:3%" name="td_item_dcount_${i.id}">${i.dcount}</td>
                             <td style="width:10%">
                                 零售价：<span class="mz-order-sprice">${i.sku.sprice}</span><br>
-                                折扣价：<span class="mz-order-sprice">${i.dprice}</span><br>
+                                折扣价：<span class="mz-text-grey">${i.dprice}</span><br>
                                 付&nbsp;&nbsp;&nbsp;&nbsp;款：<span class="mz-order-dprice mz-ic-payment">${i.payment}</span>
                             </td>
                             <td style="width:80px;">
@@ -118,7 +118,7 @@
                                 <c:set var="item_state_ok" scope="page" value="<%=Item.STATE_OK%>"/>
                                 <c:set var="item_state_return" scope="page" value="<%=Item.STATE_RETURN%>"/>
                                 <c:if test="${i.state == item_state_ok}">
-                                        <a href="#" id="a_restore" val="${i.id}">退货/退款</a>
+                                        <a href="#" class="mz-ic-return-item-id" val="${i.id}">退货/退款</a>
                                     </c:if>
                                 <c:if test="${i.state == item_state_return}">
                                     <span class="mz-text-grey">已退货</span>
@@ -137,7 +137,7 @@
                             <td style="width:3%">${i.dcount}</td>
                             <td style="width:10%">
                                 零售价：<span class="mz-order-sprice">${i.sku.sprice}</span><br>
-                                折扣价：<span class="mz-order-sprice">${i.dprice}</span><br>
+                                折扣价：<span class="mz-text-grey">${i.dprice}</span><br>
                                 付&nbsp;&nbsp;&nbsp;&nbsp;款：<span class="mz-order-dprice mz-ic-payment">${i.payment}</span>
                             </td>
                             <td style="width:80px;">
@@ -147,7 +147,7 @@
                                 <c:set var="item_state_ok" scope="page" value="<%=Item.STATE_OK%>"/>
                                 <c:set var="item_state_return" scope="page" value="<%=Item.STATE_RETURN%>"/>
                                 <c:if test="${i.state == item_state_ok}">
-                                    <a href="#" id="a_restore" val="${i.id}">退货/退款</a>
+                                    <a href="#" class="mz-ic-return-item-id" val="${i.id}">退货/退款</a>
                                 </c:if>
                                 <c:if test="${i.state == item_state_return}">
                                     <span class="mz-text-grey">已退货</span>
@@ -210,14 +210,20 @@
         $(".mz-ic-panel").each(function() {
             var total = 0;
             $(".mz-ic-payment", this).each(function() {
-                total += parseInt($(this).text());
+                var dcount = $(this).parent().prev().text();
+                if (dcount < 0) {
+                    dcount = - dcount;
+                }
+                total += parseInt($(this).text()) * dcount;
             });
             $(".mz-ic-panel-payment-total", this).text("共付款：" + total + "元");
         });
-        $("#a_restore").click(function(){
+        $(".mz-ic-return-item-id").click(function(){
             var itemId = $(this).attr("val");
-            var itemDcount = $("td[name^='td_item_dcount_" + itemId + "']").text();
-
+            $("#id").val(itemId);
+            var form = $("#frmMain");
+            form.attr("action", "${base}/sale/order/return/s1.io");
+            form.submit();
         });
     });
 

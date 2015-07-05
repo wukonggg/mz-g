@@ -25,4 +25,11 @@ public interface SkuMoreDao {
      */
     void update(SkuMore sm);
 
+
+    /**
+     * find with sku
+     *
+     * @param id id
+     */
+    SkuMore findWithSku(long id);
 }

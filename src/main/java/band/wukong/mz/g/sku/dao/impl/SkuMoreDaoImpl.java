@@ -35,4 +35,11 @@ public class SkuMoreDaoImpl implements SkuMoreDao {
 
         dao.update(sm);
     }
+
+    @Override
+    public SkuMore findWithSku(long id) {
+        SkuMore sm = dao.fetch(SkuMore.class, id);
+        dao.fetchLinks(sm, "sku");
+        return sm;
+    }
 }
