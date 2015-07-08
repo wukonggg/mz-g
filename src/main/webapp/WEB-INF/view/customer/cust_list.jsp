@@ -94,7 +94,7 @@
                     <c:forEach items="${clist}" var="cust" varStatus="status">
                     <tr>
                         <td>${status.count}</td>
-                        <td class="mz-tooltip" title="${cust.cid}">${cust.cid}</td>
+                        <td>${cust.cid}</td>
                         <td>${cust.name}</td>
                         <td>${cust.msisdn}</td>
                         <td>${one:dateToStringShort(cust.birth)}</td>
@@ -132,24 +132,12 @@
 <script src="${base}/component/jquery/2.1.3/jquery.min.js"></script>
 <script src="${base}/component/amazeui/2.2.1/dist/js/amazeui.min.js"></script>
 <script src="${base}/component/amazeui/2.2.1/assets/js/app.js"></script>
-<script src="${base}/component/jquery/plugins/poshytip/1.0/src/jquery.poshytip.noie.js"></script>
 <script src="${base}/assets/js/mess.pagination.js"></script>
 
 <script>
     $(function () {
         <%-- //CASE 页面分页组件 --%>
         mess.pagination.load();
-        $('.mz-tooltip').poshytip({
-            className: 'tip-yellowsimple',
-            showTimeout: 300,
-            hideTimeout: 0,
-            alignTo: 'target',
-            alignX: 'center',
-            offsetY: 5,
-            allowTipHover: true,
-            fade: false,
-            slide: false
-        });
         $("#btnAdd").click(function() {
             document.location.href = "${base}/customer/cust/add.io";
         });

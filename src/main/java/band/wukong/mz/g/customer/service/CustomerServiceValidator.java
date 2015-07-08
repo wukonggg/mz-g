@@ -13,15 +13,13 @@ public class CustomerServiceValidator {
     public static boolean save(Customer c) {
         return null != c
                 && c.getId() == 0
-                && Strings.isNotBlank(c.getCid())
-                && Strings.isNotBlank(c.getMsisdn());
+                && Strings.isNotBlank(c.getCid());
     }
 
     public static boolean update(Customer c) {
         return null != c
                 && c.getId() > 0
-                && Strings.isNotBlank(c.getCid())
-                && Strings.isNotBlank(c.getMsisdn());
+                && Strings.isNotBlank(c.getCid());
     }
 
     public static boolean updatePayment(Customer c) {

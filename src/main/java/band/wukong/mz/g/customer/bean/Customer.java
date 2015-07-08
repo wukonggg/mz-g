@@ -66,14 +66,6 @@ public class Customer {
     @Column
     private String state;
 
-    public static String getStateRm() {
-        return STATE_RM;
-    }
-
-    public static String getStateOk() {
-        return STATE_OK;
-    }
-
     public long getId() {
         return id;
     }
@@ -144,6 +136,40 @@ public class Customer {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (id != customer.id) return false;
+        if (paymentClothing != customer.paymentClothing) return false;
+        if (address != null ? !address.equals(customer.address) : customer.address != null) return false;
+        if (birth != null ? !birth.equals(customer.birth) : customer.birth != null) return false;
+        if (cid != null ? !cid.equals(customer.cid) : customer.cid != null) return false;
+        if (msisdn != null ? !msisdn.equals(customer.msisdn) : customer.msisdn != null) return false;
+        if (name != null ? !name.equals(customer.name) : customer.name != null) return false;
+        if (remark != null ? !remark.equals(customer.remark) : customer.remark != null) return false;
+        if (state != null ? !state.equals(customer.state) : customer.state != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (cid != null ? cid.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (msisdn != null ? msisdn.hashCode() : 0);
+        result = 31 * result + (birth != null ? birth.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (remark != null ? remark.hashCode() : 0);
+        result = 31 * result + (int) (paymentClothing ^ (paymentClothing >>> 32));
+        result = 31 * result + (state != null ? state.hashCode() : 0);
+        return result;
     }
 
     @Override

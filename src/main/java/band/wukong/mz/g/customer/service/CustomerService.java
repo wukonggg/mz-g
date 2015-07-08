@@ -30,10 +30,10 @@ public class CustomerService {
     private Dao dao;
 
     /**
-     * save
+     * save. save时state会被设为Customer.STATE_OK
      *
-     * @param c
-     * @return
+     * @param c c
+     * @return save的customer
      */
     public Customer save(Customer c) {
         if (!CustomerServiceValidator.save(c)) {
@@ -43,17 +43,47 @@ public class CustomerService {
         return dao.insert(c);
     }
 
-    /**
-     * find
-     *
-     * @param id
-     * @return
-     */
     public Customer find(long id) {
         if (id <= 0) {
             throw new IllegalParameterException();
         }
         return dao.fetch(Customer.class, id);
+    }
+
+    public Customer find(String cid) {
+        if (Strings.isBlank(cid)) {
+            throw new IllegalParameterException();
+        }
+        return dao.fetch(Customer.class, cid);
+    }
+
+
+    /**
+     * find.根据状态
+     *
+     * @param id    id
+     * @param state 状态
+     * @return
+     */
+    public Customer findByState(long id, String state) {
+        if (id <= 0 || Strings.isBlank(state)) {
+            throw new IllegalParameterException();
+        }
+        return dao.fetch(Customer.class, Cnd.where("id", "=", id).and("state", "=", state));
+    }
+
+    /**
+     * find.根据状态
+     *
+     * @param cid   会员号
+     * @param state 状态
+     * @return
+     */
+    public Customer findByState(String cid, String state) {
+        if (Strings.isBlank(cid) || Strings.isBlank(state)) {
+            throw new IllegalParameterException();
+        }
+        return dao.fetch(Customer.class, Cnd.where("cid", "=", cid).and("state", "=", state));
     }
 
     /**
@@ -73,9 +103,9 @@ public class CustomerService {
     }
 
     /**
-     * rm
+     * rm.设置状态为已删除。当没有查到任何数据时，会记录warn日志，并直接返回,。
      *
-     * @param id
+     * @param id id
      */
     public void rm(long id) {
         if (id <= 0) {
@@ -84,10 +114,31 @@ public class CustomerService {
 
         Customer cust = find(id);
         if (null == cust) {
+            log.warn("Could not rm customer whose id = " + id + ", cause could not find him.");
+            return;
+        }
+
+        cust.setState(Customer.STATE_RM);
+        dao.update(cust);
+    }
+
+    /**
+     * rm.设置状态为已删除。当没有查到任何数据时，会记录warn日志，并直接返回,。
+     *
+     * @param cid   cid
+     */
+    public void rm(String cid) {
+        if (Strings.isBlank(cid)) {
             throw new IllegalParameterException();
         }
 
-        cust.setState(Customer.getStateRm());
+        Customer cust = find(cid);
+        if (null == cust) {
+            log.warn("Could not rm customer whose cid = " + cid + ", cause could not find him.");
+            return;
+        }
+
+        cust.setState(Customer.STATE_RM);
         dao.update(cust);
     }
 
@@ -120,7 +171,7 @@ public class CustomerService {
     /**
      * 自动补全用户名
      *
-     * @param keyword
+     * @param keyword keyword
      * @return
      */
     public String autoComplete(String keyword) {
