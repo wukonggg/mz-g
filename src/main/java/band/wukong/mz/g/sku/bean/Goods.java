@@ -2,6 +2,7 @@ package band.wukong.mz.g.sku.bean;
 
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Id;
+import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 
 import java.io.File;
@@ -33,11 +34,11 @@ public class Goods {
     @Id
     private long id;
 
+    @Name
+    private String gname;
+
     @Column("cate_code")
     private String cateCode;
-
-    @Column("gname")
-    private String gname;
 
     @Column
     private String img; //图片名称：flower.png

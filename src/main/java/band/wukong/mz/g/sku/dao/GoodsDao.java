@@ -17,18 +17,26 @@ public interface GoodsDao {
     Goods insert(Goods g);
 
     /**
-     * find from db
+     * find
      *
      * @param id id
      * @return
      */
     Goods find(Long id);
 
+    /**
+     * find
+     *
+     * @param gname gname
+     * @return
+     */
+    Goods find(String gname);
+
 
     /**
      * update
      *
-     * @param g
+     * @param g goods
      */
     void update(Goods g);
 

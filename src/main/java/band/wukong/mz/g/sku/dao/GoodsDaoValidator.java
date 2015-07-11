@@ -24,15 +24,6 @@ public class GoodsDaoValidator {
     }
 
     /**
-     * validate before find.
-     *
-     * @param id
-     */
-    public static boolean find(Long id) {
-        return BaseValidator.gtZero(id);
-    }
-
-    /**
      * validate before update.
      *
      * @param g

@@ -1,7 +1,7 @@
 package band.wukong.mz.util;
 
 /**
- * description
+ * As you see...
  *
  * @author wukong(wukonggg@139.com)
  */
@@ -15,19 +15,19 @@ import java.util.Date;
  * @author wukong(wukonggg@139.com)
  */
 public class DateUtils {
-    public static final String DATE_FORMAT_YYYYMMDDHHMMSS = "yyyyMMddHHmmSS";
-    public static final String DATE_FORMAT_YYYYMMDDHHMMSS_WITH_SEP = "yyyy-MM-dd HH:mm:ss";
-    public static final String DATE_FORMAT_YYYYMMDD_WITH_SEP = "yyyy-MM-dd";
-    public static final String DATE_FORMAT_YYYYMMDD_WITHOUT_SEP = "yyyyMMdd";
+    public static final String FMT_YYYYMMDDHHMMSS_NO_SEP = "yyyyMMddHHmmSS";
+    public static final String FMT_YYYYMMDDHHMMSS = "yyyy-MM-dd HH:mm:ss";
+    public static final String FMT_YYYYMMDD = "yyyy-MM-dd";
+    public static final String FMT_YYYYMMDD_NO_SEP = "yyyyMMdd";
 
     /**
      * 按传入的日期和格式转换至字符串格式
      *
-     * @param date
-     * @param type
+     * @param date date
+     * @param type DateUtils.
      * @return
      */
-    public static String getStringFormat(Date date, String type) {
+    public static String format(Date date, String type) {
         if (null == date) return "";
         String strDate = "";
         SimpleDateFormat fmt = null;
@@ -42,12 +42,23 @@ public class DateUtils {
     }
 
     /**
+     * 生成短格式日期
+     *
+     * @param date date
+     * @return YYYY-MM-DD
+     */
+    public static String format(Date date) {
+        if (null == date) return "";
+        return format(date, FMT_YYYYMMDD);
+    }
+
+    /**
      * 返回java.sql.Date
      *
      * @param date
      * @return
      */
-    public static java.sql.Date getSqlDate(String date) {
+    public static java.sql.Date convert2SqlDate(String date) {
         if (null == date) return null;
         if (date.equalsIgnoreCase("")) return null;
         try {
@@ -58,27 +69,17 @@ public class DateUtils {
         }
     }
 
-    /**
-     * 生成短格式日期
-     *
-     * @param date
-     * @return 2008-09-17
-     */
-    public static String genDate(Date date) {
-        if (null == date) return "";
-        return getStringFormat(date, DATE_FORMAT_YYYYMMDD_WITH_SEP);
-    }
+
 
     /**
      * 查看两个日期是否是同一天
      *
-     * @param d1
-     * @param d2
-     * @return
+     * @param d1 d1
+     * @param d2 d2
+     * @return true or false
      */
     public static boolean isSameDay(Date d1, Date d2) {
-        return genDate(d1).equals(genDate(d2));
+        return format(d1).equals(format(d2));
     }
 
 }
-

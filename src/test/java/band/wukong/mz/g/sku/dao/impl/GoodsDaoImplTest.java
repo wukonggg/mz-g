@@ -1,5 +1,6 @@
 package band.wukong.mz.g.sku.dao.impl;
 
+import band.wukong.mz.base.exception.IllegalParameterException;
 import band.wukong.mz.g.category.SimpleCateConst;
 import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.dao.GoodsDao;
@@ -16,18 +17,18 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * description
+ * As you see...
  *
  * @author wukong(wukonggg@139.com)
  */
 public class GoodsDaoImplTest {
     private Ioc ioc;
-    private GoodsDao dao;
+    private GoodsDao goodsDao;
 
     @Before
     public void setUp() throws ClassNotFoundException {
         ioc = NutzTestHelper.createIoc();
-        dao = ioc.get(GoodsDao.class);
+        goodsDao = ioc.get(GoodsDao.class);
     }
 
     @After
@@ -36,68 +37,58 @@ public class GoodsDaoImplTest {
     }
 
     @Test
-    public void tesstInsert() {
-        Goods g = newBean();
-        Goods g1 = dao.insert(g);
+    public void insert_find() {
+        Goods g = new Goods();
+        g.setCateCode(SimpleCateConst.CATE_CODE_A_SYTZ);
+        g.setGname("junit_米奇女童羽绒服");
+        g.setState(Goods.STATE_OK);
+
+        Goods g1 = goodsDao.insert(g);
+        Goods g2 = goodsDao.find(g1.getId());
+        Assert.assertEquals(g1.getId(), g2.getId());
+    }
+
+    @Test(expected = IllegalParameterException.class)
+    public void insert_valid_failed() {
+        Goods g = new Goods();
+        g.setCateCode(SimpleCateConst.CATE_CODE_A_SYTZ);
+        g.setGname("junit_米奇女童羽绒服");
+        Goods g1 = goodsDao.insert(g);
         Assert.assertEquals(g.getGname(), g1.getGname());
     }
 
     @Test
-    public void testFind() {
-        Goods g = newBean();
-        g = dao.insert(g);
-        Goods g1 = dao.find(g.getId());
-        Assert.assertNotNull(g1);
+    public void find_update() {
+        Goods g = new Goods();
+        g.setGname("junit_米奇女童羽绒服");
 
-        Goods g2 = dao.find(99999999L);
-        Assert.assertNull(g2);
+        Goods g1 = goodsDao.find(g.getGname());
+        g1.setWords("junit hahaha");
+        goodsDao.update(g1);
+        Goods g2 = goodsDao.find(g1.getId());
+
+        Assert.assertEquals(g1.getWords(), g2.getWords());
     }
 
     @Test
-    public void testUpdate() {
-        Goods g = newBean();
-        g = dao.insert(g);
+    public void find_rm_find() {
+        Goods g = new Goods();
+        g.setGname("junit_米奇女童羽绒服");
 
-        Goods g1 = dao.find(g.getId());
-        String newGname = "junit gname update!";
-        g1.setGname(newGname);
-        dao.update(g1);
+        Goods g1 = goodsDao.find(g.getGname());
+        goodsDao.rm(g1.getId());
 
-        Goods g2 = dao.find(g1.getId());
-        Assert.assertEquals(newGname, g2.getGname());
-    }
-
-    @Test
-    public void testRm() {
-        Goods g = newBean();
-
-        Goods g1 = dao.insert(g);
-        dao.rm(g1.getId());
-
-        Goods g2 = dao.find(g1.getId());
+        Goods g2 = goodsDao.find(g1.getId());
         Assert.assertEquals(Goods.STATE_RM, g2.getState());
     }
 
     @Test
     public void testList() {
-        Goods g = newBean();
-        QueryResult qr = dao.list(SimpleCateConst.CATE_CODE_A_SYTZ, "", 0, 0);
-        @SuppressWarnings("unchecked")
+        QueryResult qr = goodsDao.list(SimpleCateConst.CATE_CODE_A_SYTZ, "", 0, 0);
         List<Goods> glist = qr.getList(Goods.class);
         Pager pager = qr.getPager();
-        System.out.println("glist.size() = " + glist.size());
-        System.out.println("pager = " + pager);
-    }
-
-    private Goods newBean() {
-        Goods g = new Goods();
-        g.setCateCode(SimpleCateConst.CATE_CODE_A_SYTZ);
-        g.setGname("junit_米奇女童羽绒服");
-        g.setImg("junit_img.png");
-        g.setWords("junit_words");
-        g.setCtime(new Date());
-        g.setState(Goods.STATE_OK);
-        return g;
+        Assert.assertNotNull(pager);
+        Assert.assertNotNull(glist);
     }
 
 }

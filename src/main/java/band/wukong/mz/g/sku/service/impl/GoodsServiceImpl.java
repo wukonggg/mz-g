@@ -29,7 +29,7 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsDao goodsDao;
 
     @Override
-    public void save(Goods g, String path) {
+    public Goods save(Goods g, String path) {
         if (null != g.getGimg()) {
             File pic = new File(path + "/" + UUID.randomUUID() + "." + FileUtils.getFileExtension(g.getGimg()));
             Files.copy(g.getGimg(), pic);
@@ -38,12 +38,17 @@ public class GoodsServiceImpl implements GoodsService {
             g.setImg(Goods.IMG_DFT);    //图片名称
         }
         g.setState(Goods.STATE_OK);
-        goodsDao.insert(g);
+        return goodsDao.insert(g);
     }
 
     @Override
     public Goods find(long id) {
         return goodsDao.find(id);
+    }
+
+    @Override
+    public Goods find(String gname) {
+        return goodsDao.find(gname);
     }
 
     @Override

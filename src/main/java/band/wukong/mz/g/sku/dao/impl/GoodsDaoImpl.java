@@ -41,16 +41,25 @@ public class GoodsDaoImpl implements GoodsDao {
         if (!GoodsDaoValidator.insert(g)) {
             throw new IllegalParameterException();
         }
+
         g.setCtime(new Date());
         return dao.insert(g);
     }
 
     @Override
     public Goods find(Long id) {
-        if (!GoodsDaoValidator.find(id)) {
+        if (id <= 0) {
             throw new IllegalParameterException();
         }
         return dao.fetch(Goods.class, id);
+    }
+
+    @Override
+    public Goods find(String gname) {
+        if (Strings.isBlank(gname)) {
+            throw new IllegalParameterException();
+        }
+        return dao.fetch(Goods.class, gname);
     }
 
     @Override

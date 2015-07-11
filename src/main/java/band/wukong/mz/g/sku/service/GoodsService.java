@@ -16,7 +16,7 @@ public interface GoodsService {
      * @param g    pojo without id
      * @param path 图片文件存放路径
      */
-    void save(Goods g, String path);
+    Goods save(Goods g, String path);
 
     /**
      * 找某个商品
@@ -25,6 +25,14 @@ public interface GoodsService {
      * @return
      */
     Goods find(long id);
+
+    /**
+     * 找某个商品
+     *
+     * @param gname gname
+     * @return
+     */
+    Goods find(String gname);
 
     /**
      * update db and file system. cateCode will not be udpated.
@@ -52,15 +60,5 @@ public interface GoodsService {
      */
     QueryResult list(String cateCode, String qcond, int pageNum, int pageSize);
 
-
-    /**
-     * 查询
-     *
-     * @param qcond    qcond
-     * @param pageNum  page number
-     * @param pageSize page size
-     * @return QueryResult 包含GoodsList和Page
-     * @deprecated
-     */
     QueryResult listNoneSku(String qcond, int pageNum, int pageSize);
 }
