@@ -44,13 +44,13 @@ public class SkuPropTypeServiceTest {
     @Test
     public void list() {
         SkuPropType sd = new SkuPropType();
+        sd.setCateCode(SimpleCateConst.CATE_CODE_A_SYTZ);
         sd.setItem(SkuPropType.ITEM_SIZE_STANDARD);
         sd.setName("SIZE");
-        sd.setCateCode(SimpleCateConst.CATE_CODE_A_SYTZ);
 
         List<SkuPropType> sdList = service.list(sd);
         Assert.assertNotNull(sdList);
-        System.out.println("JSONArray.toJSON(sdList) = " + JSONArray.toJSON(sdList));
+        System.out.println("sdList.size() = " + sdList.size());
     }
 
 }

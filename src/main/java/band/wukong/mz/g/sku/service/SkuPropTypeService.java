@@ -2,6 +2,8 @@ package band.wukong.mz.g.sku.service;
 
 import band.wukong.mz.base.exception.IllegalParameterException;
 import band.wukong.mz.g.sku.bean.SkuPropType;
+import org.nutz.dao.Cnd;
+import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.sql.Sql;
@@ -37,17 +39,8 @@ public class SkuPropTypeService {
             throw new IllegalParameterException();
         }
 
-        String e = "SELECT t.item, t.name, t.title, t.evalue, t.cvalue\n" +
-                "FROM t_sku_prop_type t\n" +
-                "WHERE t.cate_code=@cateCode\n" +
-                "GROUP BY t.name\n" +
-                "ORDER BY t.name_order;";
-
-        Sql sql = Sqls.queryEntity(e);
-        sql.params().set("cateCode", cateCode);
-        sql.setEntity(dao.getEntity(SkuPropType.class));
-        dao.execute(sql);
-        return sql.getList(SkuPropType.class);
+        return dao.query(SkuPropType.class, Cnd.where("cateCode", "=", cateCode)
+                .groupBy("name").asc("nameOrder"));
     }
 
 
@@ -61,18 +54,10 @@ public class SkuPropTypeService {
         if (!SkuDictServiceValidator.list(sd)) {
             throw new IllegalParameterException();
         }
-        String e = "SELECT t.cate_code, t.item, t.name, t.title, t.evalue, t.cvalue, t.name_order, t.value_order\n" +
-                "FROM t_sku_prop_type t\n" +
-                "WHERE t.item=@item AND t.name=@name AND t.cate_code=@cateCode\n" +
-                "ORDER BY t.name_order;";
-        Sql sql = Sqls.queryEntity(e);
-        sql.params().set("item", sd.getItem());
-        sql.params().set("name", sd.getName());
-        sql.params().set("cateCode", sd.getCateCode());
-        sql.setEntity(dao.getEntity(SkuPropType.class));
 
-        dao.execute(sql);
-
-        return sql.getList(SkuPropType.class);
+        return dao.query(SkuPropType.class, Cnd.where("cateCode", "=", sd.getCateCode())
+                .and("item", "=", sd.getItem())
+                .and("name", "=", sd.getName())
+                .asc("nameOrder"));
     }
 }
