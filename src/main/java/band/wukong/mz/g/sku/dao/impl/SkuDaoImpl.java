@@ -65,6 +65,17 @@ public class SkuDaoImpl implements SkuDao {
     }
 
     @Override
+    public Sku findWithLinks(String sid) {
+        if (Strings.isBlank(sid)) {
+            throw new IllegalParameterException();
+        }
+        Sku sc = dao.fetch(Sku.class, sid);
+        dao.fetchLinks(sc, "moreList");
+        dao.fetchLinks(sc, "goods");
+        return sc;
+    }
+
+    @Override
     public void updateWithMore(final Sku s) {
         if (!SkuDaoValidator.udpate(s)) {
             throw new IllegalParameterException();

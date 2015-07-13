@@ -26,6 +26,14 @@ public interface SkuDao {
      */
     Sku findWithLinks(Long id);
 
+    /**
+     * find from db
+     *
+     * @param sid sid
+     * @return
+     */
+    Sku findWithLinks(String sid);
+
 
     /**
      * update
@@ -35,7 +43,7 @@ public interface SkuDao {
     void updateWithMore(Sku s);
 
     /**
-     * remove
+     * remove.只设置sku的状态。skumore不动
      *
      * @param id id
      */
