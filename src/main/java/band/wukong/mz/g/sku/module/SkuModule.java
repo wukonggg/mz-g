@@ -149,10 +149,10 @@ public class SkuModule {
         }
 
         sc.setGimg(img);
-        List<SkuMore> moreList = SkuMoreHelper.convert2ListWhenUpdate(more);
+        sc.setMoreList(SkuMoreHelper.convert2ListWhenUpdate(more));
 
         String path = req.getSession().getServletContext().getRealPath(GIMG_RELATIVE_PATH);
-        skuService.updateWithMore(sc, moreList, path);
+        skuService.updateWithMore(sc, path);
         //TODO FIXME 没有处理到异常。参考GoodsMoudle的upd
         //顺手看看能不能把File参数去掉。参考goodsMoudle
     }

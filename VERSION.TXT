@@ -22,7 +22,7 @@ mz-g-0.3.2015.07xx
 + 测试计划：
 - Customer      ok
 - Goods         ok
-- SKU           ready
+- SKU           ok  后台
 
 
 

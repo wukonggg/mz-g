@@ -50,11 +50,13 @@ public class SkuServiceImpl implements SkuService {
     @Inject
     private SkuMoreDao skuMoreDao;
 
-    @Inject("refer: sidGenerator")
+    @Inject
     private SidGenerator sidGenerator;
 
     @Override
-    public void saveWithMore(final Sku s, String path) {
+    public Sku saveWithMore(final Sku s, String path) {
+        final Sku[] sku = new Sku[1];
+
         Goods g = goodsService.find(s.getGoodsId());
         final String cateCode = g.getCateCode();
 
@@ -69,14 +71,16 @@ public class SkuServiceImpl implements SkuService {
                 } else {
                     s.setImg(Sku.IMG_DFT);    //图片名称
                 }
-                skuDao.insertWithMore(s);
+                sku[0] = skuDao.insertWithMore(s);
             }
         });
 
         if (null != s.getGimg()) {
-            File pic = new File(path + "/" + s.getImg());
+            File pic = new File(path + File.separator + s.getImg());
             Files.copy(s.getGimg(), pic);
         }
+
+        return sku[0];
     }
 
     @Override
@@ -85,7 +89,7 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Override
-    public void updateWithMore(Sku s, List<SkuMore> moreList, String path) {
+    public void updateWithMore(Sku s, String path) {
         log.debug("PATH:\n" + path);
 
         Sku sku = skuDao.findWithLinks(s.getId());
@@ -96,15 +100,15 @@ public class SkuServiceImpl implements SkuService {
         sku.setModel(s.getModel());
         sku.setPprice(s.getPprice());
         sku.setSprice(s.getSprice());
-        for (SkuMore sm : moreList) {
+        for (SkuMore sm : s.getMoreList()) {
             sm.setSkuId(sku.getId());
         }
-        sku.setMoreList(moreList);
+        sku.setMoreList(s.getMoreList());
         sku.setUtime(new Date());
 
         if (null != s.getGimg()) {
-            Files.deleteFile(new File(path + "/" + sku.getImg()));
-            File pic = new File(path + "/" + sku.getSid() + "." + FileUtils.getFileExtension(s.getGimg()));
+            Files.deleteFile(new File(path + File.separator + sku.getImg()));
+            File pic = new File(path + File.separator + sku.getSid() + "." + FileUtils.getFileExtension(s.getGimg()));
             Files.copy(s.getGimg(), pic);
         }
         skuDao.updateWithMore(sku);

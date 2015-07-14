@@ -32,7 +32,7 @@ public class GoodsServiceImplTest {
     private String path_server;
 
     @Before
-    public void setUp() throws ClassNotFoundException {
+    public void setUp() {
         log.debug("set up...");
         ioc = NutzTestHelper.createIoc();
         service = ioc.get(GoodsService.class);

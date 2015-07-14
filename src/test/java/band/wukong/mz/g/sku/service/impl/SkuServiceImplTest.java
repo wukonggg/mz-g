@@ -1,14 +1,12 @@
-package band.wukong.mz.g.sku.dao.impl;
+package band.wukong.mz.g.sku.service.impl;
 
 import band.wukong.mz.g.category.SimpleCateConst;
-import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.bean.Sku;
 import band.wukong.mz.g.sku.bean.SkuMore;
 import band.wukong.mz.g.sku.bean.SkuPropType;
-import band.wukong.mz.g.sku.dao.GoodsDao;
-import band.wukong.mz.g.sku.dao.SkuDao;
+import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.mz.g.sku.service.SkuPropTypeService;
-import band.wukong.mz.g.whisper.SimpleSidGenerator;
+import band.wukong.mz.g.sku.service.SkuService;
 import band.wukong.mz.nutz.NutzTestHelper;
 import band.wukong.mz.util.DateUtils;
 import org.junit.After;
@@ -17,7 +15,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.nutz.dao.QueryResult;
 import org.nutz.ioc.Ioc;
+import org.nutz.log.Log;
+import org.nutz.log.Logs;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,40 +28,46 @@ import java.util.List;
  *
  * @author wukong(wukonggg@139.com)
  */
-public class SkuDaoImplTest {
-
+public class SkuServiceImplTest {
+    private static final Log log = Logs.get();
     private Ioc ioc;
-    private SkuDao skuDao;
+    private SkuService skuService;
     private SkuPropTypeService skuPropTypeService;
-    private GoodsDao goodsDao;
+    private GoodsService goodsService;
+    private String path_client;
+    private String path_server;
 
     @Before
-    public void setUp() throws ClassNotFoundException {
+    public void setUp() {
+        log.debug("set up...");
         ioc = NutzTestHelper.createIoc();
-        skuDao = ioc.get(SkuDao.class);
+        skuService = ioc.get(SkuService.class);
         skuPropTypeService = ioc.get(SkuPropTypeService.class);
-        goodsDao = ioc.get(GoodsDao.class);
+        goodsService = ioc.get(GoodsService.class);
+        path_client = "C:\\Users\\Johnson\\Desktop";
+        path_server = "C:\\Users\\Johnson\\Desktop";
+
     }
 
     @After
     public void tearDown() {
         NutzTestHelper.destroyIoc(ioc);
+        log.debug("tear down...");
     }
 
     @Test
-    public void insertWithMore_findWithLinks() {
+    public void saveWithMore_findWithLinks() {
         Date now = new Date();
         Sku sku = new Sku();
-        sku.setSid("junit_sid_" + DateUtils.format(now));
-        sku.setModel("海冰蓝");
+        sku.setModel("junit_海冰蓝");
         sku.setType("HEIGHT");
         sku.setPtime(now);
         sku.setPprice(300);
         sku.setSprice(500);
-        sku.setImg("junit_img.png");
         sku.setCtime(now);
         sku.setState(Sku.STATE_ON);
-        sku.setGoodsId(goodsDao.find("junit_米奇女童羽绒服").getId());
+        sku.setGoodsId(goodsService.find("junit_米奇女童羽绒服").getId());
+        sku.setGimg(new File(path_client + "\\lin.png"));
 
         SkuPropType spt = new SkuPropType();
         spt.setCateCode(SimpleCateConst.CATE_CODE_A_SYTZ);
@@ -77,10 +84,10 @@ public class SkuDaoImplTest {
         }
         sku.setMoreList(smList);
 
-        Sku s = skuDao.insertWithMore(sku);
+        Sku s = skuService.saveWithMore(sku, path_server);
         Assert.assertNotNull(s);
 
-        Sku s1 = skuDao.findWithLinks(s.getId());
+        Sku s1 = skuService.findWithLinks(s.getId());
         Assert.assertNotNull(s1);
         Assert.assertNotNull(s1.getGoods());
         Assert.assertNotNull(s1.getMoreList());
@@ -91,46 +98,41 @@ public class SkuDaoImplTest {
 
     @Test
     public void findWithLinks_updateWithMore_findWithLinks() {
-        Date now = new Date();
-        Sku sku = skuDao.findWithLinks("junit_sid_" + DateUtils.format(now));
-        sku.setUtime(now);
+        Sku sku = skuService.findWithLinks(22L);
         for (SkuMore sm : sku.getMoreList()) {
-            sm.setRemark("junit_remark_update");
+            sm.setRemark("junit_remark_update...");
         }
-        skuDao.updateWithMore(sku);
+        skuService.updateWithMore(sku, path_server);
 
-        Sku s1 = skuDao.findWithLinks(sku.getId());
-        Assert.assertTrue(sku.getUtime().toString().equals(s1.getUtime().toString()));
+        Sku s1 = skuService.findWithLinks(sku.getId());
+        Assert.assertNotNull(s1);
+        Assert.assertNotNull(s1.getMoreList());
         for (SkuMore sm : s1.getMoreList()) {
-            Assert.assertTrue("junit_remark_update".equals(sm.getRemark()));
+            Assert.assertTrue("junit_remark_update...".equals(sm.getRemark()));
         }
 
     }
 
-    @Test
-    public void findWithLinks_rm() {
-        Date now = new Date();
-        Sku sku = skuDao.findWithLinks("junit_sid_" + DateUtils.format(now));
-        skuDao.rm(sku.getId());
 
-        Sku s1 = skuDao.findWithLinks(sku.getId());
+    @Test
+    public void updateWithMore_rm() {
+        Sku sku = skuService.findWithLinks(22L);
+        skuService.rm(sku.getId());
+
+        Sku s1 = skuService.findWithLinks(sku.getId());
         Assert.assertTrue(Sku.STATE_RM.equals(s1.getState()));
     }
 
     @Test
     public void list() {
-        QueryResult qr1 = skuDao.list(SimpleCateConst.CATE_CODE_A_SYTZ, "", 0, 100);
+        QueryResult qr1 = skuService.list(SimpleCateConst.CATE_CODE_A_SYTZ, "", 0 , 100);
         Assert.assertNotNull(qr1.getPager());
+        Assert.assertNotNull(qr1.getList(Sku.class));
         Assert.assertTrue(qr1.getList(Sku.class).size() > 0);
-        System.out.println("qr1.getPager() = " + qr1.getPager());
-        System.out.println("qr1.getList(Sku.class).size() = " + qr1.getList(Sku.class).size());
 
-        QueryResult qr2 = skuDao.list(SimpleCateConst.CATE_CODE_A_SYTZ, "junit", 0, 100);
+        QueryResult qr2 = skuService.list(SimpleCateConst.CATE_CODE_A_SYTZ, "10", 0 , 100);
         Assert.assertNotNull(qr2.getPager());
+        Assert.assertNotNull(qr2.getList(Sku.class));
         Assert.assertTrue(qr2.getList(Sku.class).size() > 0);
-        System.out.println("qr2.getPager() = " + qr2.getPager());
-        System.out.println("qr2.getList(Sku.class).size() = " + qr2.getList(Sku.class).size());
     }
-
-
 }

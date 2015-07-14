@@ -19,7 +19,7 @@ public interface SkuService {
      * @param s    pojo without id
      * @param path 图片文件存放路径
      */
-    void saveWithMore(Sku s, String path);
+    Sku saveWithMore(Sku s, String path);
 
     /**
      * 找某个保存Sku，包括more,goods
@@ -32,11 +32,10 @@ public interface SkuService {
     /**
      * update db and file system
      *
-     * @param sc
-     * @param moreList
+     * @param sc 包含moreList
      * @param path     图片文件存放路径
      */
-    void updateWithMore(Sku sc, List<SkuMore> moreList, String path);
+    void updateWithMore(Sku sc, String path);
 
     /**
      * remove in db

@@ -29,7 +29,7 @@ public class SkuMoreViewService {
     private Dao dao;
 
     /**
-     * @param sids
+     * @param sids 空格隔开的sid
      * @param pageNum
      * @param pageSize
      * @return

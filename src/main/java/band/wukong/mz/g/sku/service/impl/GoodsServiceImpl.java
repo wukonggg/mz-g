@@ -31,7 +31,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Goods save(Goods g, String path) {
         if (null != g.getGimg()) {
-            File pic = new File(path + "/" + UUID.randomUUID() + "." + FileUtils.getFileExtension(g.getGimg()));
+            File pic = new File(path + File.separator + UUID.randomUUID() + "." + FileUtils.getFileExtension(g.getGimg()));
             Files.copy(g.getGimg(), pic);
             g.setImg(pic.getName());    //图片名称
         } else {
@@ -56,7 +56,7 @@ public class GoodsServiceImpl implements GoodsService {
         log.debug("PATH:\n" + path);
 
         if (null != g.getGimg()) {
-            File pic = new File(path + "/" + UUID.randomUUID() + "." + FileUtils.getFileExtension(g.getGimg()));
+            File pic = new File(path + File.separator + UUID.randomUUID() + "." + FileUtils.getFileExtension(g.getGimg()));
             Files.copy(g.getGimg(), pic);
             g.setImg(pic.getName());
         }
