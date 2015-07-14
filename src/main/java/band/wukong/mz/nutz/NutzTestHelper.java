@@ -18,7 +18,8 @@ public class NutzTestHelper {
         Ioc ioc = null;
         try {
             ioc = new NutIoc(new ComboIocLoader(
-                    "*org.nutz.ioc.loader.json.JsonLoader", "db.js", "beans.js",
+//                    "*org.nutz.ioc.loader.json.JsonLoader", "db.js", "beans.js",
+                    "*org.nutz.ioc.loader.json.JsonLoader", "db.js",
                     "*org.nutz.ioc.loader.annotation.AnnotationIocLoader", "band.wukong.mz.g"
             ));
         } catch (ClassNotFoundException e) {
