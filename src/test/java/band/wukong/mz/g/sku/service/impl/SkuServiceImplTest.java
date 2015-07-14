@@ -4,11 +4,12 @@ import band.wukong.mz.g.category.SimpleCateConst;
 import band.wukong.mz.g.sku.bean.Sku;
 import band.wukong.mz.g.sku.bean.SkuMore;
 import band.wukong.mz.g.sku.bean.SkuPropType;
+import band.wukong.mz.g.sku.dao.SkuDao;
+import band.wukong.mz.g.sku.dao.SkuMoreDao;
 import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.mz.g.sku.service.SkuPropTypeService;
 import band.wukong.mz.g.sku.service.SkuService;
 import band.wukong.mz.nutz.NutzTestHelper;
-import band.wukong.mz.util.DateUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -32,8 +33,10 @@ public class SkuServiceImplTest {
     private static final Log log = Logs.get();
     private Ioc ioc;
     private SkuService skuService;
+    private SkuMoreDao skuMoreDao;
     private SkuPropTypeService skuPropTypeService;
     private GoodsService goodsService;
+
     private String path_client;
     private String path_server;
 
@@ -42,11 +45,11 @@ public class SkuServiceImplTest {
         log.debug("set up...");
         ioc = NutzTestHelper.createIoc();
         skuService = ioc.get(SkuService.class);
+        skuMoreDao = ioc.get(SkuMoreDao.class);
         skuPropTypeService = ioc.get(SkuPropTypeService.class);
         goodsService = ioc.get(GoodsService.class);
         path_client = "C:\\Users\\Johnson\\Desktop";
         path_server = "C:\\Users\\Johnson\\Desktop";
-
     }
 
     @After
@@ -135,4 +138,32 @@ public class SkuServiceImplTest {
         Assert.assertNotNull(qr2.getList(Sku.class));
         Assert.assertTrue(qr2.getList(Sku.class).size() > 0);
     }
+
+    @Test
+    public void reduceStock() {
+        long skuMoreId = 185;
+        int countReduced = 3;
+        SkuMore skuMore = skuMoreDao.find(skuMoreId);
+
+        skuService.reduceStock(skuMoreId, countReduced);
+
+        SkuMore s1 = skuMoreDao.find(skuMoreId);
+        Assert.assertNotNull(skuMore);
+        Assert.assertNotNull(s1);
+        Assert.assertTrue(s1.getCount() + countReduced == skuMore.getCount());
+    }
+
+    @Test
+    public void addStock() {
+        long skuMoreId = 201;
+        int countAdded = 3;
+        SkuMore skuMore = skuMoreDao.find(skuMoreId);
+
+        int currCount = skuService.addStock(skuMoreId, countAdded);
+        Assert.assertTrue(currCount == skuMore.getCount() + countAdded);
+
+        SkuMore s1 = skuMoreDao.find(skuMoreId);
+        Assert.assertTrue(s1.getCount() == countAdded + skuMore.getCount());
+    }
+
 }

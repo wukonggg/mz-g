@@ -56,7 +56,7 @@ public interface SkuService {
     QueryResult list(String cateCode, String qcond, int pageNum, int pageSize);
 
     /**
-     * 出货。减少库存数量
+     * （下单时）减少库存数量
      *
      * @param skuMoreId skuMoreId
      * @param count     需要减少的库存量
@@ -65,7 +65,7 @@ public interface SkuService {
     int reduceStock(long skuMoreId, int count);
 
     /**
-     * 增加库存量
+     * （退货时）增加库存量
      *
      * @param skuMoreId skuMoreId
      * @param count     需要增加的库存量
