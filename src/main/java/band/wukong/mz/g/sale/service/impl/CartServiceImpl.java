@@ -35,7 +35,7 @@ public class CartServiceImpl implements CartService {
     private Dao dao;
 
     @Override
-    public void add2Cart(long userId, String skuMoreIds, String cid) {
+    public List<Cart> add2Cart(long userId, String skuMoreIds, String cid) {
         User user = dao.fetch(User.class, userId);
         if (null == user) {
             SecurityException se = new SecurityException("There is someone try to do something bad...");
@@ -67,7 +67,7 @@ public class CartServiceImpl implements CartService {
         json = "[" + json.substring(1) + "]";
         List<Cart> carts = JSON.parseArray(json, Cart.class);
 
-        dao.fastInsert(carts);
+        return dao.fastInsert(carts);
     }
 
     @Override
