@@ -35,12 +35,13 @@ public class OrderDaoImplTest {
     }
 
 
+
     @Test
     public void list() {
         Calendar cal01 = Calendar.getInstance();
         cal01.set(2015, Calendar.JANUARY, 1, 0, 0, 0);
         Calendar cal02 = Calendar.getInstance();
-        cal02.set(2015, Calendar.MARCH, 31, 0, 0, 0);
+        cal02.set(2015, Calendar.JULY, 31, 0, 0, 0);
         Period p = new Period(cal01.getTime(), cal02.getTime());
         User u = new User();
         u.setId(1L);
