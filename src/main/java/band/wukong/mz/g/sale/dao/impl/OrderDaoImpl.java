@@ -42,16 +42,23 @@ public class OrderDaoImpl implements OrderDao {
     private Dao dao;
 
     @Override
-    public void insertWithItems(Order o) {
+    public Order insertWithItems(Order o) {
         if (!OrderDaoValidator.save(o)) {
             throw new IllegalParameterException();
         }
-        dao.insertWith(o, "items");
+        return dao.insertWith(o, "items");
     }
 
     @Override
     public Order find(long id) {
         return dao.fetch(Order.class, id);
+    }
+
+    @Override
+    public Order findWithLinks(long id) {
+        Order order = dao.fetch(Order.class, id);
+        dao.fetchLinks(order, "items");
+        return order;
     }
 
     @Override

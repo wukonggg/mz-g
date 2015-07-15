@@ -16,14 +16,21 @@ public interface OrderDao {
      *
      * @param o
      */
-    void insertWithItems(Order o);
+    Order insertWithItems(Order o);
+
+    /**
+     * find order by id
+     *
+     * @param id
+     */
+    Order find(long id);
 
     /**
      * find order within items by id
      *
      * @param id
      */
-    Order find(long id);
+    Order findWithLinks(long id);
 
     /**
      * list
