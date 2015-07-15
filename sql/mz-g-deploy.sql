@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS `t_cart` (
 DELETE FROM `t_cart`;
 /*!40000 ALTER TABLE `t_cart` DISABLE KEYS */;
 INSERT INTO `t_cart` (`user_id`, `cust_id`, `sku_more_id`, `count`) VALUES
-	(1, '5', 98, 1),
-	(1, '5', 113, 1);
+	(3, '1', 198, 1),
+	(3, '1', 199, 1);
 /*!40000 ALTER TABLE `t_cart` ENABLE KEYS */;
 
 
@@ -49,7 +49,7 @@ DELETE FROM `t_cate`;
 /*!40000 ALTER TABLE `t_cate` DISABLE KEYS */;
 INSERT INTO `t_cate` (`title`, `code`, `pcode`, `ord`, `seq`, `remark`, `state`) VALUES
 	('SIMPLE', 'S', '0', 0, 0, 'SIMPLE CATEGORY', '1'),
-	('A上衣套装', 'S-1', 'S', 1, 6, 'A上衣套装', '1'),
+	('A上衣套装', 'S-1', 'S', 1, 8, 'A上衣套装', '1'),
 	('J尿不湿', 'S-10', 'S', 10, 2, 'J尿不湿', '1'),
 	('K代购', 'S-11', 'S', 11, 0, 'K代购', '1'),
 	('L杯子/奶瓶', 'S-12', 'S', 12, 0, 'L杯子/奶瓶', '1'),
@@ -78,9 +78,9 @@ CREATE TABLE IF NOT EXISTS `t_customer` (
   `payment_clothing` int(11) DEFAULT '0' COMMENT '服装类消费总额',
   `state` char(2) NOT NULL COMMENT '0：已删除；1：有效；',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='客户表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='客户表';
 
--- 正在导出表  mz-g.t_customer 的数据：~7 rows (大约)
+-- 正在导出表  mz-g.t_customer 的数据：~8 rows (大约)
 DELETE FROM `t_customer`;
 /*!40000 ALTER TABLE `t_customer` DISABLE KEYS */;
 INSERT INTO `t_customer` (`id`, `cid`, `name`, `birth`, `msisdn`, `address`, `remark`, `payment_clothing`, `state`) VALUES
@@ -90,7 +90,8 @@ INSERT INTO `t_customer` (`id`, `cid`, `name`, `birth`, `msisdn`, `address`, `re
 	(4, '99999999997', 'Candy', '2015-04-10', '18238374659', NULL, NULL, 5000, '1'),
 	(5, '99999999996', 'Daniel', '2015-04-10', '18928374678', NULL, NULL, 0, '1'),
 	(6, '99999999995', 'Ema', '2015-04-10', '18238479906', '123123sd阿斯达', NULL, 0, '0'),
-	(7, '99999999995', 'Frank', '2015-05-01', '18998773495', 'White house', 'power', 0, '1');
+	(7, '99999999995', 'Frank', '2015-05-01', '18998773495', 'White house', 'power', 0, '1'),
+	(12, '99999999994', 'Gary', '2015-07-01', '13790785566', 'nanjing', 'nanjing', 0, '1');
 /*!40000 ALTER TABLE `t_customer` ENABLE KEYS */;
 
 
@@ -105,16 +106,18 @@ CREATE TABLE IF NOT EXISTS `t_goods` (
   `utime` datetime DEFAULT NULL,
   `state` char(2) NOT NULL COMMENT '0：已删除；1：有效；',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
 
--- 正在导出表  mz-g.t_goods 的数据：~4 rows (大约)
+-- 正在导出表  mz-g.t_goods 的数据：~6 rows (大约)
 DELETE FROM `t_goods`;
 /*!40000 ALTER TABLE `t_goods` DISABLE KEYS */;
 INSERT INTO `t_goods` (`id`, `cate_code`, `gname`, `words`, `img`, `ctime`, `utime`, `state`) VALUES
 	(15, 'S-1', '淑女连衣裙', '淑女连衣裙', '58d352e6-2a77-4bd7-ac95-d31f67462950.jpg', '2015-05-31 14:35:57', '2015-05-31 14:36:03', '1'),
 	(16, 'S-2', '阿迪短裤', '阿迪短裤', '393dbbeb-fccc-4c1b-9c49-ea3ebda4d00f.png', '2015-05-31 14:36:21', NULL, '1'),
 	(17, 'S-10', '花王尿不湿', '花王尿不湿', '7abe93e3-28a6-4ada-a4c0-4d62cef3f9bd.jpg', '2015-05-31 19:41:03', NULL, '1'),
-	(18, 'S-1', '耐克卫衣', '耐克卫衣耐克卫衣', '75301b4e-57c6-4f89-969a-ebe051263835.png', '2015-06-07 14:54:52', '2015-06-07 14:54:59', '1');
+	(18, 'S-1', '耐克卫衣', '耐克卫衣耐克卫衣', '75301b4e-57c6-4f89-969a-ebe051263835.png', '2015-06-07 14:54:52', '2015-06-07 14:54:59', '1'),
+	(21, 'S-5', '小熊棉袜', '小熊棉袜袜袜袜', '1d859bda-acdf-40a6-8b8f-afe7d7557726.jpg', '2015-07-11 23:01:35', '2015-07-13 23:29:33', '1'),
+	(22, 'S-1', 'junit_米奇女童羽绒服', NULL, NULL, '2015-07-13 09:15:24', NULL, '1');
 /*!40000 ALTER TABLE `t_goods` ENABLE KEYS */;
 
 
@@ -135,9 +138,9 @@ CREATE TABLE IF NOT EXISTS `t_item` (
   `state` char(2) NOT NULL DEFAULT '0' COMMENT '0：已删除；1：有效；2：退货',
   `order_id` int(11) NOT NULL DEFAULT '0' COMMENT 'order表pk',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_item 的数据：~10 rows (大约)
+-- 正在导出表  mz-g.t_item 的数据：~12 rows (大约)
 DELETE FROM `t_item`;
 /*!40000 ALTER TABLE `t_item` DISABLE KEYS */;
 INSERT INTO `t_item` (`id`, `sku_id`, `sku_more_id`, `cate_code_snapshot`, `sprice_snapshot`, `dprice`, `dcount`, `payment`, `return_time`, `return_user_id`, `return_reason`, `return_desc`, `state`, `order_id`) VALUES
@@ -149,9 +152,10 @@ INSERT INTO `t_item` (`id`, `sku_id`, `sku_more_id`, `cate_code_snapshot`, `spri
 	(6, 13, 92, '0', 120, 106, 1, 105, NULL, 0, NULL, '0', '1', 4),
 	(7, 12, 113, '0', 100, 88, 1, 88, NULL, 0, NULL, '0', '1', 4),
 	(8, 13, 92, '0', 120, 120, 1, 120, NULL, 0, NULL, '0', '1', 5),
-	(9, 12, 113, '0', 100, 100, 2, 100, NULL, 0, NULL, '0', '1', 6),
-	(19, 12, 113, '0', 100, 100, -1, -100, '2015-07-03 00:43:12', 1, '2', '就不告诉你。。。', '2', 6),
-	(23, 12, 113, '0', 100, 100, -1, -100, '2015-07-03 01:41:37', 1, '2', '就不告诉你。。。', '2', 6);
+	(9, 12, 113, '0', 100, 100, 2, 200, NULL, 0, NULL, '0', '1', 6),
+	(10, 12, 113, '0', 100, 100, -1, -100, '2015-07-06 00:13:35', 1, '1', 'akakakk', '2', 6),
+	(11, 13, 98, 'S-1', 120, 120, 3, 360, NULL, 0, NULL, NULL, '1', 7),
+	(12, 12, 113, 'S-2', 100, 100, 2, 200, NULL, 0, NULL, NULL, '1', 7);
 /*!40000 ALTER TABLE `t_item` ENABLE KEYS */;
 
 
@@ -162,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   `cust_id` int(11) NOT NULL COMMENT '顾客id',
   `dtime` datetime NOT NULL COMMENT '成交时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  mz-g.t_order 的数据：~6 rows (大约)
 DELETE FROM `t_order`;
@@ -173,7 +177,8 @@ INSERT INTO `t_order` (`id`, `user_id`, `cust_id`, `dtime`) VALUES
 	(3, 1, 3, '2015-06-01 14:48:03'),
 	(4, 1, 3, '2015-06-07 16:17:31'),
 	(5, 1, 1, '2015-06-10 14:45:35'),
-	(6, 1, 2, '2015-06-10 15:11:26');
+	(6, 1, 2, '2015-06-10 15:11:26'),
+	(7, 1, 5, '2015-07-06 00:28:09');
 /*!40000 ALTER TABLE `t_order` ENABLE KEYS */;
 
 
@@ -192,9 +197,9 @@ CREATE TABLE IF NOT EXISTS `t_sku` (
   `state` char(2) NOT NULL COMMENT '0：已删除；1：上架；2：下架',
   `goods_id` int(11) NOT NULL COMMENT '商品id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='商品SKU主表';
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='商品SKU主表';
 
--- 正在导出表  mz-g.t_sku 的数据：~6 rows (大约)
+-- 正在导出表  mz-g.t_sku 的数据：~7 rows (大约)
 DELETE FROM `t_sku`;
 /*!40000 ALTER TABLE `t_sku` DISABLE KEYS */;
 INSERT INTO `t_sku` (`id`, `sid`, `model`, `type`, `ptime`, `pprice`, `sprice`, `img`, `ctime`, `utime`, `state`, `goods_id`) VALUES
@@ -215,9 +220,9 @@ CREATE TABLE IF NOT EXISTS `t_sku_more` (
   `count` int(11) unsigned NOT NULL COMMENT '数量',
   `remark` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8 COMMENT='商品SKU更多表';
+) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8 COMMENT='商品SKU更多表';
 
--- 正在导出表  mz-g.t_sku_more 的数据：~28 rows (大约)
+-- 正在导出表  mz-g.t_sku_more 的数据：~35 rows (大约)
 DELETE FROM `t_sku_more`;
 /*!40000 ALTER TABLE `t_sku_more` DISABLE KEYS */;
 INSERT INTO `t_sku_more` (`id`, `sku_id`, `size`, `count`, `remark`) VALUES
@@ -227,8 +232,8 @@ INSERT INTO `t_sku_more` (`id`, `sku_id`, `size`, `count`, `remark`) VALUES
 	(95, 13, '130', 10, '备注备注备注'),
 	(96, 13, '140', 10, '备注备注备注'),
 	(97, 13, '150', 10, '备注备注备注'),
-	(98, 13, '160', 10, '备注备注备注'),
-	(113, 12, '100', 11, '备'),
+	(98, 13, '160', 7, '备注备注备注'),
+	(113, 12, '100', 9, '备'),
 	(114, 12, '110', 9, '备注备注备注'),
 	(115, 12, '120', 10, '备注备注备注'),
 	(116, 12, '130', 10, '备注'),
@@ -313,14 +318,15 @@ CREATE TABLE IF NOT EXISTS `t_user` (
   `pwd` varchar(50) NOT NULL DEFAULT '0' COMMENT '加密',
   `state` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '0：初始；1：正常；2：已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户表。暂时没用到。';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表。暂时没用到。';
 
--- 正在导出表  mz-g.t_user 的数据：~2 rows (大约)
+-- 正在导出表  mz-g.t_user 的数据：~3 rows (大约)
 DELETE FROM `t_user`;
 /*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
 INSERT INTO `t_user` (`id`, `login_name`, `pwd`, `state`) VALUES
 	(1, 'Yolanda', '0', 1),
-	(2, 'Wukong', '0', 1);
+	(2, 'Wukong', '0', 1),
+	(3, 'test', '0', 1);
 /*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
 
 
