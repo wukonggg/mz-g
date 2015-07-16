@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `t_item` (
   `cate_code_snapshot` varchar(20) NOT NULL DEFAULT '0' COMMENT '当前品类快照',
   `sprice_snapshot` int(11) NOT NULL DEFAULT '0' COMMENT '当前零售价快照',
   `dprice` int(11) NOT NULL DEFAULT '0' COMMENT '成交单价  当状态为"退货"时，字段为负',
-  `dcount` int(11) NOT NULL DEFAULT '0' COMMENT '成交数量  当状态为"退货"时，代表退货数量',
+  `dcount` int(11) NOT NULL DEFAULT '0' COMMENT '成交数量  当状态为"退货"时，字段为负',
   `payment` int(11) NOT NULL DEFAULT '0' COMMENT '付款金额',
   `return_time` datetime DEFAULT NULL COMMENT '退货时间',
   `return_user_id` int(11) DEFAULT '0' COMMENT '退货的操作员',
@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `t_sku` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='商品SKU主表';
 
--- 正在导出表  mz-g.t_sku 的数据：~7 rows (大约)
+-- 正在导出表  mz-g.t_sku 的数据：~6 rows (大约)
 DELETE FROM `t_sku`;
 /*!40000 ALTER TABLE `t_sku` DISABLE KEYS */;
 INSERT INTO `t_sku` (`id`, `sid`, `model`, `type`, `ptime`, `pprice`, `sprice`, `img`, `ctime`, `utime`, `state`, `goods_id`) VALUES
@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `t_sku_more` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8 COMMENT='商品SKU更多表';
 
--- 正在导出表  mz-g.t_sku_more 的数据：~35 rows (大约)
+-- 正在导出表  mz-g.t_sku_more 的数据：~28 rows (大约)
 DELETE FROM `t_sku_more`;
 /*!40000 ALTER TABLE `t_sku_more` DISABLE KEYS */;
 INSERT INTO `t_sku_more` (`id`, `sku_id`, `size`, `count`, `remark`) VALUES
