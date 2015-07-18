@@ -70,8 +70,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public QueryResult listDetail(int pageNum, int pageSize, Period p, String qcondOnCust, User u) {
-        QueryResult qr = orderDao.list(pageNum, pageSize, p, qcondOnCust, u);
+    public QueryResult listDetail(String qcondOnCust, Period p, User u, int pageNum, int pageSize) {
+        QueryResult qr = orderDao.list(qcondOnCust, p, u, pageNum, pageSize);
         List<Order> olist = qr.getList(Order.class);
         for (Order o : olist) {
             List<Item> items = itemDao.listWithSkuByOrder(o.getId());

@@ -62,7 +62,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public QueryResult list(int pageNum, int pageSize, Period p, String qcondOnCust, User u) {
+    public QueryResult list(String qcondOnCust, Period p, User u, int pageNum, int pageSize) {
         if (u.getId() <= 0) {
             throw new IllegalParameterException();
         }

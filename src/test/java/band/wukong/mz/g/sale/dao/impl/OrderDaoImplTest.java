@@ -74,6 +74,11 @@ public class OrderDaoImplTest {
     }
 
     @Test
+    public void find() {
+        Assert.assertNotNull(orderDao.find(6));
+    }
+
+    @Test
     public void list() {
         Calendar cal01 = Calendar.getInstance();
         cal01.set(2015, Calendar.JANUARY, 1, 0, 0, 0);
@@ -83,7 +88,7 @@ public class OrderDaoImplTest {
         User u = new User();
         u.setId(1L);
 
-        QueryResult qr = orderDao.list(0, 10, p, "Black", u);
+        QueryResult qr = orderDao.list("Black", p, u, 0, 10);
         System.out.println("page: " + qr.getPager().toString());
 
         List<Order> oList = qr.getList(Order.class);

@@ -67,7 +67,7 @@ public class OrderModule {
         Map<String, Object> retMap = new HashMap<String, Object>();
         retMap.put("period", p);
         retMap.put("qcond_c", qcondOnCust);
-        retMap.put("result", oservice.listDetail(pageNum, pageSize, p, qcondOnCust, u));
+        retMap.put("result", oservice.listDetail(qcondOnCust, p, u, pageNum, pageSize));
         return retMap;
     }
 

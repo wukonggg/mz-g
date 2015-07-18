@@ -1,6 +1,8 @@
 package band.wukong.mz.g.sale.servcie.impl;
 
+import band.wukong.mz.base.bean.Period;
 import band.wukong.mz.g.customer.service.CustomerService;
+import band.wukong.mz.g.privilege.bean.User;
 import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.service.impl.OrderServiceImpl;
 import band.wukong.mz.g.sku.dao.SkuMoreDao;
@@ -13,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.nutz.ioc.Ioc;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 /**
@@ -40,6 +43,21 @@ public class OrderServiceImplTest {
         NutzTestHelper.destroyIoc(ioc);
     }
 
+
+    @Test
+    public void find() {
+        Assert.assertNotNull(orderService.find(1));
+    }
+
+    @Test
+    public void listDetail() {
+        String qcond = "99999999998";   //cid
+        Period period = new Period(DateUtils.convert2date("2015-01-01"), DateUtils.convert2date("2015-07-20"));
+        User user = new User();
+//        user.setId();
+//        orderService.listDetail(qcond, period, );
+
+    }
 
     @Test
     public void returnItem() {

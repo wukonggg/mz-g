@@ -1,14 +1,12 @@
 package band.wukong.mz.g.sku.dao.impl;
 
 import band.wukong.mz.g.category.SimpleCateConst;
-import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.bean.Sku;
 import band.wukong.mz.g.sku.bean.SkuMore;
 import band.wukong.mz.g.sku.bean.SkuPropType;
 import band.wukong.mz.g.sku.dao.GoodsDao;
 import band.wukong.mz.g.sku.dao.SkuDao;
 import band.wukong.mz.g.sku.service.SkuPropTypeService;
-import band.wukong.mz.g.whisper.SimpleSidGenerator;
 import band.wukong.mz.nutz.NutzTestHelper;
 import band.wukong.mz.util.DateUtils;
 import org.junit.After;

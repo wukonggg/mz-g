@@ -15,7 +15,7 @@ import org.nutz.dao.QueryResult;
 public interface OrderService {
 
     /**
-     * find order within items by id
+     * find order by id
      *
      * @param id
      */
@@ -24,15 +24,14 @@ public interface OrderService {
     /**
      * 查询带有详细信息的order list。包括用户、购买的产品。
      *
+     * @param qcondOnCust 可以是customer.cid/customer.name/customer.msisdn
+     * @param p           period of order
+     * @param u           当前用户
      * @param pageNum     pageNum
      * @param pageSize    pageSize
-     * @param p           period of order
-     * @param qcondOnCust 可以是customer.cid/customer.name/customer.msisdn
-     * @param u           当前用户
      * @return
      */
-    QueryResult listDetail(int pageNum, int pageSize, Period p, String qcondOnCust, User u);
-
+    QueryResult listDetail(String qcondOnCust, Period p, User u, int pageNum, int pageSize);
 
     /**
      * 支付/结帐
@@ -50,13 +49,6 @@ public interface OrderService {
     void pay(Cart[] carts, Long userId);
 
     /**
-     * 查询item，包括sku4item及其所在的order
-     *
-     * @param itemId
-     */
-    Item findItemWithOrder(long itemId);
-
-    /**
      * 退货
      * 1、check要退货的数量是否不大于购买数量。如果大于则抛出异常
      * 2、insert item：退货的数量（负数），计算新的交易金额（负数），状态为'退货'，同时保存退货的时间和说明
@@ -69,6 +61,11 @@ public interface OrderService {
      */
     Item returnItem(Item item);
 
-
+    /**
+     * 查询item，包括sku4item及其所在的order
+     *
+     * @param itemId
+     */
+    Item findItemWithOrder(long itemId);
 
 }

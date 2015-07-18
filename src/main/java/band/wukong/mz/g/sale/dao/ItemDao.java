@@ -40,7 +40,7 @@ public interface ItemDao {
     Item findWithOrder(long id);
 
     /**
-     * list by order
+     * list items with sku info(Item.sku4Item), query by orderId
      *
      * @param orderId orderId
      * @return item list
@@ -48,10 +48,10 @@ public interface ItemDao {
     List<Item> listWithSkuByOrder(long orderId);
 
     /**
-     * 找出（同一个order中）相同的item
+     * 找出同一个order中相同的item。相同的item指的是商品属性相同，但可能同时存在购买和多个退货的item。
      *
-     * @param itemId
-     * @return
+     * @param itemId itemId
+     * @return item list
      */
     List<Item> listSameItems(long itemId);
 }

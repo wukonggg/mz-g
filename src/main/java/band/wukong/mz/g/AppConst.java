@@ -7,7 +7,7 @@ package band.wukong.mz.g;
  */
 public class AppConst {
 
-    public static final int PAGE_SIZE = 10;    //page size
+    public static final int PAGE_SIZE = 7;    //page size
     public static final int PAGE_NUM_DFT = 1; //default page
 
 }

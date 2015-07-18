@@ -10,7 +10,6 @@
 
     String pageSize = request.getParameter("pageSize");
     pageSize = null == pageSize ? String.valueOf(AppConst.PAGE_SIZE) : pageSize;
-    System.out.println("pageSize = " + pageSize);
 %>
 <div class="am-cf mz-sticky-br">
 <ul class="am-pagination am-pagination-right">

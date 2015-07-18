@@ -6,6 +6,7 @@ package band.wukong.mz.util;
  * @author wukong(wukonggg@139.com)
  */
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -53,23 +54,34 @@ public class DateUtils {
     }
 
     /**
-     * 返回java.sql.Date
+     * String转化Date。
      *
-     * @param date
-     * @return
+     * @param date 支持的格式：yyyy-MM-dd, yyyy-MM-dd HH:mm:ss
+     *
+     * @return java.util.Date
      */
-    public static java.sql.Date convert2SqlDate(String date) {
-        if (null == date) return null;
-        if (date.equalsIgnoreCase("")) return null;
-        try {
-            return java.sql.Date.valueOf(date);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+    public static Date convert2date(String date) {
+        //RegexUtil.P_DATE_YYYYMMDD
+        String re_yymmdd = "^([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))$";
+        if (date.matches(re_yymmdd)) {
+            try {
+                return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
         }
+
+        //RegexUtil.P_DATE_YYYYMMDD_HHMMSS
+        String re_yymmdd_hhmmss = "^([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))\\p{Space}[0-2][0-9]:[0-5][0-9]:[0-5][0-9]$";
+        if (date.matches(re_yymmdd_hhmmss)) {
+            try {
+                return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        throw new IllegalArgumentException();
     }
-
-
 
     /**
      * 查看两个日期是否是同一天

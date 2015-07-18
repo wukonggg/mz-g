@@ -27,8 +27,9 @@ CREATE TABLE IF NOT EXISTS `t_cart` (
 DELETE FROM `t_cart`;
 /*!40000 ALTER TABLE `t_cart` DISABLE KEYS */;
 INSERT INTO `t_cart` (`user_id`, `cust_id`, `sku_more_id`, `count`) VALUES
-	(3, '1', 198, 1),
-	(3, '1', 199, 1);
+	(1, '2', 93, 1),
+	(1, '3', 121, 1),
+	(1, '3', 123, 1);
 /*!40000 ALTER TABLE `t_cart` ENABLE KEYS */;
 
 
@@ -56,7 +57,7 @@ INSERT INTO `t_cate` (`title`, `code`, `pcode`, `ord`, `seq`, `remark`, `state`)
 	('M妈妈', 'S-13', 'S', 13, 0, 'M妈妈', '1'),
 	('N文具', 'S-14', 'S', 14, 0, 'N文具', '1'),
 	('B裤子', 'S-2', 'S', 2, 3, 'B裤子', '1'),
-	('C内衣', 'S-3', 'S', 3, 0, 'C内衣', '1'),
+	('C内衣', 'S-3', 'S', 3, 2, 'C内衣', '1'),
 	('D鞋子', 'S-4', 'S', 4, 0, 'D鞋子', '1'),
 	('E袜子/护袖/口水巾/罩衫', 'S-5', 'S', 5, 0, 'E袜子/护袖/口水巾/罩衫', '1'),
 	('F奶粉', 'S-6', 'S', 6, 0, 'F奶粉', '1'),
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `t_goods` (
   `utime` datetime DEFAULT NULL,
   `state` char(2) NOT NULL COMMENT '0：已删除；1：有效；',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
 
 -- 正在导出表  mz-g.t_goods 的数据：~6 rows (大约)
 DELETE FROM `t_goods`;
@@ -116,8 +117,8 @@ INSERT INTO `t_goods` (`id`, `cate_code`, `gname`, `words`, `img`, `ctime`, `uti
 	(16, 'S-2', '阿迪短裤', '阿迪短裤', '393dbbeb-fccc-4c1b-9c49-ea3ebda4d00f.png', '2015-05-31 14:36:21', NULL, '1'),
 	(17, 'S-10', '花王尿不湿', '花王尿不湿', '7abe93e3-28a6-4ada-a4c0-4d62cef3f9bd.jpg', '2015-05-31 19:41:03', NULL, '1'),
 	(18, 'S-1', '耐克卫衣', '耐克卫衣耐克卫衣', '75301b4e-57c6-4f89-969a-ebe051263835.png', '2015-06-07 14:54:52', '2015-06-07 14:54:59', '1'),
-	(21, 'S-5', '小熊棉袜', '小熊棉袜袜袜袜', '1d859bda-acdf-40a6-8b8f-afe7d7557726.jpg', '2015-07-11 23:01:35', '2015-07-13 23:29:33', '1'),
-	(22, 'S-1', 'junit_米奇女童羽绒服', NULL, NULL, '2015-07-13 09:15:24', NULL, '1');
+	(21, 'S-5', '小熊棉袜', '小熊棉袜袜袜袜', '96fb4e2c-a960-45cc-b5a0-5523ebff0bb8.jpg', '2015-07-11 23:01:35', '2015-07-18 15:50:06', '1'),
+	(23, 'S-3', '小熊儿童内衣', '小熊儿童内衣', '8a81c362-6fd9-490d-976d-600cd1ffded4.jpg', '2015-07-18 15:52:14', NULL, '1');
 /*!40000 ALTER TABLE `t_goods` ENABLE KEYS */;
 
 
@@ -138,9 +139,9 @@ CREATE TABLE IF NOT EXISTS `t_item` (
   `state` char(2) NOT NULL DEFAULT '0' COMMENT '0：已删除；1：有效；2：退货',
   `order_id` int(11) NOT NULL DEFAULT '0' COMMENT 'order表pk',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_item 的数据：~12 rows (大约)
+-- 正在导出表  mz-g.t_item 的数据：~11 rows (大约)
 DELETE FROM `t_item`;
 /*!40000 ALTER TABLE `t_item` DISABLE KEYS */;
 INSERT INTO `t_item` (`id`, `sku_id`, `sku_more_id`, `cate_code_snapshot`, `sprice_snapshot`, `dprice`, `dcount`, `payment`, `return_time`, `return_user_id`, `return_reason`, `return_desc`, `state`, `order_id`) VALUES
@@ -154,8 +155,7 @@ INSERT INTO `t_item` (`id`, `sku_id`, `sku_more_id`, `cate_code_snapshot`, `spri
 	(8, 13, 92, '0', 120, 120, 1, 120, NULL, 0, NULL, '0', '1', 5),
 	(9, 12, 113, '0', 100, 100, 2, 200, NULL, 0, NULL, '0', '1', 6),
 	(10, 12, 113, '0', 100, 100, -1, -100, '2015-07-06 00:13:35', 1, '1', 'akakakk', '2', 6),
-	(11, 13, 98, 'S-1', 120, 120, 3, 360, NULL, 0, NULL, NULL, '1', 7),
-	(12, 12, 113, 'S-2', 100, 100, 2, 200, NULL, 0, NULL, NULL, '1', 7);
+	(11, 12, 113, 'junit_update', 100, 100, 1, 100, NULL, 0, NULL, NULL, '1', 0);
 /*!40000 ALTER TABLE `t_item` ENABLE KEYS */;
 
 
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   `cust_id` int(11) NOT NULL COMMENT '顾客id',
   `dtime` datetime NOT NULL COMMENT '成交时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  mz-g.t_order 的数据：~6 rows (大约)
 DELETE FROM `t_order`;
@@ -177,8 +177,7 @@ INSERT INTO `t_order` (`id`, `user_id`, `cust_id`, `dtime`) VALUES
 	(3, 1, 3, '2015-06-01 14:48:03'),
 	(4, 1, 3, '2015-06-07 16:17:31'),
 	(5, 1, 1, '2015-06-10 14:45:35'),
-	(6, 1, 2, '2015-06-10 15:11:26'),
-	(7, 1, 5, '2015-07-06 00:28:09');
+	(6, 1, 2, '2015-06-10 15:11:26');
 /*!40000 ALTER TABLE `t_order` ENABLE KEYS */;
 
 
@@ -197,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `t_sku` (
   `state` char(2) NOT NULL COMMENT '0：已删除；1：上架；2：下架',
   `goods_id` int(11) NOT NULL COMMENT '商品id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='商品SKU主表';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='商品SKU主表';
 
 -- 正在导出表  mz-g.t_sku 的数据：~6 rows (大约)
 DELETE FROM `t_sku`;
@@ -208,7 +207,9 @@ INSERT INTO `t_sku` (`id`, `sid`, `model`, `type`, `ptime`, `pprice`, `sprice`, 
 	(14, 'J000000S2001', 'NB新生儿96片装', 'SIZE', '2015-05-31 00:00:00', 200, 220, 'J000000S2001.jpg', '2015-05-31 19:44:36', '2015-05-31 19:45:11', '1', 17),
 	(15, 'J000000K2002', 'M中号68片', 'SIZE', '2015-05-31 00:00:00', 200, 220, 'J000000K2002.jpg', '2015-05-31 19:46:14', NULL, '1', 17),
 	(16, 'A000000B1005', '经典蓝', 'HEIGHT', '2015-06-07 00:00:00', 100, 120, 'A000000B1005.png', '2015-06-07 16:10:35', NULL, '1', 18),
-	(17, 'A000000Y1006', '怀旧蓝', 'HEIGHT', '2015-06-07 00:00:00', 100, 120, 'A000000Y1006.png', '2015-06-07 16:11:04', '2015-06-07 16:12:22', '1', 18);
+	(17, 'A000000Y1006', '怀旧蓝', 'HEIGHT', '2015-06-07 00:00:00', 100, 120, 'A000000Y1006.png', '2015-06-07 16:11:04', '2015-06-07 16:12:22', '1', 18),
+	(21, 'C0000000M401', '白色', 'SIZE', '2015-07-18 00:00:00', 40, 60, 'C0000000M401.jpg', '2015-07-18 22:03:27', NULL, '1', 23),
+	(22, 'C0000000V402', '蓝色', 'SIZE', '2015-07-18 00:00:00', 40, 60, 'C0000000V402.jpg', '2015-07-18 22:04:02', NULL, '1', 23);
 /*!40000 ALTER TABLE `t_sku` ENABLE KEYS */;
 
 
@@ -220,20 +221,20 @@ CREATE TABLE IF NOT EXISTS `t_sku_more` (
   `count` int(11) unsigned NOT NULL COMMENT '数量',
   `remark` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8 COMMENT='商品SKU更多表';
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8 COMMENT='商品SKU更多表';
 
 -- 正在导出表  mz-g.t_sku_more 的数据：~28 rows (大约)
 DELETE FROM `t_sku_more`;
 /*!40000 ALTER TABLE `t_sku_more` DISABLE KEYS */;
 INSERT INTO `t_sku_more` (`id`, `sku_id`, `size`, `count`, `remark`) VALUES
-	(92, 13, '100', 6, '备注备注备注'),
+	(92, 13, '100', 10, '备注备注备注'),
 	(93, 13, '110', 9, '备注备注备注'),
 	(94, 13, '120', 10, '备注备注备注'),
 	(95, 13, '130', 10, '备注备注备注'),
 	(96, 13, '140', 10, '备注备注备注'),
 	(97, 13, '150', 10, '备注备注备注'),
 	(98, 13, '160', 7, '备注备注备注'),
-	(113, 12, '100', 9, '备'),
+	(113, 12, '100', 30, '备'),
 	(114, 12, '110', 9, '备注备注备注'),
 	(115, 12, '120', 10, '备注备注备注'),
 	(116, 12, '130', 10, '备注'),
@@ -253,7 +254,17 @@ INSERT INTO `t_sku_more` (`id`, `sku_id`, `size`, `count`, `remark`) VALUES
 	(138, 17, '110', 10, '备注备注备注'),
 	(139, 17, '120', 10, '备注备注备注'),
 	(140, 17, '130', 10, '备注备注备注'),
-	(141, 17, '140', 10, NULL);
+	(141, 17, '140', 10, NULL),
+	(179, 21, 'S', 50, NULL),
+	(180, 21, 'M', 50, '备注备注备注'),
+	(181, 21, 'L', 50, NULL),
+	(182, 21, 'XL', 50, '备注备注备注'),
+	(183, 21, 'XXL', 50, NULL),
+	(184, 22, 'S', 50, NULL),
+	(185, 22, 'M', 50, '备注备注备注'),
+	(186, 22, 'L', 50, NULL),
+	(187, 22, 'XL', 50, '备注备注备注'),
+	(188, 22, 'XXL', 50, NULL);
 /*!40000 ALTER TABLE `t_sku_more` ENABLE KEYS */;
 
 
@@ -269,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `t_sku_prop_type` (
   `value_order` tinyint(4) DEFAULT NULL COMMENT 'value排序'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SKU扩展属性-type属性表';
 
--- 正在导出表  mz-g.t_sku_prop_type 的数据：~35 rows (大约)
+-- 正在导出表  mz-g.t_sku_prop_type 的数据：~106 rows (大约)
 DELETE FROM `t_sku_prop_type`;
 /*!40000 ALTER TABLE `t_sku_prop_type` DISABLE KEYS */;
 INSERT INTO `t_sku_prop_type` (`cate_code`, `item`, `name`, `title`, `evalue`, `cvalue`, `name_order`, `value_order`) VALUES
@@ -295,13 +306,84 @@ INSERT INTO `t_sku_prop_type` (`cate_code`, `item`, `name`, `title`, `evalue`, `
 	('S-1', 'SIZE_STANDARD', 'AGE', '年龄', '4+', '4岁', 3, 7),
 	('S-1', 'SIZE_STANDARD', 'AGE', '年龄', '5+', '5岁', 3, 8),
 	('S-1', 'SIZE_STANDARD', 'AGE', '年龄', '6+', '6岁', 3, 9),
-	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '100', '100cm', 1, 1),
-	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '110', '110cm', 1, 2),
-	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '120', '120cm', 1, 3),
-	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '130', '130cm', 1, 4),
-	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '140', '140cm', 1, 5),
-	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '150', '150cm', 1, 6),
-	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '160', '160cm', 1, 7),
+	('S-2', 'SIZE_STANDARD', 'SIZE', '尺码', 'S', '小号', 1, 1),
+	('S-2', 'SIZE_STANDARD', 'SIZE', '尺码', 'M', '中号', 1, 2),
+	('S-2', 'SIZE_STANDARD', 'SIZE', '尺码', 'L', '大号', 1, 3),
+	('S-2', 'SIZE_STANDARD', 'SIZE', '尺码', 'XL', '特大号', 1, 4),
+	('S-2', 'SIZE_STANDARD', 'SIZE', '尺码', 'XXL', '超大号', 1, 5),
+	('S-2', 'SIZE_STANDARD', 'SIZE', '尺码', 'XXXL', '超大号', 1, 6),
+	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '100', '100cm', 2, 1),
+	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '110', '110cm', 2, 2),
+	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '120', '120cm', 2, 3),
+	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '130', '130cm', 2, 4),
+	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '140', '140cm', 2, 5),
+	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '150', '150cm', 2, 6),
+	('S-2', 'SIZE_STANDARD', 'HEIGHT', '身高', '160', '160cm', 2, 7),
+	('S-2', 'SIZE_STANDARD', 'AGE', '年龄', '3M', '0-3个月', 3, 1),
+	('S-2', 'SIZE_STANDARD', 'AGE', '年龄', '6M', '4-6个月', 3, 2),
+	('S-2', 'SIZE_STANDARD', 'AGE', '年龄', '12M', '7-12个月', 3, 3),
+	('S-2', 'SIZE_STANDARD', 'AGE', '年龄', '1+', '1岁', 3, 4),
+	('S-2', 'SIZE_STANDARD', 'AGE', '年龄', '2+', '2岁', 3, 5),
+	('S-2', 'SIZE_STANDARD', 'AGE', '年龄', '3+', '3岁', 3, 6),
+	('S-2', 'SIZE_STANDARD', 'AGE', '年龄', '4+', '4岁', 3, 7),
+	('S-2', 'SIZE_STANDARD', 'AGE', '年龄', '5+', '5岁', 3, 8),
+	('S-2', 'SIZE_STANDARD', 'AGE', '年龄', '6+', '6岁', 3, 9),
+	('S-3', 'SIZE_STANDARD', 'SIZE', '尺码', 'S', '小号', 1, 1),
+	('S-3', 'SIZE_STANDARD', 'SIZE', '尺码', 'M', '中号', 1, 2),
+	('S-3', 'SIZE_STANDARD', 'SIZE', '尺码', 'L', '大号', 1, 3),
+	('S-3', 'SIZE_STANDARD', 'SIZE', '尺码', 'XL', '特大号', 1, 4),
+	('S-3', 'SIZE_STANDARD', 'SIZE', '尺码', 'XXL', '超大号', 1, 5),
+	('S-3', 'SIZE_STANDARD', 'SIZE', '尺码', 'XXXL', '超大号', 1, 6),
+	('S-3', 'SIZE_STANDARD', 'HEIGHT', '身高', '100', '100cm', 2, 1),
+	('S-3', 'SIZE_STANDARD', 'HEIGHT', '身高', '110', '110cm', 2, 2),
+	('S-3', 'SIZE_STANDARD', 'HEIGHT', '身高', '120', '120cm', 2, 3),
+	('S-3', 'SIZE_STANDARD', 'HEIGHT', '身高', '130', '130cm', 2, 4),
+	('S-3', 'SIZE_STANDARD', 'HEIGHT', '身高', '140', '140cm', 2, 5),
+	('S-3', 'SIZE_STANDARD', 'HEIGHT', '身高', '150', '150cm', 2, 6),
+	('S-3', 'SIZE_STANDARD', 'HEIGHT', '身高', '160', '160cm', 2, 7),
+	('S-3', 'SIZE_STANDARD', 'AGE', '年龄', '3M', '0-3个月', 3, 1),
+	('S-3', 'SIZE_STANDARD', 'AGE', '年龄', '6M', '4-6个月', 3, 2),
+	('S-3', 'SIZE_STANDARD', 'AGE', '年龄', '12M', '7-12个月', 3, 3),
+	('S-3', 'SIZE_STANDARD', 'AGE', '年龄', '1+', '1岁', 3, 4),
+	('S-3', 'SIZE_STANDARD', 'AGE', '年龄', '2+', '2岁', 3, 5),
+	('S-3', 'SIZE_STANDARD', 'AGE', '年龄', '3+', '3岁', 3, 6),
+	('S-3', 'SIZE_STANDARD', 'AGE', '年龄', '4+', '4岁', 3, 7),
+	('S-3', 'SIZE_STANDARD', 'AGE', '年龄', '5+', '5岁', 3, 8),
+	('S-3', 'SIZE_STANDARD', 'AGE', '年龄', '6+', '6岁', 3, 9),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '13', '13cm', 1, 1),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '14', '14cm', 1, 2),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '15', '15cm', 1, 3),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '16', '16cm', 1, 4),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '17', '17cm', 1, 5),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '18', '18cm', 1, 6),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '19', '19cm', 1, 7),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '20', '20cm', 1, 8),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '21', '21cm', 1, 9),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '22', '22cm', 1, 10),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '23', '23cm', 1, 11),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '24', '24cm', 1, 12),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '25', '25cm', 1, 13),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '26', '26cm', 1, 14),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '27', '27cm', 1, 15),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '28', '28cm', 1, 16),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '29', '29cm', 1, 17),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '30', '30cm', 1, 18),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '31', '31cm', 1, 19),
+	('S-4', 'SIZE_STANDARD', 'LENGTH', '长度', '32', '32cm', 1, 20),
+	('S-5', 'SIZE_STANDARD', 'AGE', '年龄', '1-3', '1-3岁', 1, 1),
+	('S-5', 'SIZE_STANDARD', 'AGE', '年龄', '3-6', '3-6岁', 1, 2),
+	('S-5', 'SIZE_STANDARD', 'AGE', '年龄', '6-10', '6-10岁', 1, 3),
+	('S-5', 'SIZE_STANDARD', 'AGE', '年龄', '10-15', '10-15岁', 1, 4),
+	('S-5', 'SIZE_STANDARD', 'SIZE', '尺码', 'S', '小号', 2, 1),
+	('S-5', 'SIZE_STANDARD', 'SIZE', '尺码', 'M', '中号', 2, 2),
+	('S-5', 'SIZE_STANDARD', 'SIZE', '尺码', 'L', '大号', 2, 3),
+	('S-5', 'SIZE_STANDARD', 'SIZE', '尺码', 'XL', '特大号', 2, 4),
+	('S-6', 'SIZE_STANDARD', 'A2', 'A2', '1', '新生儿', 1, 1),
+	('S-6', 'SIZE_STANDARD', 'A2', 'A2', '2', '6个月以上', 1, 2),
+	('S-6', 'SIZE_STANDARD', 'A2', 'A2', '3', '1岁以上', 1, 3),
+	('S-6', 'SIZE_STANDARD', 'A2', 'A2', '1', '新生儿', 1, 1),
+	('S-6', 'SIZE_STANDARD', 'A2', 'A2', '2', '6个月以上', 1, 2),
+	('S-6', 'SIZE_STANDARD', 'A2', 'A2', '3', '1岁以上', 1, 3),
 	('S-10', 'SIZE_STANDARD', 'SIZE', '尺码', 'NB', '新生儿', 1, 1),
 	('S-10', 'SIZE_STANDARD', 'SIZE', '尺码', 'S', '小号', 1, 2),
 	('S-10', 'SIZE_STANDARD', 'SIZE', '尺码', 'M', '中号', 1, 3),

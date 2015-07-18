@@ -14,34 +14,34 @@ public interface OrderDao {
     /**
      * save order within items
      *
-     * @param o
+     * @param o order
      */
     Order insertWithItems(Order o);
 
     /**
      * find order by id
      *
-     * @param id
+     * @param id order id
      */
     Order find(long id);
 
     /**
      * find order within items by id
      *
-     * @param id
+     * @param id order id
      */
     Order findWithLinks(long id);
 
     /**
      * list
      *
-     * @param pageNum     pageNum
-     * @param pageSize    pageSize
-     * @param p           period of order
      * @param qcondOnCust 可以是customer.cid/customer.name/customer.msisdn
      * @param u           当前用户
+     * @param p           period of order
+     * @param pageNum     pageNum
+     * @param pageSize    pageSize
      * @return
      */
-    QueryResult list(int pageNum, int pageSize, Period p, String qcondOnCust, User u);
+    QueryResult list(String qcondOnCust, Period p, User u, int pageNum, int pageSize);
 
 }
