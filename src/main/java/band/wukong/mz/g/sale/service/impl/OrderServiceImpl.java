@@ -103,8 +103,8 @@ public class OrderServiceImpl implements OrderService {
                 long newPaymentClothing = cust.getPaymentClothing();
 
                 //2、查询产品的库存是否都足够
-                //3、下单
-                //5、更新库存
+                //3、创建订单
+                //4、更新库存
                 Order o = new Order();
                 o.setUserId(userId);
                 o.setCustId(carts[0].getCustId());
@@ -127,9 +127,9 @@ public class OrderServiceImpl implements OrderService {
                     skuService.reduceStock(smv.getSkuMoreId(), c.getCount());
                 }
                 o.setItems(items);
-                orderDao.insertWithItems(o);
+                orderDao.insertWithItems(o);    //创建订单
 
-                // 4、看下单内容中有无服装类。看cust是不是非会员顾客，是会员才会更新paymentclothing
+                // 5、看下单内容中有无服装类。看cust是不是非会员顾客，是会员才会更新paymentclothing
                 // 有就更新用户表服装paymentClothing的值，新值为原有值+新单中服装类商品的成交价
                 if (o.getCustId() != Customer.NON_MEMBER_ID && newPaymentClothing > nowPaymentClothing) {
                     cust.setPaymentClothing(newPaymentClothing);
