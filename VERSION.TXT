@@ -28,7 +28,7 @@ mz-g-0.3.2015.07xx
 - Goods         ok
 - SKU           ok
 - Cart          ok
-- Order         doing |  {ok: orderDao, itemDao}   {doing: OrderServiceImplTest}
+- Order         doing |  {ok: back}   {ready: front}
 
 + Bug List
 - [new]现在数据库里item表cate_code_snapshot怎么都为0？

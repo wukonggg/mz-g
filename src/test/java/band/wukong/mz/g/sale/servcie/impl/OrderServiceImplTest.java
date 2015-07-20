@@ -1,22 +1,29 @@
 package band.wukong.mz.g.sale.servcie.impl;
 
 import band.wukong.mz.base.bean.Period;
+import band.wukong.mz.g.AppConst;
+import band.wukong.mz.g.category.SimpleCateConst;
 import band.wukong.mz.g.customer.service.CustomerService;
 import band.wukong.mz.g.privilege.bean.User;
+import band.wukong.mz.g.sale.bean.Cart;
 import band.wukong.mz.g.sale.bean.Item;
-import band.wukong.mz.g.sale.service.impl.OrderServiceImpl;
+import band.wukong.mz.g.sale.bean.Order;
+import band.wukong.mz.g.sale.service.CartService;
+import band.wukong.mz.g.sale.service.DiscountRule;
+import band.wukong.mz.g.sale.service.OrderService;
 import band.wukong.mz.g.sku.dao.SkuMoreDao;
-import band.wukong.mz.g.sku.dao.impl.SkuMoreDaoImpl;
 import band.wukong.mz.nutz.NutzTestHelper;
 import band.wukong.mz.util.DateUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.nutz.dao.QueryResult;
 import org.nutz.ioc.Ioc;
 
-import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * As you see...
@@ -26,16 +33,18 @@ import java.util.Date;
 public class OrderServiceImplTest {
 
     private Ioc ioc;
-    private OrderServiceImpl orderService;
+    private OrderService orderService;
     private SkuMoreDao skuMoreDao;
     private CustomerService custService;
+    private CartService cartService;
 
     @Before
     public void setUp() throws ClassNotFoundException {
         ioc = NutzTestHelper.createIoc();
-        orderService = ioc.get(OrderServiceImpl.class);
-        skuMoreDao = ioc.get(SkuMoreDaoImpl.class);
+        orderService = ioc.get(OrderService.class);
+        skuMoreDao = ioc.get(SkuMoreDao.class);
         custService = ioc.get(CustomerService.class);
+        cartService = ioc.get(CartService.class);
     }
 
     @After
@@ -54,9 +63,82 @@ public class OrderServiceImplTest {
         String qcond = "99999999998";   //cid
         Period period = new Period(DateUtils.convert2date("2015-01-01"), DateUtils.convert2date("2015-07-20"));
         User user = new User();
-//        user.setId();
-//        orderService.listDetail(qcond, period, );
+        user.setId(1L);
+        QueryResult qr = orderService.listDetail(qcond, period, user, 0, AppConst.PAGE_NUM_DFT);
+        Assert.assertNotNull(qr.getPager().getRecordCount());
+        Assert.assertTrue(qr.getList(Order.class).size() > 0);
+    }
 
+    @Test
+    public void pay() {
+        // 1、pay方法是否返回了新生成的order
+        // 2、库存数量变化
+        // 3、购物车变化
+        // 4、paymentClothing变化
+
+
+        final Long CUST_ID = 2L;
+        final Long CUST_CID = 99999999999L;
+        final Long USER_ID = 1L;
+        final Long SKU_MORE_ID = 93L;
+        final String CATE_CODE = SimpleCateConst.CATE_CODE_A_SYTZ;
+        final int SPRICE = 120;
+        final int DCOUNT = 1;
+        final double PAYMENT = 108;
+
+
+        int pre_skuMore_count = skuMoreDao.find(SKU_MORE_ID).getCount();
+        long pre_paymentClothing = custService.find(CUST_ID).getPaymentClothing();
+
+
+        Cart[] carts = new Cart[1];
+        Cart cart = new Cart();
+        cart.setCustId(CUST_ID);
+        cart.setSkuMoreId(SKU_MORE_ID);
+        cart.setCount(DCOUNT);
+        cart.setSprice(SPRICE);
+        cart.setCount(DCOUNT);
+        cart.setPayment(PAYMENT);
+        carts[0] = cart;
+        Order order = orderService.pay(carts, USER_ID);
+
+        // 1、pay方法是否返回了新生成的order
+        Assert.assertNotNull(order);
+        Assert.assertTrue(order.getItems().size() == 1);
+
+        // 2、库存数量变化
+        int curr_skuMore_count = skuMoreDao.find(SKU_MORE_ID).getCount();
+        Assert.assertTrue(pre_skuMore_count == curr_skuMore_count + DCOUNT);
+
+        // 3、购物车变化
+        Map<String, List<Cart>> userCartsMap= cartService.listGroupByCust(USER_ID);
+        Assert.assertTrue(null != userCartsMap);
+        List<Cart> cartsOfCust = userCartsMap.get(CUST_CID);
+        if (null != cartsOfCust) {
+            for (Cart c : cartsOfCust) {
+                // 如果找到了key为cid的CartList中有skuMoreId，说明没有删掉
+                Assert.assertTrue(SKU_MORE_ID != c.getSkuMoreId());
+            }
+        }   // 如果carsOfCust为null，则说明ok。所以就不用else了。
+
+        // 4、paymentClothing变化
+        if(DiscountRule.hasClothingDiscount(CATE_CODE)) {
+            long payment = order.getItems().get(0).getPayment();
+            long curr_paymentClothing = custService.find(CUST_ID).getPaymentClothing();
+            Assert.assertTrue(payment + pre_paymentClothing == curr_paymentClothing);
+        }
+
+        // FIXME 补充失败情况的单元测试用例
+        // 1、用户是否存在
+        // 2、顾客是否存在
+        // 3、购买数量大于
+    }
+
+    @Test
+    public void findItemWithOrder() {
+        Item item = orderService.findItemWithOrder(9);
+        Assert.assertNotNull(item);
+        Assert.assertNotNull(item.getOrder());
     }
 
     @Test
