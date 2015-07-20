@@ -109,7 +109,7 @@
                             <td style="width:10%">
                                 零售价：<span class="mz-order-sprice">${i.sku.sprice}</span><br>
                                 折扣价：<span class="mz-text-grey">${i.dprice}</span><br>
-                                付&nbsp;&nbsp;&nbsp;&nbsp;款：<span class="mz-order-dprice mz-ic-payment">${i.payment}</span>
+                                实付单价：<span class="mz-order-dprice mz-ic-payment">${i.payment}</span>
                             </td>
                             <td style="width:80px;">
                                 <%--<a href="#">订单详情</a><br>--%>
@@ -138,7 +138,7 @@
                             <td style="width:10%">
                                 零售价：<span class="mz-order-sprice">${i.sku.sprice}</span><br>
                                 折扣价：<span class="mz-text-grey">${i.dprice}</span><br>
-                                付&nbsp;&nbsp;&nbsp;&nbsp;款：<span class="mz-order-dprice mz-ic-payment">${i.payment}</span>
+                                实付单价：<span class="mz-order-dprice mz-ic-payment">${i.payment}</span>
                             </td>
                             <td style="width:80px;">
                                 <%--<a href="#">订单详情</a><br>--%>

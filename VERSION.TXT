@@ -19,20 +19,17 @@
 - 把band.wukong.mz.util干掉，换进来band.wukong.util
 
 
-mz-g-0.3.2015.07xx
+mz-g-0.3.2015.0721
 ==============================================
 1、AppConst.PAGE_NUM_DFT改为7
+2、order_list.jsp中文字“付款”改为“实付单价”
 
 + 测试计划：
 - Customer      ok
 - Goods         ok
 - SKU           ok
 - Cart          ok
-- Order         doing |  {ok: back}   {ready: front}
-
-+ Bug List
-- [new]现在数据库里item表cate_code_snapshot怎么都为0？
-- [new]sku_prop_type表的数据要补充完全?
+- Order         ok
 
 mz-g-0.3.2015.0706
 ==============================================

@@ -23,12 +23,9 @@ CREATE TABLE IF NOT EXISTS `t_cart` (
   `count` int(11) unsigned NOT NULL COMMENT '数量'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='购物车';
 
--- 正在导出表  mz-g.t_cart 的数据：~3 rows (大约)
+-- 正在导出表  mz-g.t_cart 的数据：~0 rows (大约)
 DELETE FROM `t_cart`;
 /*!40000 ALTER TABLE `t_cart` DISABLE KEYS */;
-INSERT INTO `t_cart` (`user_id`, `cust_id`, `sku_more_id`, `count`) VALUES
-	(1, '3', 121, 1),
-	(1, '3', 123, 1);
 /*!40000 ALTER TABLE `t_cart` ENABLE KEYS */;
 
 
@@ -85,8 +82,8 @@ DELETE FROM `t_customer`;
 /*!40000 ALTER TABLE `t_customer` DISABLE KEYS */;
 INSERT INTO `t_customer` (`id`, `cid`, `name`, `birth`, `msisdn`, `address`, `remark`, `payment_clothing`, `state`) VALUES
 	(1, '00000004', '非会员顾客', '2014-11-16', '0', '0', NULL, 0, '1'),
-	(2, '99999999999', 'Abel', '2015-04-10', '18181798763', 'sdf', '11', 2908, '1'),
-	(3, '99999999998', 'Black', '2015-04-10', '18982746372', NULL, NULL, 1000, '1'),
+	(2, '99999999999', 'Abel', '2015-04-10', '18181798763', 'sdf', '11', 2808, '1'),
+	(3, '99999999998', 'Black', '2015-04-10', '18982746372', NULL, NULL, 1100, '1'),
 	(4, '99999999997', 'Candy', '2015-04-10', '18238374659', NULL, NULL, 5000, '1'),
 	(5, '99999999996', 'Daniel', '2015-04-10', '18928374678', NULL, NULL, 0, '1'),
 	(6, '99999999995', 'Ema', '2015-04-10', '18238479906', '123123sd阿斯达', NULL, 0, '0'),
@@ -138,9 +135,9 @@ CREATE TABLE IF NOT EXISTS `t_item` (
   `state` char(2) NOT NULL DEFAULT '0' COMMENT '0：已删除；1：有效；2：退货',
   `order_id` int(11) NOT NULL DEFAULT '0' COMMENT 'order表pk',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_item 的数据：~11 rows (大约)
+-- 正在导出表  mz-g.t_item 的数据：~13 rows (大约)
 DELETE FROM `t_item`;
 /*!40000 ALTER TABLE `t_item` DISABLE KEYS */;
 INSERT INTO `t_item` (`id`, `sku_id`, `sku_more_id`, `cate_code_snapshot`, `sprice_snapshot`, `dprice`, `dcount`, `payment`, `return_time`, `return_user_id`, `return_reason`, `return_desc`, `state`, `order_id`) VALUES
@@ -154,7 +151,10 @@ INSERT INTO `t_item` (`id`, `sku_id`, `sku_more_id`, `cate_code_snapshot`, `spri
 	(8, 13, 92, '0', 120, 120, 1, 120, NULL, 0, NULL, '0', '1', 5),
 	(9, 12, 113, '0', 100, 100, 5, 500, NULL, 0, NULL, '0', '1', 6),
 	(10, 12, 113, '0', 100, 100, -1, -100, '2015-07-06 00:13:35', 1, '1', 'akakakk', '2', 6),
-	(15, 12, 113, '0', 100, 100, -1, -100, '2015-07-20 10:43:36', 1, '2', '就不告诉你。。。', '2', 6);
+	(15, 12, 113, '0', 100, 100, -1, -100, '2015-07-20 10:43:36', 1, '2', '就不告诉你。。。', '2', 6),
+	(16, 14, 121, 'S-10', 220, 220, 1, 220, NULL, 0, NULL, NULL, '1', 7),
+	(17, 16, 123, 'S-1', 120, 108, 1, 100, NULL, 0, NULL, NULL, '1', 7),
+	(18, 12, 113, '0', 100, 100, -1, -100, '2015-07-21 00:20:47', 1, '2', 'lalalala', '2', 6);
 /*!40000 ALTER TABLE `t_item` ENABLE KEYS */;
 
 
@@ -165,9 +165,9 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   `cust_id` int(11) NOT NULL COMMENT '顾客id',
   `dtime` datetime NOT NULL COMMENT '成交时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_order 的数据：~6 rows (大约)
+-- 正在导出表  mz-g.t_order 的数据：~7 rows (大约)
 DELETE FROM `t_order`;
 /*!40000 ALTER TABLE `t_order` DISABLE KEYS */;
 INSERT INTO `t_order` (`id`, `user_id`, `cust_id`, `dtime`) VALUES
@@ -176,7 +176,8 @@ INSERT INTO `t_order` (`id`, `user_id`, `cust_id`, `dtime`) VALUES
 	(3, 1, 3, '2015-06-01 14:48:03'),
 	(4, 1, 3, '2015-06-07 16:17:31'),
 	(5, 1, 1, '2015-06-10 14:45:35'),
-	(6, 1, 2, '2015-06-10 15:11:26');
+	(6, 1, 2, '2015-06-10 15:11:26'),
+	(7, 1, 3, '2015-07-21 00:17:06');
 /*!40000 ALTER TABLE `t_order` ENABLE KEYS */;
 
 
@@ -233,16 +234,16 @@ INSERT INTO `t_sku_more` (`id`, `sku_id`, `size`, `count`, `remark`) VALUES
 	(96, 13, '140', 10, '备注备注备注'),
 	(97, 13, '150', 10, '备注备注备注'),
 	(98, 13, '160', 7, '备注备注备注'),
-	(113, 12, '100', 31, '备'),
+	(113, 12, '100', 32, '备'),
 	(114, 12, '110', 9, '备注备注备注'),
 	(115, 12, '120', 10, '备注备注备注'),
 	(116, 12, '130', 10, '备注'),
 	(117, 12, '140', 10, '备注备注备注'),
 	(118, 12, '150', 10, '备注备注备注'),
 	(119, 12, '160', 10, NULL),
-	(121, 14, 'NB', 30, '备注备注'),
+	(121, 14, 'NB', 29, '备注备注'),
 	(122, 15, 'M', 30, '备注备注备注'),
-	(123, 16, '100', 10, '备注备注备注'),
+	(123, 16, '100', 9, '备注备注备注'),
 	(124, 16, '110', 10, '备注备注备注'),
 	(125, 16, '120', 10, '备注备注备注'),
 	(126, 16, '130', 10, '备注备注备注'),
@@ -401,7 +402,7 @@ CREATE TABLE IF NOT EXISTS `t_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表。暂时没用到。';
 
--- 正在导出表  mz-g.t_user 的数据：~3 rows (大约)
+-- 正在导出表  mz-g.t_user 的数据：~2 rows (大约)
 DELETE FROM `t_user`;
 /*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
 INSERT INTO `t_user` (`id`, `login_name`, `pwd`, `state`) VALUES
