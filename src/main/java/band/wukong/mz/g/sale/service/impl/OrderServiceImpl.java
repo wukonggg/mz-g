@@ -81,10 +81,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void pay(final Cart[] carts, final Long userId) {
+    public Order pay(final Cart[] carts, final Long userId) {
         if (!OrderServiceValidator.pay(carts, userId)) {
             throw new IllegalParameterException();
         }
+
+        final Order[] order = new Order[1];    //order for return
 
         //1、查询用户是否存在、营业员是否存在。都存在才下一步
         if (null == userService.find(userId)) {
@@ -127,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
                     skuService.reduceStock(smv.getSkuMoreId(), c.getCount());
                 }
                 o.setItems(items);
-                orderDao.insertWithItems(o);    //创建订单
+                order[0] = orderDao.insertWithItems(o);    //创建订单
 
                 // 5、看下单内容中有无服装类。看cust是不是非会员顾客，是会员才会更新paymentclothing
                 // 有就更新用户表服装paymentClothing的值，新值为原有值+新单中服装类商品的成交价
@@ -142,6 +144,7 @@ public class OrderServiceImpl implements OrderService {
                 }
             }
         });
+        return order[0];
     }
 
     @Override

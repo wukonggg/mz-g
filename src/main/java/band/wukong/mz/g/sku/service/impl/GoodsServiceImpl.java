@@ -77,8 +77,8 @@ public class GoodsServiceImpl implements GoodsService {
         Goods g = goodsDao.find(id);
         g.setState(Goods.STATE_RM);
         goodsDao.update(g);
-        //REQ 补充业务逻辑：当删除商品时，商品如果有对应SKU，则提示不能被删除
-        //REQ 现在删除时没有删除图片
+        // REQ 补充业务逻辑：当删除商品时，商品如果有对应SKU，则提示不能被删除
+        // REQ 现在删除时没有删除图片
     }
 
     @Override

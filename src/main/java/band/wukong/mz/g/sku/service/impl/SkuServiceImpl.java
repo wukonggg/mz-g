@@ -125,7 +125,7 @@ public class SkuServiceImpl implements SkuService {
         sku.setState(Sku.STATE_RM);
         skuDao.updateWithMore(sku);
 
-        //REQ 现在删除时没有删除图片
+        // REQ 现在删除时没有删除图片
         File src = new File("");
         File target = new File("");
 

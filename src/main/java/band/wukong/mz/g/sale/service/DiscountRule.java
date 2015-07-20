@@ -44,7 +44,7 @@ public class DiscountRule {
      * 优惠规则。目前只有服装类才有优惠
      *
      * @param cateCode cateCode
-     * @param fee      历史购买服装类商品支付的总金额
+     * @param fee      历史购买某类商品支付的合计金额，目前只有服装类。fee就代表服装类
      * @return double
      */
     public static double discount(String cateCode, double fee) {
@@ -76,7 +76,7 @@ public class DiscountRule {
      * @param cateCode cateCode
      * @return
      */
-    private static boolean hasClothingDiscount(String cateCode) {
+    public static boolean hasClothingDiscount(String cateCode) {
         return SimpleCateConst.CATE_CODE_A_SYTZ.equals(cateCode)
                 || SimpleCateConst.CATE_CODE_B_KZ.equals(cateCode)
                 || SimpleCateConst.CATE_CODE_C_NY.equals(cateCode)

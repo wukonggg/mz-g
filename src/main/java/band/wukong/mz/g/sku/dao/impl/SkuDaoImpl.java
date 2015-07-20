@@ -90,7 +90,7 @@ public class SkuDaoImpl implements SkuDao {
             }
         });
         //CASE nutz:dao 数据库事务的使用
-        //FIXME 这里的事务还没有做单元测试
+        // FIXME 这里的事务还没有做失败时的单元测试
     }
 
     @Override
