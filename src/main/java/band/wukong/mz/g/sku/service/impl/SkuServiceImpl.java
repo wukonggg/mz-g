@@ -12,7 +12,7 @@ import band.wukong.mz.g.sku.dao.SkuMoreDao;
 import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.mz.g.sku.service.SidGenerator;
 import band.wukong.mz.g.sku.service.SkuService;
-import band.wukong.mz.util.FileUtils;
+import band.wukong.util.FileUtil;
 import org.nutz.dao.QueryResult;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -67,7 +67,7 @@ public class SkuServiceImpl implements SkuService {
             public void run() {
                 s.setSid(sidGenerator.nextSid(cateCode, s));
                 if (null != s.getGimg()) {
-                    s.setImg(s.getSid() + "." + FileUtils.getFileExtension(s.getGimg()));
+                    s.setImg(s.getSid() + "." + FileUtil.getFileExtension(s.getGimg()));
                 } else {
                     s.setImg(Sku.IMG_DFT);    //图片名称
                 }
@@ -108,7 +108,7 @@ public class SkuServiceImpl implements SkuService {
 
         if (null != s.getGimg()) {
             Files.deleteFile(new File(path + File.separator + sku.getImg()));
-            File pic = new File(path + File.separator + sku.getSid() + "." + FileUtils.getFileExtension(s.getGimg()));
+            File pic = new File(path + File.separator + sku.getSid() + "." + FileUtil.getFileExtension(s.getGimg()));
             Files.copy(s.getGimg(), pic);
         }
         skuDao.updateWithMore(sku);

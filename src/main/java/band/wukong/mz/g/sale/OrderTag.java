@@ -1,7 +1,7 @@
 package band.wukong.mz.g.sale;
 
 import band.wukong.mz.g.sale.service.DiscountRule;
-import band.wukong.mz.util.Calculator;
+import band.wukong.util.Calculator;
 
 /**
  * description

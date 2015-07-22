@@ -13,7 +13,7 @@ import band.wukong.mz.g.sale.service.DiscountRule;
 import band.wukong.mz.g.sale.service.OrderService;
 import band.wukong.mz.g.sku.dao.SkuMoreDao;
 import band.wukong.mz.nutz.NutzTestHelper;
-import band.wukong.mz.util.DateUtils;
+import band.wukong.util.DateUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -61,7 +61,7 @@ public class OrderServiceImplTest {
     @Test
     public void listDetail() {
         String qcond = "99999999998";   //cid
-        Period period = new Period(DateUtils.convert2date("2015-01-01"), DateUtils.convert2date("2015-07-20"));
+        Period period = new Period(DateUtil.convert2date("2015-01-01"), DateUtil.convert2date("2015-07-20"));
         User user = new User();
         user.setId(1L);
         QueryResult qr = orderService.listDetail(qcond, period, user, 0, AppConst.PAGE_NUM_DFT);
@@ -180,7 +180,7 @@ public class OrderServiceImplTest {
         Assert.assertEquals(DT_RET_REASON, item_returned.getState());
         Assert.assertEquals(DT_RET_COUNT, -item_returned.getDcount());
         Assert.assertEquals(item_returned.getDprice() * item_returned.getDcount(), item_returned.getPayment());
-        Assert.assertTrue(DateUtils.isSameDay(new Date(), item_returned.getReturnTime()));
+        Assert.assertTrue(DateUtil.isSameDay(new Date(), item_returned.getReturnTime()));
         Assert.assertTrue(DT_RET_REASON.equals(item_returned.getReturnReason()));
         Assert.assertTrue(DT_RET_DESC.equals(item_returned.getReturnDesc()));
 

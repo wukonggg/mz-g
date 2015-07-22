@@ -4,7 +4,7 @@ import band.wukong.mz.base.exception.IllegalParameterException;
 import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.dao.GoodsDao;
 import band.wukong.mz.g.sku.service.GoodsService;
-import band.wukong.mz.util.FileUtils;
+import band.wukong.util.FileUtil;
 import org.nutz.dao.QueryResult;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -31,7 +31,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Goods save(Goods g, String path) {
         if (null != g.getGimg()) {
-            File pic = new File(path + File.separator + UUID.randomUUID() + "." + FileUtils.getFileExtension(g.getGimg()));
+            File pic = new File(path + File.separator + UUID.randomUUID() + "." + FileUtil.getFileExtension(g.getGimg()));
             Files.copy(g.getGimg(), pic);
             g.setImg(pic.getName());    //图片名称
         } else {
@@ -56,7 +56,7 @@ public class GoodsServiceImpl implements GoodsService {
         log.debug("PATH:\n" + path);
 
         if (null != g.getGimg()) {
-            File pic = new File(path + File.separator + UUID.randomUUID() + "." + FileUtils.getFileExtension(g.getGimg()));
+            File pic = new File(path + File.separator + UUID.randomUUID() + "." + FileUtil.getFileExtension(g.getGimg()));
             Files.copy(g.getGimg(), pic);
             g.setImg(pic.getName());
         }

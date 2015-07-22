@@ -5,7 +5,7 @@ import band.wukong.mz.g.category.bean.Category;
 import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.mz.nutz.NutzTestHelper;
-import band.wukong.mz.util.DateUtils;
+import band.wukong.util.DateUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -50,7 +50,7 @@ public class GoodsServiceImplTest {
     @Test
     public void save_find() {
         Goods g = new Goods();
-        g.setGname("junit_" + DateUtils.format(new Date()));
+        g.setGname("junit_" + DateUtil.format(new Date()));
         g.setCateCode(SimpleCateConst.CATE_CODE_A_SYTZ);
         g.setGimg(new File(path_client + "\\lin.png"));
 
@@ -66,7 +66,7 @@ public class GoodsServiceImplTest {
     @Test
     public void find_update_find() {
         Goods g = new Goods();
-        g.setGname("junit_" + DateUtils.format(new Date()));
+        g.setGname("junit_" + DateUtil.format(new Date()));
 
         Goods g1 = service.find(g.getGname());
         Assert.assertNotNull(g1);
@@ -83,7 +83,7 @@ public class GoodsServiceImplTest {
     @Test
     public void find_rm_find() {
         Goods g = new Goods();
-        g.setGname("junit_" + DateUtils.format(new Date()));
+        g.setGname("junit_" + DateUtil.format(new Date()));
 
         Goods g1 = service.find(g.getGname());
         Assert.assertNotNull(g1);

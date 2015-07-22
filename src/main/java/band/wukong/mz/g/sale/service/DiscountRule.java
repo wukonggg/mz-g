@@ -1,7 +1,7 @@
 package band.wukong.mz.g.sale.service;
 
 import band.wukong.mz.g.category.SimpleCateConst;
-import band.wukong.mz.util.Calculator;
+import band.wukong.util.Calculator;
 
 /**
  * 优惠规则

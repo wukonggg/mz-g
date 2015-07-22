@@ -8,7 +8,7 @@ import band.wukong.mz.g.sku.dao.GoodsDao;
 import band.wukong.mz.g.sku.dao.SkuDao;
 import band.wukong.mz.g.sku.service.SkuPropTypeService;
 import band.wukong.mz.nutz.NutzTestHelper;
-import band.wukong.mz.util.DateUtils;
+import band.wukong.util.DateUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,7 +49,7 @@ public class SkuDaoImplTest {
     public void insertWithMore_findWithLinks() {
         Date now = new Date();
         Sku sku = new Sku();
-        sku.setSid("junit_sid_" + DateUtils.format(now));
+        sku.setSid("junit_sid_" + DateUtil.format(now));
         sku.setModel("海冰蓝");
         sku.setType("HEIGHT");
         sku.setPtime(now);
@@ -90,7 +90,7 @@ public class SkuDaoImplTest {
     @Test
     public void findWithLinks_updateWithMore_findWithLinks() {
         Date now = new Date();
-        Sku sku = skuDao.findWithLinks("junit_sid_" + DateUtils.format(now));
+        Sku sku = skuDao.findWithLinks("junit_sid_" + DateUtil.format(now));
         sku.setUtime(now);
         for (SkuMore sm : sku.getMoreList()) {
             sm.setRemark("junit_remark_update");
@@ -108,7 +108,7 @@ public class SkuDaoImplTest {
     @Test
     public void findWithLinks_rm() {
         Date now = new Date();
-        Sku sku = skuDao.findWithLinks("junit_sid_" + DateUtils.format(now));
+        Sku sku = skuDao.findWithLinks("junit_sid_" + DateUtil.format(now));
         skuDao.rm(sku.getId());
 
         Sku s1 = skuDao.findWithLinks(sku.getId());
