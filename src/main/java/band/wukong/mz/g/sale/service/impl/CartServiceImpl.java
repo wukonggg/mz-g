@@ -34,8 +34,57 @@ public class CartServiceImpl implements CartService {
     @Inject
     private Dao dao;
 
-    @Override
+    public Cart findByCondition(Cart c) {
+        if(c.getUserId() <= 0 || c.getCustId() <= 0 || c.getSkuMoreId() <= 0) {
+            throw new IllegalArgumentException();
+        }
+
+        return dao.fetch(Cart.class, Cnd.where("userId", "=", c.getUserId())
+                .and("custId", "=", c.getCustId())
+                .and("skuMoreId", "=", c.getSkuMoreId()));
+    }
+
     public List<Cart> add2Cart(long userId, String skuMoreIds, String cid) {
+        List<Cart> carts = new ArrayList<>();
+
+        User user = dao.fetch(User.class, userId);
+        if (null == user) {
+            SecurityException se = new SecurityException("There is someone try to do something bad...");
+            log.error(se.getMessage());
+            throw se;
+        }
+
+        Customer cust = null;
+        if (Strings.isBlank(cid)) {
+            cust = dao.fetch(Customer.class, Cnd.where("name", "=", Customer.NON_MEMBER_NAME));
+        } else {
+            cust = dao.fetch(Customer.class, cid);
+        }
+        if (null == cust) {
+            SecurityException se = new SecurityException("There is someone try to do something bad...");
+            log.error(se.getMessage());
+            throw se;
+        }
+
+        for (String skuMoreId : skuMoreIds.split(",")) {
+            Cart c = new Cart();
+            c.setUserId(userId);
+            c.setCustId(cust.getId());
+            c.setSkuMoreId(Long.parseLong(skuMoreId));
+            Cart cart = findByCondition(c);
+            if (null == cart) {
+                carts.add(dao.insert(c));
+            } else {
+                cart.setCount(cart.getCount() + 1);
+                dao.update(cart);
+                carts.add(cart);
+            }
+        }
+
+        return carts;
+    }
+
+    public List<Cart> add2Cart2(long userId, String skuMoreIds, String cid) {
         User user = dao.fetch(User.class, userId);
         if (null == user) {
             SecurityException se = new SecurityException("There is someone try to do something bad...");
@@ -112,4 +161,6 @@ public class CartServiceImpl implements CartService {
 
         dao.clear(Cart.class, cond);
     }
+
+
 }

@@ -12,7 +12,6 @@ import org.nutz.ioc.Ioc;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * As you see...
@@ -36,6 +35,22 @@ public class CartServiceImplTest {
         NutzTestHelper.destroyIoc(ioc);
     }
 
+
+    @Test
+    public void findByCondition() {
+        Cart c1 = new Cart();
+        c1.setUserId(1);
+        c1.setCustId(4);
+        c1.setSkuMoreId(92);
+        Assert.assertNotNull(service.findByCondition(c1));
+
+        Cart c2 = new Cart();
+        c2.setUserId(999);
+        c2.setCustId(999);
+        c2.setSkuMoreId(999);
+        Assert.assertNull(service.findByCondition(c2));
+    }
+
     @Test
     public void clear_add2Cart_listGroupByCust() {
         service.clear(USER_TEST_ID, Customer.NON_MEMBER_ID);
@@ -50,6 +65,15 @@ public class CartServiceImplTest {
         for (Cart c : cartMap.get(Customer.NON_MEMBER_CID)) {
             Assert.assertTrue(skuMoreIds.contains(String.valueOf(c.getSkuMoreId())));
         }
+    }
+
+    @Test
+    public void add2Cart_SameSkuMore() {
+        long userId = 1;
+        String cid = "99999999997";
+        String skuMoreId = "92";
+        List<Cart> carts = service.add2Cart(userId, skuMoreId, cid);
+        Assert.assertTrue(carts.size() == 1);
     }
 
     @Test(expected = SecurityException.class)

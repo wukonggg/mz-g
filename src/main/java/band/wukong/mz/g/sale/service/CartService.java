@@ -13,7 +13,14 @@ import java.util.Map;
 public interface CartService {
 
     /**
-     * 加入购物车
+     * findByCondition
+     * @param c 会用到userId, cid, skuMoreId
+     * @return Cart
+     */
+    public Cart findByCondition(Cart c);
+
+    /**
+     * 加入购物车。当在购物车中发现该用户该营业员下已经有这个skuMoreId，则更新（相加）数量
      *
      * @param userId     userId
      * @param skuMoreIds skuMoreIds. sample: 3,5,66,8

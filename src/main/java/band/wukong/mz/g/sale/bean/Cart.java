@@ -1,9 +1,6 @@
 package band.wukong.mz.g.sale.bean;
 
-import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Readonly;
-import org.nutz.dao.entity.annotation.Table;
-import org.nutz.dao.entity.annotation.View;
+import org.nutz.dao.entity.annotation.*;
 
 /**
  * As you see...
@@ -13,6 +10,9 @@ import org.nutz.dao.entity.annotation.View;
 @Table("t_cart")
 @View("v_cart")
 public class Cart {
+
+    @Id
+    private long id;
 
     @Column("user_id")
     private long userId;
@@ -84,6 +84,14 @@ public class Cart {
         this.custId = custId;
         this.skuMoreId = skuMoreId;
         this.count = count;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getCustId() {
@@ -225,7 +233,8 @@ public class Cart {
     @Override
     public String toString() {
         return "Cart{" +
-                "userId=" + userId +
+                "id=" + id +
+                ", userId=" + userId +
                 ", custId=" + custId +
                 ", skuMoreId=" + skuMoreId +
                 ", payment=" + payment +
