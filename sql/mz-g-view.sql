@@ -1,11 +1,10 @@
 /* MySql中所有View的select语句 */
 
 -- v_cart
-select ca.user_id as user_id, cu.id as cust_id, cu.cid as cid, cu.name, cu.msisdn, cu.payment_clothing
+select ca.id as id, ca.user_id as user_id, cu.id as cust_id, cu.cid as cid, cu.name, cu.msisdn, cu.payment_clothing
       ,g.gname as gname,g.cate_code as cate_code
       ,sku.sid as sid,sku.img as img,sku.model as model,sku.sprice as sprice
       ,sm.id as sku_more_id,sm.size as size,sm.count as scount,ca.count as count
-
 from t_cart ca
 inner join t_sku_more sm on sm.id = ca.sku_more_id
 inner join t_sku sku on sku.id = sm.sku_id

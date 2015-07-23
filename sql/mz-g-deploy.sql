@@ -17,15 +17,20 @@ USE `mz-g`;
 
 -- 导出  表 mz-g.t_cart 结构
 CREATE TABLE IF NOT EXISTS `t_cart` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL COMMENT '当前用户id',
   `cust_id` varchar(50) NOT NULL COMMENT '会员id',
   `sku_more_id` int(11) unsigned NOT NULL COMMENT 'sku_more_id',
-  `count` int(11) unsigned NOT NULL COMMENT '数量'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='购物车';
+  `count` int(11) unsigned NOT NULL COMMENT '数量',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=1 COMMENT='购物车';
 
--- 正在导出表  mz-g.t_cart 的数据：~0 rows (大约)
+-- 正在导出表  mz-g.t_cart 的数据：~2 rows (大约)
 DELETE FROM `t_cart`;
 /*!40000 ALTER TABLE `t_cart` DISABLE KEYS */;
+INSERT INTO `t_cart` (`id`, `user_id`, `cust_id`, `sku_more_id`, `count`) VALUES
+	(1, 1, '4', 93, 3),
+	(2, 1, '4', 92, 2);
 /*!40000 ALTER TABLE `t_cart` ENABLE KEYS */;
 
 
@@ -137,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `t_item` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_item 的数据：~13 rows (大约)
+-- 正在导出表  mz-g.t_item 的数据：~14 rows (大约)
 DELETE FROM `t_item`;
 /*!40000 ALTER TABLE `t_item` DISABLE KEYS */;
 INSERT INTO `t_item` (`id`, `sku_id`, `sku_more_id`, `cate_code_snapshot`, `sprice_snapshot`, `dprice`, `dcount`, `payment`, `return_time`, `return_user_id`, `return_reason`, `return_desc`, `state`, `order_id`) VALUES
@@ -167,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_order 的数据：~7 rows (大约)
+-- 正在导出表  mz-g.t_order 的数据：~6 rows (大约)
 DELETE FROM `t_order`;
 /*!40000 ALTER TABLE `t_order` DISABLE KEYS */;
 INSERT INTO `t_order` (`id`, `user_id`, `cust_id`, `dtime`) VALUES
@@ -289,7 +294,7 @@ INSERT INTO `t_sku_prop_type` (`cate_code`, `item`, `name`, `title`, `evalue`, `
 	('S-1', 'SIZE_STANDARD', 'SIZE', '尺码', 'L', '大号', 1, 3),
 	('S-1', 'SIZE_STANDARD', 'SIZE', '尺码', 'XL', '特大号', 1, 4),
 	('S-1', 'SIZE_STANDARD', 'SIZE', '尺码', 'XXL', '超大号', 1, 5),
-	('S-1', 'SIZE_STANDARD', 'SIZE', '尺码', 'XXXL', '超大号', 1, 6),
+	('S-1', 'SIZE_STANDARD', 'SIZE', '尺码', 'XXXL', '奇大号', 1, 6),
 	('S-1', 'SIZE_STANDARD', 'HEIGHT', '身高', '100', '100cm', 2, 1),
 	('S-1', 'SIZE_STANDARD', 'HEIGHT', '身高', '110', '110cm', 2, 2),
 	('S-1', 'SIZE_STANDARD', 'HEIGHT', '身高', '120', '120cm', 2, 3),
@@ -415,6 +420,7 @@ INSERT INTO `t_user` (`id`, `login_name`, `pwd`, `state`) VALUES
 -- 导出  视图 mz-g.v_cart 结构
 -- 创建临时表以解决视图依赖性错误
 CREATE TABLE `v_cart` (
+	`id` INT(11) UNSIGNED NOT NULL,
 	`user_id` INT(11) UNSIGNED NOT NULL COMMENT '当前用户id',
 	`cust_id` INT(11) NOT NULL,
 	`cid` VARCHAR(20) NOT NULL COMMENT '会员卡号' COLLATE 'utf8_general_ci',
@@ -458,7 +464,7 @@ CREATE TABLE `v_sku_more` (
 -- 导出  视图 mz-g.v_cart 结构
 -- 移除临时表并创建最终视图结构
 DROP TABLE IF EXISTS `v_cart`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_cart` AS select `ca`.`user_id` AS `user_id`,`cu`.`id` AS `cust_id`,`cu`.`cid` AS `cid`,`cu`.`name` AS `name`,`cu`.`msisdn` AS `msisdn`,`cu`.`payment_clothing` AS `payment_clothing`,`g`.`gname` AS `gname`,`g`.`cate_code` AS `cate_code`,`sku`.`sid` AS `sid`,`sku`.`img` AS `img`,`sku`.`model` AS `model`,`sku`.`sprice` AS `sprice`,`sm`.`id` AS `sku_more_id`,`sm`.`size` AS `size`,`sm`.`count` AS `scount`,`ca`.`count` AS `count` from ((((`t_cart` `ca` join `t_sku_more` `sm` on((`sm`.`id` = `ca`.`sku_more_id`))) join `t_sku` `sku` on((`sku`.`id` = `sm`.`sku_id`))) join `t_goods` `g` on((`g`.`id` = `sku`.`goods_id`))) join `t_customer` `cu` on((`cu`.`id` = `ca`.`cust_id`))) where ((`cu`.`state` = 1) and (`g`.`state` = 1) and (`sku`.`state` = 1));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_cart` AS select `ca`.`id` AS `id`,`ca`.`user_id` AS `user_id`,`cu`.`id` AS `cust_id`,`cu`.`cid` AS `cid`,`cu`.`name` AS `name`,`cu`.`msisdn` AS `msisdn`,`cu`.`payment_clothing` AS `payment_clothing`,`g`.`gname` AS `gname`,`g`.`cate_code` AS `cate_code`,`sku`.`sid` AS `sid`,`sku`.`img` AS `img`,`sku`.`model` AS `model`,`sku`.`sprice` AS `sprice`,`sm`.`id` AS `sku_more_id`,`sm`.`size` AS `size`,`sm`.`count` AS `scount`,`ca`.`count` AS `count` from ((((`t_cart` `ca` join `t_sku_more` `sm` on((`sm`.`id` = `ca`.`sku_more_id`))) join `t_sku` `sku` on((`sku`.`id` = `sm`.`sku_id`))) join `t_goods` `g` on((`g`.`id` = `sku`.`goods_id`))) join `t_customer` `cu` on((`cu`.`id` = `ca`.`cust_id`))) where ((`cu`.`state` = 1) and (`g`.`state` = 1) and (`sku`.`state` = 1));
 
 
 -- 导出  视图 mz-g.v_sku_more 结构
