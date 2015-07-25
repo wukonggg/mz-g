@@ -13,11 +13,19 @@ import java.util.Map;
 public interface CartService {
 
     /**
+     * find
+     *
+     * @param id id
+     * @return Cart
+     */
+    Cart find(long id);
+
+    /**
      * findByCondition
      * @param c 会用到userId, cid, skuMoreId
      * @return Cart
      */
-    public Cart findByCondition(Cart c);
+    Cart findByCondition(Cart c);
 
     /**
      * 加入购物车。当在购物车中发现该用户该营业员下已经有这个skuMoreId，则更新（相加）数量
@@ -36,6 +44,15 @@ public interface CartService {
      * @return Map的key是cid
      */
     Map<String, List<Cart>> listGroupByCust(long userId);
+
+    /**
+     * 根据客户更新数量
+     *
+     * @param id id
+     * @param newCount newCount
+     */
+    void updateCount(long id, int newCount);
+
 
     /**
      * 从购物车中删除商品

@@ -169,7 +169,7 @@
                                                   </button>
                                                 </span>
                                             </div>
-                                            <%--<input type="hidden" name="custId" value="${c.custId}"/>--%>
+                                            <input type="hidden" id="inp_cart_id_${cartsKV.key}_${c.skuMoreId}" value="${c.id}" class="mz-ic-cart-id"/>
                                             <input type="hidden" id="inp_custId_${cartsKV.key}_${c.skuMoreId}" value="${c.custId}"/>
                                             <input type="hidden" name="_skuMoreId" value="${c.skuMoreId}" class="mz-ic-carts-skuMoreId"/>
                                             <input type="hidden" name="_dprice" value="${o:calcDpriceInString(c.cateCode, c.paymentClothing, c.sprice, 2, "0.00")}" class="mz-ic-carts-dprice"/>
@@ -258,10 +258,10 @@
         $(".am-panel-hd").click(function () {
             console.log("enter");
             var cid = $(this).parent().attr("id").substring(14);
-            console.log("cid=" + cid);
-            console.log("cid class=" + $("#tbl_" + cid).attr("class"));
+//            console.log("cid=" + cid);
+//            console.log("cid class=" + $("#tbl_" + cid).attr("class"));
             $("#tbl_" + cid).toggleClass("mz-ic-table-hidden");
-            console.log("cid class=" + $("#tbl_" + cid).attr("class"));
+//            console.log("cid class=" + $("#tbl_" + cid).attr("class"));
             var iconNode = $(this).children(":first");
             console.log("$(iconNode).attr('class')" + $(iconNode).attr("class"));
             if(iconNode.attr("class") == "am-icon-plus") {
@@ -312,6 +312,7 @@
         //增加商品数量
         $("button[name='btn_count_add']").click(function () {
             //console.log($(this).parent().prev().val());
+            var cartId = $(this).parent().parent().nextAll(".mz-ic-cart-id");
             var countNode = $(this).parent().prev();
             var count = countNode.val();
             var scount = $(this).parent().parent().nextAll(".mz-ic-carts-scount").val();
@@ -323,33 +324,42 @@
 
             $(countNode).val(parseInt(count) + 1);
             $(countNode).change();
+            updateCount($(cartId).val(), countNode.val());
         });
         //减少商品数量
         $("button[name='btn_count_reduce']").click(function () {
+            var cartId = $(this).parent().parent().nextAll(".mz-ic-cart-id");
             var countNode = $(this).parent().next();
             var count = countNode.val();
-            if (count > 1) {
-                $(countNode).val(count - 1);
+            if (count == 1) {
+                return true;
             }
+            $(countNode).val(count - 1);
             $(countNode).change();
+            updateCount($(cartId).val(), countNode.val());
         });
 
 
         //商品数量改变时的事件绑定
-        $(".mz-ic-carts-count").on("change input", function () {
+        $(".mz-ic-carts-count").on("keyup change", function () {
+            var cartId = $(this).parent().nextAll(".mz-ic-cart-id").val();
             var cid = $(this).parent().nextAll(".mz-ic-carts-cid").val();
             var skuMoreId = $(this).parent().nextAll(".mz-ic-carts-skuMoreId").val();
             var dprice = $(this).parent().nextAll(".mz-ic-carts-dprice").val();
-//            console.log(cid.val());
-//            console.log(skuMoreId.val());
-//            console.log(dprice.val());
+            var scount = $(this).parent().nextAll(".mz-ic-carts-scount").val();
             var currDcount = $(this).val();
             if (!raw.re.patterns.integer_gt0.test(currDcount)) {
                 currDcount = 1;
                 $(this).val(currDcount);
+            } else if (currDcount > scount) {
+                alert("已到达最大库存量");
+                currDcount = scount;
+                $(this).val(scount);
             }
             var payment = dprice * currDcount;
             $("#inp_payment_" + cid + "_" + skuMoreId).val(payment.toFixed(2));
+
+            updateCount(cartId, currDcount);
         });
 
 
@@ -440,8 +450,6 @@
 
 
 
-
-
         $("#btn_pay").click(function(e){
             e.preventDefault();
 
@@ -463,6 +471,17 @@
         });
 
     });
+
+    function updateCount(cartId, count) {
+        $.post("${base}/sale/order/cart/updateCount.io",
+                {id: cartId, count: count},
+                function (data) {
+                    if (data != "done") {
+                        alert("出错啦！快去找悟空！");
+                        console.log(data);
+                    }
+                });
+    }
 </script>
 </body>
 </html>
