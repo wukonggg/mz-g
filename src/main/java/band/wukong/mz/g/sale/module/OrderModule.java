@@ -109,6 +109,13 @@ public class OrderModule {
         return cartService.listGroupByCust(u.getId());
     }
 
+    @At("/cart/updateCount")
+    @Ok("raw")
+    public String updateCount(@Param("id") long id, @Param("count") int count) {
+        cartService.updateCount(id, count);
+        return "done";
+    }
+
     @At("/cart/rm")
     @Ok("raw")
     public String rmCart(@Param("custId") long custId, @Param("skuMoreId") long skuMoreId, HttpSession session) {

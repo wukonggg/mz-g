@@ -86,10 +86,21 @@ public class CartServiceImplTest {
     }
 
     @Test
-    public void list() {
+    public void listGroupByCust() {
         Map<String, List<Cart>> cartMap =  service.listGroupByCust(999999);
         System.out.println("null != cartMap = " + Boolean.valueOf(null != cartMap));
         System.out.println("cartMap.size() = " + cartMap.size());
+    }
+
+    @Test
+    public void updateCount() {
+        long id = 1;
+        int newCount = 5;
+
+        service.updateCount(id, newCount);
+        Cart c2=  service.find(id);
+
+        Assert.assertTrue(newCount == c2.getCount());
     }
 
     @Test
