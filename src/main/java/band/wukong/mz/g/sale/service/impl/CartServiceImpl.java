@@ -34,11 +34,6 @@ public class CartServiceImpl implements CartService {
     @Inject
     private Dao dao;
 
-    @Override
-    public Cart find(long id) {
-        return dao.fetch(Cart.class, id);
-    }
-
     public Cart findByCondition(Cart c) {
         if(c.getUserId() <= 0 || c.getCustId() <= 0 || c.getSkuMoreId() <= 0) {
             throw new IllegalArgumentException();
@@ -89,6 +84,41 @@ public class CartServiceImpl implements CartService {
         return carts;
     }
 
+    public List<Cart> add2Cart2(long userId, String skuMoreIds, String cid) {
+        User user = dao.fetch(User.class, userId);
+        if (null == user) {
+            SecurityException se = new SecurityException("There is someone try to do something bad...");
+            log.error(se.getMessage());
+            throw se;
+        }
+
+        Customer cust = null;
+        if (Strings.isBlank(cid)) {
+            cust = dao.fetch(Customer.class, Cnd.where("name", "=", Customer.NON_MEMBER_NAME));
+        } else {
+            cust = dao.fetch(Customer.class, cid);
+        }
+        if (null == cust) {
+            SecurityException se = new SecurityException("There is someone try to do something bad...");
+            log.error(se.getMessage());
+            throw se;
+        }
+
+        String template = ",{userId:#userId, custId:#custId, skuMoreId: #skuMoreId, count:1}";
+        String json = "";
+        for (String skuMoreId : skuMoreIds.split(",")) {
+            String lin = template
+                    .replace("#userId", String.valueOf(userId))
+                    .replace("#custId", String.valueOf(cust.getId()))
+                    .replace("#skuMoreId", String.valueOf(skuMoreId));
+            json = json + lin;
+        }
+        json = "[" + json.substring(1) + "]";
+        List<Cart> carts = JSON.parseArray(json, Cart.class);
+
+        return dao.fastInsert(carts);
+    }
+
     @Override
     public Map<String, List<Cart>> listGroupByCust(long userId) {
         //由于每个营业员在购物车里不可能同时放很多，所以就不group by了。直接查
@@ -106,17 +136,6 @@ public class CartServiceImpl implements CartService {
             }
         }
         return cartMap;
-    }
-
-    @Override
-    public void updateCount(long id, int newCount) {
-        if (id <= 0 || newCount <= 0) {
-            throw new IllegalParameterException();
-        }
-
-        Cart cart = dao.fetch(Cart.class, id);
-        cart.setCount(newCount);
-        dao.update(cart);
     }
 
     @Override
