@@ -161,7 +161,7 @@
                                                           class="am-btn am-btn-default mz-admin-qcond-fixed" type="button">-
                                                   </button>
                                                 </span>
-                                                <input id="inp_count_${cartsKV.key}_${c.skuMoreId}" name="count" type="text"
+                                                <input id="inp_count_${cartsKV.key}_${c.skuMoreId}" name="count" type="text" readonly style="background-color: mintcream"
                                                        value="${c.count}" class="am-form-field mz-ic-cart-tbody-count mz-ic-carts-count"/>
                                                 <span class="am-input-group-btn">
                                                   <button name="btn_count_add"
@@ -337,9 +337,9 @@
             updateCount($(cartId).val(), countNode.val());
         });
 
-
         //商品数量改变时的事件绑定
-        $(".mz-ic-carts-count").on("keydown keypress change", function () {
+        $(".mz-ic-carts-count").on("change", function () {
+            var cartId = $(this).parent().nextAll(".mz-ic-cart-id").val();
             var scount = $(this).parent().nextAll(".mz-ic-carts-scount").val();
             var currDcount = $(this).val();
             if (!raw.re.patterns.integer_gt0.test(currDcount)) {
@@ -356,12 +356,7 @@
             var dprice = $(this).parent().nextAll(".mz-ic-carts-dprice").val();
             var payment = dprice * currDcount;
             $("#inp_payment_" + cid + "_" + skuMoreId).val(payment.toFixed(2));
-
-        }).on("keyup", function () {
-            var cartId = $(this).parent().nextAll(".mz-ic-cart-id").val();
-            var currDcount = $(this).val();
             updateCount(cartId, currDcount);
-            return false;
         });
 
         //清空整个购物车
