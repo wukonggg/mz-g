@@ -101,12 +101,12 @@
                     %>
                         <tr>
                             <td style="width:10%;text-align:center"><img src="${base}/gimg/sku/${i.sku.img}" alt="xxx"/></td>
-                            <td style="width:18%">${i.sku.gname}
+                            <td style="width:13%">${i.sku.gname}
                                 <br><span class="mz-text-grey">款型： ${i.sku.model}</span>
                                 <br><span class="mz-text-grey">尺码： ${i.sku.size}</span>
                             </td>
-                            <td style="width:3%" name="td_item_dcount_${i.id}">${i.dcount}</td>
-                            <td style="width:10%">
+                            <td style="width:3%">${i.dcount}</td>
+                            <td style="width:15%">
                                 零售价：<span class="mz-order-sprice">${i.sku.sprice}</span><br>
                                 折扣价：<span class="mz-text-grey">${i.dprice}</span><br>
                                 实付单价：<span class="mz-order-dprice mz-ic-payment">${i.payment}</span>
@@ -130,12 +130,12 @@
                                     pageContext.setAttribute("i", items.get(num));
                             %>
                             <td style="width:10%;text-align:center"><img src="${base}/gimg/sku/${i.sku.img}" alt="xxx"/></td>
-                            <td style="width:18%">${i.sku.gname}
+                            <td style="width:13%">${i.sku.gname}
                                 <br><span class="mz-text-grey">款型： ${i.sku.model}</span>
                                 <br><span class="mz-text-grey">尺码： ${i.sku.size}</span>
                             </td>
                             <td style="width:3%">${i.dcount}</td>
-                            <td style="width:10%">
+                            <td style="width:15%">
                                 零售价：<span class="mz-order-sprice">${i.sku.sprice}</span><br>
                                 折扣价：<span class="mz-text-grey">${i.dprice}</span><br>
                                 实付单价：<span class="mz-order-dprice mz-ic-payment">${i.payment}</span>
@@ -210,11 +210,12 @@
         $(".mz-ic-panel").each(function() {
             var total = 0;
             $(".mz-ic-payment", this).each(function() {
+                var payment = parseInt($(this).text());
                 var dcount = $(this).parent().prev().text();
                 if (dcount < 0) {
                     dcount = - dcount;
                 }
-                total += parseInt($(this).text()) * dcount;
+                total = total + payment * dcount;
             });
             $(".mz-ic-panel-payment-total", this).text("共付款：" + total + "元");
         });
