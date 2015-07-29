@@ -51,4 +51,18 @@ public class SkuMoreViewServiceTest {
     public void find() {
         Assert.assertNotNull(service.find(97));
     }
+
+    @Test
+    public void listSkuRest() {
+        String[] cateCodes = {"S-1", "S-2", "S-3", "S-4"};
+        int[] counts = {8, 8, 8, 8};
+        QueryResult qr = service.listSkuRest(cateCodes, counts, 0, 10);
+
+        System.out.println("qr.getPager() = " + qr.getPager());
+        List<SkuMoreView> smvs = qr.getList(SkuMoreView.class);
+        for (SkuMoreView smv : smvs) {
+            System.out.println(smv);
+        }
+        Assert.assertTrue(smvs.size() == 2);
+    }
 }
