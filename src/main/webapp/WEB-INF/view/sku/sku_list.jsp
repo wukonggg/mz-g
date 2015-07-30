@@ -2,7 +2,6 @@
   Desc: As you see...
   User: wukong(wukonggg@139.com)
 --%>
-<%@ page import="band.wukong.mz.g.category.SimpleCateConst" %>
 <%@ page import="band.wukong.mz.g.sku.bean.Sku" %>
 <%@ page import="org.nutz.dao.QueryResult" %>
 <%@ page import="org.nutz.dao.pager.Pager" %>

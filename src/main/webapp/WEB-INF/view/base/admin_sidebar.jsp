@@ -27,7 +27,8 @@
             </a>
             <ul id="collapse-nav-sku" class="am-list admin-sidebar-sub am-collapse">
                 <li><a href="${base}/stock/goods/list.io"><span class="am-icon-th"></span> Goods</a></li>
-                <li><a href="${base}/stock/sku/list.io?cateCode=<%=Category.CATE_CODE_TYPE_SIMPLE%>"><span class="am-icon-table"></span> SKU</a></li>
+                <li><a href="${base}/stock/sku/list.io"><span class="am-icon-table"></span> SKU</a></li>
+                <li><a href="${base}/stock/sku/rest.io"><span class="am-icon-table"></span> Rest</a></li>
             </ul>
         </li>
         <li><a href="${base}/customer/cust/list.io"><span class="am-icon-users"></span> CUSTOMER</a></li>
