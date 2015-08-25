@@ -8,8 +8,10 @@ import band.wukong.mz.g.sku.bean.Sku;
 import band.wukong.mz.g.sku.bean.SkuMore;
 import band.wukong.mz.g.sku.bean.SkuPropType;
 import band.wukong.mz.g.sku.service.GoodsService;
+import band.wukong.mz.g.sku.service.SkuMoreViewService;
 import band.wukong.mz.g.sku.service.SkuPropTypeService;
 import band.wukong.mz.g.sku.service.SkuService;
+import org.nutz.dao.QueryResult;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
@@ -22,6 +24,7 @@ import org.nutz.mvc.upload.UploadAdaptor;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +45,9 @@ public class SkuModule {
 
     @Inject
     private SkuService skuService;
+
+    @Inject("refer:skuMoreViewService")
+    private SkuMoreViewService smvService;
 
     @Inject("refer:goodsService")
     private GoodsService gService;
@@ -167,5 +173,43 @@ public class SkuModule {
         }
 
         skuService.rm(id);
+    }
+
+    @At("/rest")
+    @Ok("jsp:view.sku.sku_rest")
+    public Object rest(@Param("cateCodes") String[] cateCodes, @Param("counts") int[] counts
+            ,@Param("pageNum") int pageNum, @Param("pageSize") int pageSize) {
+
+        if(null == cateCodes || cateCodes.length == 0) {
+            cateCodes = loadSimpleCateCodes4rest();
+        }
+        if(null == counts || counts.length == 0) {
+            counts = loadCounts4rest();
+        }
+        log.debug("Input params - cateCodes:" + Arrays.toString(cateCodes));
+        log.debug("Input params - counts:" + Arrays.toString(counts));
+
+        QueryResult qr = smvService.listSkuRest(cateCodes, counts, pageNum, pageSize);
+
+        Map<String, Object> retMap = new HashMap<String, Object>();
+        retMap.put("cateCodes", Arrays.toString(cateCodes).replaceAll("\\[|\\]", ""));
+        retMap.put("counts", Arrays.toString(counts).replaceAll("\\[|\\]", ""));
+        retMap.put("result", qr);
+        return retMap;
+
+    }
+
+    private String[] loadSimpleCateCodes4rest() {
+        return new String[] {
+                "S-1", "S-2", "S-3", "S-4", "S-5",
+                "S-6", "S-7", "S-8", "S-9", "S-10",
+                "S-11", "S-12", "S-13", "S-14"};
+    }
+
+    private int[] loadCounts4rest() {
+        return new int[] {
+                2, 2, 2, 2, 2,
+                2, 2, 2, 2, 2,
+                2, 2, 2, 2};
     }
 }

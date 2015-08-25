@@ -12,8 +12,6 @@ import org.nutz.dao.util.cri.SqlExpressionGroup;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
-import org.nutz.log.Log;
-import org.nutz.log.Logs;
 
 import java.util.List;
 
@@ -24,8 +22,6 @@ import java.util.List;
  */
 @IocBean(name = "skuMoreViewService")
 public class SkuMoreViewService {
-    private static final Log log = Logs.get();
-
     @Inject
     private Dao dao;
 

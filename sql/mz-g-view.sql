@@ -17,7 +17,7 @@ where cu.state = 1 and g.state = 1 and sku.state = 1;
 
 -- v_sku_more
 select t1.id as skuId,t.id as skumoreId,t2.id as goodsId,t2.gname as gname, t2.cate_code as cateCode
-      ,t1.sid as sid,t1.model as model,t1.ptime as ptime,t1.pprice as pprice,t1.sprice as sprice
+      ,t1.sid as sid,t1.model as model,t1.type as `type`,t1.ptime as ptime,t1.pprice as pprice,t1.sprice as sprice
       ,t1.img as img,t1.state as state,t.size as size,t.count as count,t.remark as remark
 from t_sku_more t
 inner join t_sku t1 on t1.id = t.sku_id

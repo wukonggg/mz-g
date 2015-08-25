@@ -22,4 +22,5 @@ public class CategoryTag {
         Category cate = cateMap.get(code);
         return null != cate ? cate.getTitle() : "未知编码：" + code;
     }
+
 }

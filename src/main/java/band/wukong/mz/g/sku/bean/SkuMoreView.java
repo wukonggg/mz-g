@@ -35,6 +35,9 @@ public class SkuMoreView {
     private String model;
 
     @Readonly
+    private String type;
+
+    @Readonly
     private long pprice;
 
     @Readonly
@@ -111,6 +114,14 @@ public class SkuMoreView {
         this.model = model;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public long getPprice() {
         return pprice;
     }
@@ -170,15 +181,16 @@ public class SkuMoreView {
     @Override
     public String toString() {
         return "SkuMoreView{" +
-                "skuId=" + skuId +
-                ", skuMoreId=" + skuMoreId +
+                "skuMoreId=" + skuMoreId +
+                ", skuId=" + skuId +
                 ", goodsId=" + goodsId +
                 ", gname='" + gname + '\'' +
                 ", cateCode='" + cateCode + '\'' +
                 ", sid='" + sid + '\'' +
                 ", model='" + model + '\'' +
-                ", pprice='" + pprice + '\'' +
-                ", sprice='" + sprice + '\'' +
+                ", type='" + type + '\'' +
+                ", pprice=" + pprice +
+                ", sprice=" + sprice +
                 ", img='" + img + '\'' +
                 ", state='" + state + '\'' +
                 ", size='" + size + '\'' +

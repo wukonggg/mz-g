@@ -5,24 +5,23 @@
 - SkuPropTypeService.listDistinctNameByCateCode 读取type的名称   //TODO -OPT 这里可以考虑不用读取数据库，直接写死
 - goods.catecode---skuproptype---sku.type，包括skumore的生成还需要设计一下
   skuMore部分的编辑，现在是textarea，以后可使用可编辑表格。  // TODO -OPT 这里暂时先用固定格式的文字表示，以后再优化为小型表格
+- mz。select_category.js的优化。暂时先用timeout //TODO -OPT 等待动态生成的catecodes加载完成后再去设置点击状态。暂时先用timeout
+- 所有update，改为先根据id从数据库查询，然后再set所有需要的字段，再update的模式
 
 + FIXME
 - SkuDaoImpl.updateWithMore  //FIXME 这里的事务还没有做单元测试
 - sku_add_s2.jsp    //FIXME 当textarea的内容被修改以后，再click就没有用了。
 - SkuModule    //TODO FIXME 没有处理到异常。参考GoodsMoudle的save
-- 所有update，改为先根据id从数据库查询，然后再set所有需要的字段，再update的模式
 
 + TODO -NEXT
-
 - 增加订单号
 - 重构order模块。把jsp和module中return "done"全部改成return "ok"。和其他模块统一起来
 - 把deploy脚本中sku_prop_type的数据补全
 
 
-mz-g-0.3.2015.07xx
+mz-g-0.3.2015.0825
 ==============================================
-1、增加缺货提醒的功能。 完成后台
-
+1、增加剩余库存查询的功能。
 + Test
 - [Fixed]SKU模块进入后，之间点击分页到第二页没有数据的bug
 
