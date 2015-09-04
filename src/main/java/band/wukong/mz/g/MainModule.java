@@ -17,4 +17,11 @@ import org.nutz.mvc.ioc.provider.ComboIocProvider;
 @Modules(scanPackage = true)
 @SetupBy(value = MainSetup.class)
 public class MainModule {
+    /*
+        另一种ioc：  http://nutzbook.wendal.net/setup30mins/configure_iocby.html
+        @IocBy(type=ComboIocProvider.class, args={"*js", "ioc/",
+                                           "*anno", "net.wendal.nutzbook",
+                                           "*tx"})
+
+     */
 }
