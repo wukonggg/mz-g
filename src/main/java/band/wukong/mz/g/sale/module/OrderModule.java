@@ -12,6 +12,7 @@ import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
+import org.nutz.mvc.Scope;
 import org.nutz.mvc.annotation.*;
 import org.nutz.mvc.filter.CheckSession;
 
@@ -51,8 +52,8 @@ public class OrderModule {
     @At("/list")
     @Ok("jsp:view.sale.order_list")
     public Object list(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize,
-                       @Param("::p.") Period p,
-                       @Param("qcond_c") String qcondOnCust, HttpSession session) {
+                       @Param("qcond_c") String qcondOnCust, @Param("::p.") Period p,
+                       @Attr(scope = Scope.SESSION, value = "me") User u) {
         //CASE nutz:mvc 使用前缀式表单
         log.debug("Input params - pageNum: " + pageNum);
         log.debug("Input params - pageSize: " + pageSize);
@@ -61,8 +62,6 @@ public class OrderModule {
         if (pageSize == 0) {
             pageSize = 2;
         }
-
-        User u = (User) session.getAttribute("me");
 
         Map<String, Object> retMap = new HashMap<String, Object>();
         retMap.put("period", p);
@@ -86,11 +85,11 @@ public class OrderModule {
 
     @At("/cart/add")
     @Ok("raw")
-    public String add2Cart(@Param("skuMoreIds") String skuMoreIds, @Param("cid") String cid, HttpSession session) {
+    public String add2Cart(@Param("skuMoreIds") String skuMoreIds,
+                           @Param("cid") String cid,
+                           @Attr(scope = Scope.SESSION, value = "me") User u) {
         log.debug("Input params - skuMoreIds: " + skuMoreIds);
         log.debug("Input params - cid: " + cid);
-
-        User u = (User) session.getAttribute("me");
 
         try {
             cartService.add2Cart(u.getId(), skuMoreIds, cid);
@@ -118,8 +117,9 @@ public class OrderModule {
 
     @At("/cart/rm")
     @Ok("raw")
-    public String rmCart(@Param("custId") long custId, @Param("skuMoreId") long skuMoreId, HttpSession session) {
-        User u = (User) session.getAttribute("me");
+    public String rmCart(@Param("custId") long custId,
+                         @Param("skuMoreId") long skuMoreId,
+                         @Attr(scope = Scope.SESSION, value = "me") User u) {
         try {
             cartService.rm(u.getId(), custId, skuMoreId);
         } catch (RuntimeException e) {
@@ -132,10 +132,9 @@ public class OrderModule {
 
     @At("/cart/clear")
     @Ok("raw")
-    public String clearCart(@Param("custId") long custId, HttpSession session) {
+    public String clearCart(@Param("custId") long custId, @Attr(scope = Scope.SESSION, value = "me") User u) {
         log.debug("Input params - custId: " + custId);
 
-        User u = (User) session.getAttribute("me");
         try {
             cartService.clear(u.getId(), custId);
         } catch (RuntimeException e) {
@@ -149,12 +148,11 @@ public class OrderModule {
 
     @At("/pay")
     @Ok("redirect:/sale/order/list.io")
-    public void pay(@Param("carts") Cart[] carts, HttpSession session) {
+    public void pay(@Param("carts") Cart[] carts, @Attr(scope = Scope.SESSION, value = "me") User u) {
         if (null == carts) {
             throw new IllegalParameterException("购物车为空，你想干嘛？");
         }
 
-        User u = (User) session.getAttribute("me");
         oservice.pay(carts, u.getId());
     }
 
@@ -167,10 +165,9 @@ public class OrderModule {
 
     @At("/return/s2")
     @Ok("redirect:/sale/order/list.io")
-    public void return_s2(@Param("..") Item i, HttpSession session) {
+    public void return_s2(@Param("..") Item i, @Attr(scope = Scope.SESSION, value = "me") User u) {
         log.debug("Input params - item: " + i);
 
-        User u = (User) session.getAttribute("me");
         i.setReturnUserId(u.getId());
         oservice.returnItem(i);
     }
