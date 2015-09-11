@@ -2,7 +2,8 @@ var ioc = {
     config : {
         type : "org.nutz.ioc.impl.PropertiesProxy",
         fields : {
-            paths : ["custom/db.properties"]
+//            paths : ["custom/db.properties"]
+            paths : ["custom/"]
         }
     },
     dataSource: {
