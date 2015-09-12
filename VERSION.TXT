@@ -21,6 +21,14 @@
 - 增加根据产品信息查询订单的功能，查询某个产品在哪几个订单销售过
 
 
+mz-g-0.3.2015.0913
+==============================================
+1、开始开发权限管理模块，准备好shiro
+2、重新开发/重构User模块，放到band.wukong.mz.common.privilege中。
+3、删除原有的band.wukong.mz.g.privilege，重构代码。
+4、优化MainSetup，MainModule
+
+
 mz-g-0.3.2015.0911
 ==============================================
 1、更新pom，完善jstl部分，增加依赖javax.servlet.jsp.jstl-api

@@ -22,7 +22,8 @@
 
 + src/main/java
 - band.wukong.mz                 top package
-- band.wukong.mz.base            基础类包
+- band.wukong.mz.base            基础包
+- band.wukong.mz.common          公共组件包
 - band.wukong.mz.g               MZ-G PROJECT顶层包
 - band.wukong.mz.nutz            nutz框架相关的内容
 - band.wukong.mz.tablib          自封装的tag

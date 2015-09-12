@@ -1,4 +1,4 @@
-package band.wukong.mz.g;
+package band.wukong.mz;
 
 import org.nutz.mvc.annotation.*;
 import org.nutz.mvc.ioc.provider.ComboIocProvider;

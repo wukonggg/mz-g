@@ -1,7 +1,7 @@
 package band.wukong.mz.g.sale.dao;
 
 import band.wukong.mz.base.bean.Period;
-import band.wukong.mz.g.privilege.bean.User;
+import band.wukong.mz.common.privilege.bean.User;
 import band.wukong.mz.g.sale.bean.Order;
 import org.nutz.dao.QueryResult;
 

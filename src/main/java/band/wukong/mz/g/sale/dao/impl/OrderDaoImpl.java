@@ -2,8 +2,8 @@ package band.wukong.mz.g.sale.dao.impl;
 
 import band.wukong.mz.base.bean.Period;
 import band.wukong.mz.base.exception.IllegalParameterException;
+import band.wukong.mz.common.privilege.bean.User;
 import band.wukong.mz.g.customer.bean.Customer;
-import band.wukong.mz.g.privilege.bean.User;
 import band.wukong.mz.g.sale.bean.Order;
 import band.wukong.mz.g.sale.dao.OrderDao;
 import band.wukong.mz.g.sale.dao.OrderDaoValidator;

@@ -1,8 +1,8 @@
 package band.wukong.mz.g.sale.dao.impl;
 
 import band.wukong.mz.base.bean.Period;
+import band.wukong.mz.common.privilege.bean.User;
 import band.wukong.mz.g.category.SimpleCateConst;
-import band.wukong.mz.g.privilege.bean.User;
 import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.bean.Order;
 import band.wukong.mz.g.sale.dao.OrderDao;

@@ -1,10 +1,10 @@
 package band.wukong.mz.g.sale.servcie.impl;
 
 import band.wukong.mz.base.bean.Period;
+import band.wukong.mz.common.privilege.bean.User;
 import band.wukong.mz.g.AppConst;
 import band.wukong.mz.g.category.SimpleCateConst;
 import band.wukong.mz.g.customer.service.CustomerService;
-import band.wukong.mz.g.privilege.bean.User;
 import band.wukong.mz.g.sale.bean.Cart;
 import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.bean.Order;

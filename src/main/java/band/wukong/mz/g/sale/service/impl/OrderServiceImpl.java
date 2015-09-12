@@ -3,27 +3,26 @@ package band.wukong.mz.g.sale.service.impl;
 import band.wukong.mz.base.bean.Period;
 import band.wukong.mz.base.exception.AppRuntimeException;
 import band.wukong.mz.base.exception.IllegalParameterException;
+import band.wukong.mz.common.privilege.bean.User;
+import band.wukong.mz.common.privilege.service.UserService;
 import band.wukong.mz.g.customer.bean.Customer;
 import band.wukong.mz.g.customer.service.CustomerService;
-import band.wukong.mz.g.privilege.bean.User;
-import band.wukong.mz.g.privilege.service.UserService;
 import band.wukong.mz.g.sale.OutOfStockException;
 import band.wukong.mz.g.sale.bean.Cart;
 import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.bean.Order;
-import band.wukong.mz.g.sale.bean.Sku4Item;
 import band.wukong.mz.g.sale.dao.ItemDao;
 import band.wukong.mz.g.sale.dao.OrderDao;
-import band.wukong.mz.g.sale.service.*;
-import band.wukong.mz.g.sku.bean.SkuMore;
+import band.wukong.mz.g.sale.service.CartService;
+import band.wukong.mz.g.sale.service.DiscountRule;
+import band.wukong.mz.g.sale.service.OrderService;
+import band.wukong.mz.g.sale.service.OrderServiceValidator;
 import band.wukong.mz.g.sku.bean.SkuMoreView;
-import band.wukong.mz.g.sku.dao.SkuMoreDao;
 import band.wukong.mz.g.sku.service.SkuMoreViewService;
 import band.wukong.mz.g.sku.service.SkuService;
 import org.nutz.dao.QueryResult;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Lang;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.trans.Atom;
@@ -31,7 +30,6 @@ import org.nutz.trans.Trans;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -89,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
         final Order[] order = new Order[1];    //order for return
 
         //1、查询用户是否存在、营业员是否存在。都存在才下一步
-        if (null == userService.find(userId)) {
+        if (null == userService.fetch(userId)) {
             log.error("Could not find user: userId=" + userId);
             throw new AppRuntimeException("找不到该系统用户。");
         }

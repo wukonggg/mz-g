@@ -1,12 +1,11 @@
 package band.wukong.mz.g.sale.service.impl;
 
 import band.wukong.mz.base.exception.IllegalParameterException;
+import band.wukong.mz.common.privilege.bean.User;
 import band.wukong.mz.g.customer.bean.Customer;
-import band.wukong.mz.g.privilege.bean.User;
 import band.wukong.mz.g.sale.bean.Cart;
 import band.wukong.mz.g.sale.service.CartService;
 import band.wukong.mz.g.sale.service.CartServiceValidator;
-import com.alibaba.fastjson.JSON;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;

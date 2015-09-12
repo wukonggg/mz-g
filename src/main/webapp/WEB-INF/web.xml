@@ -9,6 +9,23 @@
         <session-timeout>10</session-timeout>
     </session-config>
 
+    <listener>
+        <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+    </listener>
+    <filter>
+        <filter-name>ShiroFilter</filter-name>
+        <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ShiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
     <filter>
         <filter-name>DruidWebStatFilter</filter-name>
         <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
@@ -35,7 +52,7 @@
         <filter-class>band.wukong.mz.nutz.NutDruidFilter</filter-class>
         <init-param>
             <param-name>modules</param-name>
-            <param-value>band.wukong.mz.g.MainModule</param-value>
+            <param-value>band.wukong.mz.MainModule</param-value>
         </init-param>
         <init-param>
             <param-name>ignore</param-name>

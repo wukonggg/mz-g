@@ -15,15 +15,15 @@
 
 <div class="am-g">
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
-        <form method="post" class="am-form" action="${base}/login.io">
-            <label for="loginName">账号:</label>
-            <input type="text" name="loginName" id="loginName" value="Yolanda">
+        <form id="frm_login" method="post" class="am-form" >
+            <label for="name">账号:</label>
+            <input type="text" name="name" id="name" value="">
             <br>
-            <label for="pwd">密码:</label>
-            <input type="password" name="pwd" id="pwd" value="iwukong">
+            <label for="password">密码:</label>
+            <input type="password" name="password" id="password" value="">
             <br>
             <div class="am-cf">
-                <input type="submit" name="" value="登 录"
+                <input type="submit" id="btn_login" value="登 录"
                        class="am-btn am-btn-primary am-btn-sm am-fl">
                 <input type="submit" name="" value="忘记密码 ^_^? "
                        class="am-btn am-btn-default am-btn-sm am-fr">
@@ -32,8 +32,45 @@
     </div>
 </div>
 
-
 <%@ include file="base/copyright.jsp" %>
+
+
+<script src="${base}/component/jquery/2.1.3/jquery.min.js"></script>
+<script>
+    var me = '<%=session.getAttribute("me") %>';
+    var base = '${base}';
+    $(function() {
+        $("#btn_login").click(function() {
+            $.ajax({
+                url : base + "/login.io",
+                type: "POST",
+                data:$('#frm_login').serialize(),
+                error: function(request) {
+                    alert("Connection error");
+                },
+                dataType:"json",
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    if (data.ok == true) {
+                        alert("登陆成功");
+                        document.location = "${base}/main.io";
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+            return false;
+        });
+        if (me != "null") {
+            $("#login_div").hide();
+            $("#userInfo").html("您的Id是" + me);
+            $("#user_info_div").show();
+        } else {
+            $("#login_div").show();
+            $("#user_info_div").hide();
+        }
+    });
+</script>
 
 </body>
 </html>
