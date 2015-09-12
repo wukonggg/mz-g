@@ -61,14 +61,6 @@
             });
             return false;
         });
-        if (me != "null") {
-            $("#login_div").hide();
-            $("#userInfo").html("您的Id是" + me);
-            $("#user_info_div").show();
-        } else {
-            $("#login_div").show();
-            $("#user_info_div").hide();
-        }
     });
 </script>
 
