@@ -1,10 +1,7 @@
 package band.wukong.mz.g.sku.service;
 
 import band.wukong.mz.g.sku.bean.Sku;
-import band.wukong.mz.g.sku.bean.SkuMore;
 import org.nutz.dao.QueryResult;
-
-import java.util.List;
 
 /**
  * As you see...

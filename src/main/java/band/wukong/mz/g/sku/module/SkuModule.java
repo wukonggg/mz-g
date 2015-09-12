@@ -5,7 +5,6 @@ import band.wukong.mz.g.category.bean.Category;
 import band.wukong.mz.g.sku.SkuMoreHelper;
 import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.bean.Sku;
-import band.wukong.mz.g.sku.bean.SkuMore;
 import band.wukong.mz.g.sku.bean.SkuPropType;
 import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.mz.g.sku.service.SkuMoreViewService;
