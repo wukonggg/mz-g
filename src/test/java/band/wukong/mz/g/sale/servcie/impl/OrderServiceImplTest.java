@@ -12,7 +12,7 @@ import band.wukong.mz.g.sale.service.CartService;
 import band.wukong.mz.g.sale.service.DiscountRule;
 import band.wukong.mz.g.sale.service.OrderService;
 import band.wukong.mz.g.sku.dao.SkuMoreDao;
-import band.wukong.mz.nutz.NutzTestHelper;
+import band.wukong.mz.nutz.test.NutzTestHelper;
 import band.wukong.util.DateUtil;
 import org.junit.After;
 import org.junit.Assert;

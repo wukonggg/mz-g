@@ -1,7 +1,7 @@
 package band.wukong.nutz;
 
 import band.wukong.mz.g.sku.service.SidGenerator;
-import band.wukong.mz.nutz.NutzTestHelper;
+import band.wukong.mz.nutz.test.NutzTestHelper;
 import org.junit.Test;
 import org.nutz.ioc.Ioc;
 

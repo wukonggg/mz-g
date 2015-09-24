@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `t_cart` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=1 COMMENT='购物车';
 
--- 正在导出表  mz-g.t_cart 的数据：~1 rows (大约)
+-- 正在导出表  mz-g.t_cart 的数据：~2 rows (大约)
 DELETE FROM `t_cart`;
 /*!40000 ALTER TABLE `t_cart` DISABLE KEYS */;
 INSERT INTO `t_cart` (`id`, `user_id`, `cust_id`, `sku_more_id`, `count`) VALUES
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `t_goods` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
 
--- 正在导出表  mz-g.t_goods 的数据：~7 rows (大约)
+-- 正在导出表  mz-g.t_goods 的数据：~6 rows (大约)
 DELETE FROM `t_goods`;
 /*!40000 ALTER TABLE `t_goods` DISABLE KEYS */;
 INSERT INTO `t_goods` (`id`, `cate_code`, `gname`, `words`, `img`, `ctime`, `utime`, `state`) VALUES
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_order 的数据：~8 rows (大约)
+-- 正在导出表  mz-g.t_order 的数据：~6 rows (大约)
 DELETE FROM `t_order`;
 /*!40000 ALTER TABLE `t_order` DISABLE KEYS */;
 INSERT INTO `t_order` (`id`, `user_id`, `cust_id`, `dtime`) VALUES
@@ -188,12 +188,60 @@ INSERT INTO `t_order` (`id`, `user_id`, `cust_id`, `dtime`) VALUES
 /*!40000 ALTER TABLE `t_order` ENABLE KEYS */;
 
 
+-- 导出  表 mz-g.t_permission 结构
+CREATE TABLE IF NOT EXISTS `t_permission` (
+  `id` bigint(64) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `al` varchar(50) DEFAULT NULL,
+  `dt` varchar(500) DEFAULT NULL,
+  `ct` datetime DEFAULT NULL,
+  `ut` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  mz-g.t_permission 的数据：~0 rows (大约)
+DELETE FROM `t_permission`;
+/*!40000 ALTER TABLE `t_permission` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_permission` ENABLE KEYS */;
+
+
+-- 导出  表 mz-g.t_role 结构
+CREATE TABLE IF NOT EXISTS `t_role` (
+  `id` bigint(64) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `al` varchar(50) DEFAULT NULL,
+  `dt` varchar(500) DEFAULT NULL,
+  `ct` datetime DEFAULT NULL,
+  `ut` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  mz-g.t_role 的数据：~0 rows (大约)
+DELETE FROM `t_role`;
+/*!40000 ALTER TABLE `t_role` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_role` ENABLE KEYS */;
+
+
+-- 导出  表 mz-g.t_role_permission 结构
+CREATE TABLE IF NOT EXISTS `t_role_permission` (
+  `role_id` bigint(64) DEFAULT NULL,
+  `permission_id` bigint(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  mz-g.t_role_permission 的数据：~0 rows (大约)
+DELETE FROM `t_role_permission`;
+/*!40000 ALTER TABLE `t_role_permission` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_role_permission` ENABLE KEYS */;
+
+
 -- 导出  表 mz-g.t_sku 结构
 CREATE TABLE IF NOT EXISTS `t_sku` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sid` varchar(50) NOT NULL COMMENT 'sku_id。sku_xxx的唯一id，因为id可能在不同的sku_xxx表中重复',
   `model` varchar(50) NOT NULL COMMENT '(一级分类)款型/颜色',
-  `type` varchar(50) NOT NULL COMMENT '(二级分类)分类。如尺码标准，对应t_sku_type表',
+  `type` varchar(50) NOT NULL COMMENT '(二级分类)分类。如尺码标准，对应t_sku_prop_type表',
   `ptime` datetime NOT NULL COMMENT '入库日期',
   `pprice` int(11) NOT NULL COMMENT '入库价格',
   `sprice` int(11) NOT NULL COMMENT '零售价格',
@@ -402,21 +450,47 @@ INSERT INTO `t_sku_prop_type` (`cate_code`, `item`, `name`, `title`, `evalue`, `
 
 -- 导出  表 mz-g.t_user 结构
 CREATE TABLE IF NOT EXISTS `t_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login_name` varchar(50) NOT NULL DEFAULT '0',
-  `pwd` varchar(50) NOT NULL DEFAULT '0' COMMENT '加密',
-  `state` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '0：初始；1：正常；2：已删除',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表。暂时没用到。';
+  `id` bigint(64) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `passwd` varchar(128) DEFAULT NULL,
+  `locked` tinyint(1) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `ct` datetime DEFAULT NULL,
+  `ut` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_user 的数据：~3 rows (大约)
+-- 正在导出表  mz-g.t_user 的数据：~0 rows (大约)
 DELETE FROM `t_user`;
 /*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
-INSERT INTO `t_user` (`id`, `login_name`, `pwd`, `state`) VALUES
-	(1, 'Yolanda', '0', 1),
-	(2, 'Wukong', '0', 1),
-	(3, 'test', '0', 1);
+INSERT INTO `t_user` (`id`, `name`, `passwd`, `locked`, `state`, `ct`, `ut`) VALUES
+	(1, 'admin', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 0, '1', '2015-09-12 17:28:48', '2015-09-12 17:28:48');
 /*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
+
+
+-- 导出  表 mz-g.t_user_permission 结构
+CREATE TABLE IF NOT EXISTS `t_user_permission` (
+  `u_id` bigint(64) DEFAULT NULL,
+  `permission_id` bigint(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  mz-g.t_user_permission 的数据：~0 rows (大约)
+DELETE FROM `t_user_permission`;
+/*!40000 ALTER TABLE `t_user_permission` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_user_permission` ENABLE KEYS */;
+
+
+-- 导出  表 mz-g.t_user_role 结构
+CREATE TABLE IF NOT EXISTS `t_user_role` (
+  `u_id` bigint(64) DEFAULT NULL,
+  `role_id` bigint(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  mz-g.t_user_role 的数据：~0 rows (大约)
+DELETE FROM `t_user_role`;
+/*!40000 ALTER TABLE `t_user_role` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_user_role` ENABLE KEYS */;
 
 
 -- 导出  视图 mz-g.v_cart 结构

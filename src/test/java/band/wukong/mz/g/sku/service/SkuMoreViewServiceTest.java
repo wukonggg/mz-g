@@ -1,13 +1,12 @@
 package band.wukong.mz.g.sku.service;
 
 import band.wukong.mz.g.sku.bean.SkuMoreView;
-import band.wukong.mz.nutz.NutzTestHelper;
+import band.wukong.mz.nutz.test.NutzTestHelper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.nutz.dao.QueryResult;
-import org.nutz.dao.pager.Pager;
 import org.nutz.ioc.Ioc;
 
 import java.util.List;

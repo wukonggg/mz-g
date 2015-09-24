@@ -4,7 +4,7 @@ import band.wukong.mz.base.exception.IllegalParameterException;
 import band.wukong.mz.g.category.SimpleCateConst;
 import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.dao.GoodsDao;
-import band.wukong.mz.nutz.NutzTestHelper;
+import band.wukong.mz.nutz.test.NutzTestHelper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,7 +13,6 @@ import org.nutz.dao.QueryResult;
 import org.nutz.dao.pager.Pager;
 import org.nutz.ioc.Ioc;
 
-import java.util.Date;
 import java.util.List;
 
 /**

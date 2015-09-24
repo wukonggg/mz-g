@@ -1,4 +1,4 @@
-package band.wukong.mz.nutz;
+package band.wukong.mz.nutz.test;
 
 import org.nutz.ioc.Ioc;
 import org.nutz.ioc.impl.NutIoc;

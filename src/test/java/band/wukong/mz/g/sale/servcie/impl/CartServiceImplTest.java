@@ -3,7 +3,7 @@ package band.wukong.mz.g.sale.servcie.impl;
 import band.wukong.mz.g.customer.bean.Customer;
 import band.wukong.mz.g.sale.bean.Cart;
 import band.wukong.mz.g.sale.service.CartService;
-import band.wukong.mz.nutz.NutzTestHelper;
+import band.wukong.mz.nutz.test.NutzTestHelper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

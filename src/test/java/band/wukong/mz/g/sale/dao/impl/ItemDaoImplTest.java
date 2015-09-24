@@ -2,7 +2,7 @@ package band.wukong.mz.g.sale.dao.impl;
 
 import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.dao.ItemDao;
-import band.wukong.mz.nutz.NutzTestHelper;
+import band.wukong.mz.nutz.test.NutzTestHelper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

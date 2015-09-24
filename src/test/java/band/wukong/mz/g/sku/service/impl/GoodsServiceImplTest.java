@@ -1,10 +1,9 @@
 package band.wukong.mz.g.sku.service.impl;
 
 import band.wukong.mz.g.category.SimpleCateConst;
-import band.wukong.mz.g.category.bean.Category;
 import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.service.GoodsService;
-import band.wukong.mz.nutz.NutzTestHelper;
+import band.wukong.mz.nutz.test.NutzTestHelper;
 import band.wukong.util.DateUtil;
 import org.junit.After;
 import org.junit.Assert;

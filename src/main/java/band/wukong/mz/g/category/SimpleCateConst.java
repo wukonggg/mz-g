@@ -33,9 +33,9 @@ public class SimpleCateConst {
     public static final String CATE_CODE_E_WZ = "S-5";
 
     /**
-     * 品类代码-F奶粉
+     * 品类代码-F零食
      */
-    public static final String CATE_CODE_F_NF = "S-6";
+    public static final String CATE_CODE_F_LS = "S-6";
 
     /**
      * 品类代码-G包包
@@ -48,33 +48,18 @@ public class SimpleCateConst {
     public static final String CATE_CODE_H_MZ = "S-8";
 
     /**
-     * 品类代码-I玩具
+     * 品类代码-I尿不湿
      */
-    public static final String CATE_CODE_I_WJ = "S-9";
+    public static final String CATE_CODE_I_NBS = "S-9";
 
     /**
-     * 品类代码-J尿不湿
+     * 品类代码-J玩具
      */
-    public static final String CATE_CODE_J_NBS = "S-10";
+    public static final String CATE_CODE_J_WJ = "S-10";
 
     /**
-     * 品类代码-K代购
+     * 品类代码-K文具
      */
-    public static final String CATE_CODE_K_DG = "S-11";
-
-    /**
-     * 品类代码-L杯子&奶瓶
-     */
-    public static final String CATE_CODE_K_BZ = "S-12";
-
-    /**
-     * 品类代码-M妈妈
-     */
-    public static final String CATE_CODE_M_MM = "S-13";
-
-    /**
-     * 品类代码-N文具
-     */
-    public static final String CATE_CODE_N_WJ = "S-14";
+    public static final String CATE_CODE_K_WJ = "S-11";
 
 }

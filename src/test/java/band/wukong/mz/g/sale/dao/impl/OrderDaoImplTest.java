@@ -6,7 +6,7 @@ import band.wukong.mz.g.category.SimpleCateConst;
 import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.bean.Order;
 import band.wukong.mz.g.sale.dao.OrderDao;
-import band.wukong.mz.nutz.NutzTestHelper;
+import band.wukong.mz.nutz.test.NutzTestHelper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

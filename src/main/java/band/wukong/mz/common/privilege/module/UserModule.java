@@ -60,15 +60,14 @@ public class UserModule {
     }
 
     @At(top = true)
-    @Ok("jsp:view.main")
-    @Fail("redirect:/entry.io")
-    public void main() {
-    }
-
-    @At
     @Ok(">>:/") // 跟其他方法不同,这个方法完成后就跳转首页了
     public void logout(HttpSession session) {
         session.invalidate();
+    }
+
+    @At(top = true)
+    @Ok("jsp:view.main")
+    public void main() {
     }
 
     @At

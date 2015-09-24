@@ -7,7 +7,7 @@ import band.wukong.mz.g.sku.bean.SkuPropType;
 import band.wukong.mz.g.sku.dao.GoodsDao;
 import band.wukong.mz.g.sku.dao.SkuDao;
 import band.wukong.mz.g.sku.service.SkuPropTypeService;
-import band.wukong.mz.nutz.NutzTestHelper;
+import band.wukong.mz.nutz.test.NutzTestHelper;
 import band.wukong.util.DateUtil;
 import org.junit.After;
 import org.junit.Assert;

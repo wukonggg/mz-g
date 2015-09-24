@@ -1,4 +1,4 @@
-package band.wukong.mz.nutz;
+package band.wukong.mz.nutz.integration.druid;
 
 import org.nutz.mvc.NutFilter;
 

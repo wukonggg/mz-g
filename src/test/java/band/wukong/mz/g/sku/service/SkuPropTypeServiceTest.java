@@ -2,7 +2,7 @@ package band.wukong.mz.g.sku.service;
 
 import band.wukong.mz.g.category.SimpleCateConst;
 import band.wukong.mz.g.sku.bean.SkuPropType;
-import band.wukong.mz.nutz.NutzTestHelper;
+import band.wukong.mz.nutz.test.NutzTestHelper;
 import com.alibaba.fastjson.JSONArray;
 import org.junit.After;
 import org.junit.Assert;

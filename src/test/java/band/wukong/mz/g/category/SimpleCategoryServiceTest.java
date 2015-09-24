@@ -2,7 +2,7 @@ package band.wukong.mz.g.category;
 
 import band.wukong.mz.g.category.bean.Category;
 import band.wukong.mz.g.category.service.SimpleCategoryService;
-import band.wukong.mz.nutz.NutzTestHelper;
+import band.wukong.mz.nutz.test.NutzTestHelper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
