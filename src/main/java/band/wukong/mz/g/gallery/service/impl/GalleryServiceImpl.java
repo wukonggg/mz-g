@@ -19,7 +19,6 @@ import java.util.List;
  */
 @IocBean(name = "galleryServive")
 public class GalleryServiceImpl implements GalleryServive {
-    private static final Log log = Logs.get();
 
     @Inject
     private Dao dao;

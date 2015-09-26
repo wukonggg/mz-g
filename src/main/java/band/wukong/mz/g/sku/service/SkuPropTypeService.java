@@ -19,9 +19,7 @@ import java.util.List;
  */
 @IocBean(name = "skuPropTypeService")
 public class SkuPropTypeService {
-
-    private static final Log log = Logs.get();
-
+    
     @Inject
     private Dao dao;
 

@@ -19,7 +19,6 @@ import java.util.Map;
  */
 @IocBean(name = "cateService")
 public class SimpleCategoryService {
-    private static final Log log = Logs.get();
 
     @Inject("refer:cateDao")
     private CategoryDao cateDao;

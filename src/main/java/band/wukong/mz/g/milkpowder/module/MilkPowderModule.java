@@ -12,7 +12,6 @@ import org.nutz.mvc.annotation.Ok;
  */
 @At("/milkpowder")
 public class MilkPowderModule {
-    private static final Log log = Logs.get();
 
     @At("/calc")
     @Ok("jsp:view.milkpowder.calc")

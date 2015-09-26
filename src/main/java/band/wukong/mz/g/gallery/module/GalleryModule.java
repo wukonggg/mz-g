@@ -21,7 +21,6 @@ import java.util.Map;
 @IocBean
 @At("/gallery")
 public class GalleryModule {
-    private static final Log log = Logs.get();
 
     @Inject
     private GalleryServive galleryServive;

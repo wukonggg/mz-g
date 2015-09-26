@@ -17,7 +17,6 @@ import java.util.List;
  */
 @IocBean(name = "cateDao")
 public class CategoryDao {
-    private static final Log log = Logs.get();
 
     @Inject
     private Dao dao;

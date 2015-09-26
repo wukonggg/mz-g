@@ -17,8 +17,6 @@ import org.nutz.log.Logs;
 @IocBean(name = "skuMoreDao")
 public class SkuMoreDaoImpl implements SkuMoreDao {
 
-    private static final Log log = Logs.get();
-
     @Inject
     private Dao dao;
 
