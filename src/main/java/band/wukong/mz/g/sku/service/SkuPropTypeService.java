@@ -19,7 +19,7 @@ import java.util.List;
  */
 @IocBean(name = "skuPropTypeService")
 public class SkuPropTypeService {
-    
+
     @Inject
     private Dao dao;
 
