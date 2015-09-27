@@ -156,9 +156,9 @@ public class CustomerService {
         SqlExpressionGroup e1 = Cnd.exps("state", "=", Customer.STATE_OK);
         if (Strings.isNotBlank(qcond)) {
             SqlExpressionGroup e2 = Cnd.exps("cid", "=", qcond).or("name", "=", qcond).or("msisdn", "=", qcond);
-            condition = Cnd.where(e1).and(e2);
+            condition = Cnd.where(e1).and(e2).orderBy("cid", "asc");
         } else {
-            condition = Cnd.where(e1);
+            condition = Cnd.where(e1).orderBy("cid", "asc");
         }
 
         int recordCount = dao.count(Customer.class, condition);
