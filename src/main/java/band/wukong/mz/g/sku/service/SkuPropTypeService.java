@@ -7,8 +7,6 @@ import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
-import org.nutz.log.Log;
-import org.nutz.log.Logs;
 
 import java.util.List;
 
@@ -53,6 +51,6 @@ public class SkuPropTypeService {
         return dao.query(SkuPropType.class, Cnd.where("cateCode", "=", sd.getCateCode())
                 .and("item", "=", sd.getItem())
                 .and("name", "=", sd.getName())
-                .asc("nameOrder"));
+                .asc("nameOrder").asc("valueOrder"));
     }
 }
