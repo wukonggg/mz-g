@@ -1,8 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page import="band.wukong.mz.common.privilege.bean.User" %>
 <%--
-  Desc: goods list page
+  Desc: main page
   User: wukong(wukonggg@139.com)
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!doctype html>
 <html class="no-js">
