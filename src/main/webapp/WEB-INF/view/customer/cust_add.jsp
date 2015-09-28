@@ -44,15 +44,21 @@
                         </div>
                     </div>
                     <div class="am-g am-margin-top-sm">
-                        <label for="name" class="am-u-sm-2 am-form-label mz-admin-label-fixed">姓名</label>
-                        <div class="am-u-sm-4 am-u-end">
-                            <input id="name" name="name" type="text" class="am-input-sm">
-                        </div>
-                    </div>
-                    <div class="am-g am-margin-top-sm">
                         <label for="msisdn" class="am-u-sm-2 am-form-label mz-admin-label-fixed">移动电话</label>
                         <div class="am-u-sm-4 am-u-end">
                             <input id="msisdn" name="msisdn" type="text" class="am-input-sm">
+                        </div>
+                    </div>
+                    <div class="am-g am-margin-top-sm">
+                        <label for="weixin" class="am-u-sm-2 am-form-label mz-admin-label-fixed">微信</label>
+                        <div class="am-u-sm-4 am-u-end">
+                            <input id="weixin" name="weixin" type="text" class="am-input-sm">
+                        </div>
+                    </div>
+                    <div class="am-g am-margin-top-sm">
+                        <label for="name" class="am-u-sm-2 am-form-label mz-admin-label-fixed">姓名</label>
+                        <div class="am-u-sm-4 am-u-end">
+                            <input id="name" name="name" type="text" class="am-input-sm">
                         </div>
                     </div>
                     <div class="am-g am-margin-top-sm">
@@ -66,7 +72,6 @@
                         <label for="address" class="am-u-sm-2 am-form-label mz-admin-label-fixed">地址</label>
                         <div class="am-u-sm-7 am-u-end">
                             <input id="address" name="address" type="text" class="am-input-sm">
-
                         </div>
                     </div>
                     <div class="am-g am-margin-top-sm">

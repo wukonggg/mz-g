@@ -9,7 +9,6 @@
 <%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="one" uri="/WEB-INF/tld/one.tld" %>
 
 <%
     Map retMap = (Map) request.getAttribute("obj");
@@ -83,9 +82,9 @@
                     <tr>
                         <th style="width:3%">ID</th>
                         <th style="width:15%">会员卡号</th>
+                        <th style="width:15%">手机</th>
+                        <th style="width:10%">微信</th>
                         <th style="width:12%">姓名</th>
-                        <th style="width:15%">手机号</th>
-                        <th style="width:10%">宝宝生日</th>
                         <th style="width:10%">服消</th>
                         <th style="width:15%">操作</th>
                     </tr>
@@ -95,9 +94,9 @@
                     <tr>
                         <td>${status.count}</td>
                         <td>${cust.cid}</td>
-                        <td>${cust.name}</td>
                         <td>${cust.msisdn}</td>
-                        <td>${one:dateToStringShort(cust.birth)}</td>
+                        <td>${cust.weixin}</td>
+                        <td>${cust.name}</td>
                         <td>${cust.paymentClothing}</td>
                         <td>
                             <div class="am-btn-toolbar">

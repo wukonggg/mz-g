@@ -52,6 +52,9 @@ public class Customer {
     private String msisdn;  //手机号
 
     @Column
+    private String weixin;  //微信
+
+    @Column
     private Date birth; //
 
     @Column
@@ -106,6 +109,14 @@ public class Customer {
         this.msisdn = msisdn;
     }
 
+    public String getWeixin() {
+        return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+        this.weixin = weixin;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -147,15 +158,19 @@ public class Customer {
 
         if (id != customer.id) return false;
         if (paymentClothing != customer.paymentClothing) return false;
-        if (address != null ? !address.equals(customer.address) : customer.address != null) return false;
-        if (birth != null ? !birth.equals(customer.birth) : customer.birth != null) return false;
         if (cid != null ? !cid.equals(customer.cid) : customer.cid != null) return false;
-        if (msisdn != null ? !msisdn.equals(customer.msisdn) : customer.msisdn != null) return false;
         if (name != null ? !name.equals(customer.name) : customer.name != null) return false;
-        if (remark != null ? !remark.equals(customer.remark) : customer.remark != null) return false;
-        if (state != null ? !state.equals(customer.state) : customer.state != null) return false;
+        if (msisdn != null ? !msisdn.equals(customer.msisdn) : customer.msisdn != null)
+            return false;
+        if (weixin != null ? !weixin.equals(customer.weixin) : customer.weixin != null)
+            return false;
+        if (birth != null ? !birth.equals(customer.birth) : customer.birth != null) return false;
+        if (address != null ? !address.equals(customer.address) : customer.address != null)
+            return false;
+        if (remark != null ? !remark.equals(customer.remark) : customer.remark != null)
+            return false;
+        return !(state != null ? !state.equals(customer.state) : customer.state != null);
 
-        return true;
     }
 
     @Override
@@ -164,6 +179,7 @@ public class Customer {
         result = 31 * result + (cid != null ? cid.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (msisdn != null ? msisdn.hashCode() : 0);
+        result = 31 * result + (weixin != null ? weixin.hashCode() : 0);
         result = 31 * result + (birth != null ? birth.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (remark != null ? remark.hashCode() : 0);
@@ -179,6 +195,7 @@ public class Customer {
                 ", cid='" + cid + '\'' +
                 ", name='" + name + '\'' +
                 ", msisdn='" + msisdn + '\'' +
+                ", weixin='" + weixin + '\'' +
                 ", birth=" + birth +
                 ", address='" + address + '\'' +
                 ", remark='" + remark + '\'' +
