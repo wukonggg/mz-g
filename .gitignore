@@ -43,24 +43,26 @@ Temporary Items
 .apdisk
 
 
-
 # #################### ignored by wukong #####################
 # ignored ide config file
+.idea/
 .classpath
 .project
 .settings
-.idea/
 mz-g.iml
+
+# ignored mz whisper
+src/main/java/band/wukong/mz/g/whisper/
+src/test/java/band/wukong/mz/g/whisper/
 
 # ignored project inner folder and file
 log/
-target/
-src/main/java/band/wukong/mz/g/whisper/
-src/test/java/band/wukong/mz/g/whisper/
+src/main/webapp/META-INF/MANIFEST.MF
+src/test/java/TestMain.java
 src/main/webapp/gimg/goods/
 src/main/webapp/gimg/goods_rm/
 src/main/webapp/gimg/sku/
 src/main/webapp/gimg/sku_rm/
-src/test/java/TestMain.java
-# #################### ignored by wukong #####################
-src/main/webapp/META-INF/MANIFEST.MF
+src/main/webapp/WEB-INF/classes/
+src/main/webapp/WEB-INF/lib/
+target/
