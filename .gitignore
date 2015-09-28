@@ -65,4 +65,5 @@ src/main/webapp/gimg/sku/
 src/main/webapp/gimg/sku_rm/
 src/main/webapp/WEB-INF/classes/
 src/main/webapp/WEB-INF/lib/
+src/main/webapp/WEB-INF/tmp/
 target/
