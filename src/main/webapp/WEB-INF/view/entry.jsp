@@ -17,7 +17,7 @@
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
         <form id="frm_login" method="post" class="am-form" >
             <label for="name">账号:</label>
-            <input type="text" name="name" id="name" value="">
+            <input type="text" name="name" id="name" value="admin">
             <br>
             <label for="password">密码:</label>
             <input type="password" name="password" id="password" value="">
@@ -52,7 +52,7 @@
                 success: function(data) {
                     console.log(JSON.stringify(data));
                     if (data.ok == true) {
-                        alert("登陆成功");
+//                        alert("登陆成功");
                         document.location = "${base}/main.io";
                     } else {
                         alert(data.msg);
