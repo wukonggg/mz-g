@@ -109,7 +109,7 @@ public class SkuModule {
 
 
     @At("/save")
-    @Ok("raw")
+    @Ok("json")
     @Fail("json")
     @AdaptBy(type = UploadAdaptor.class, args = {"${app.root}/WEB-INF/tmp"})
     public void save(@Param("..") Sku sku, @Param("inputFile") File img,
@@ -141,7 +141,8 @@ public class SkuModule {
     }
 
     @At("/upd")
-    @Ok("redirect:/stock/sku/list.io")
+    @Ok("json")
+    @Fail("json")
     @AdaptBy(type = UploadAdaptor.class, args = {"${app.root}/WEB-INF/tmp"})
     public void upd(@Param("..") Sku sc, @Param("inputFile") File img,
                     @Param("more") String more, HttpServletRequest req) throws IOException {
@@ -158,8 +159,6 @@ public class SkuModule {
 
         String path = req.getSession().getServletContext().getRealPath(GIMG_RELATIVE_PATH);
         skuService.updateWithMore(sc, path);
-        //TODO FIXME 没有处理到异常。参考GoodsMoudle的upd
-        //顺手看看能不能把File参数去掉。参考goodsMoudle
     }
 
     @At("/rm")
