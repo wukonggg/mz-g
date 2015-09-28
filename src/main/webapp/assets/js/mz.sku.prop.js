@@ -27,7 +27,6 @@ window.mz.sku.prop.loadTypeTemplate = function (contextPath, cateCode, skuDictIt
         dataType: "text",
         success: function (data) {
             console.log("data=\n" + data);
-            console.log("textareaIddd=" + textareaId);
             $("#" + textareaId).text(data);
         },
         error: function (e) {

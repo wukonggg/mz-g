@@ -14,6 +14,7 @@ import org.nutz.dao.QueryResult;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
+import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.*;
@@ -108,7 +109,8 @@ public class SkuModule {
 
 
     @At("/save")
-    @Ok("redirect:/stock/sku/list.io")
+    @Ok("raw")
+    @Fail("json")
     @AdaptBy(type = UploadAdaptor.class, args = {"${app.root}/WEB-INF/tmp"})
     public void save(@Param("..") Sku sku, @Param("inputFile") File img,
                      @Param("more") String more, HttpServletRequest req) throws IOException {
@@ -121,8 +123,6 @@ public class SkuModule {
 
         String path = req.getSession().getServletContext().getRealPath(GIMG_RELATIVE_PATH);
         skuService.saveWithMore(sku, path);
-        //TODO FIXME 没有处理到异常。参考GoodsMoudle的save
-        //顺手看看能不能把File参数去掉。参考goodsMoudle
     }
 
     @At("/mod")

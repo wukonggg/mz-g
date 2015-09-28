@@ -194,7 +194,7 @@ XXL###超大号###0###备注备注备注</textarea>
         <c:if test="${sptList != null}">
         //绑定事件：尺码标准点击后模板随之变化
         $('label[id^="lbl_SizeStandard_"]').click(function () {
-            // FIXME 当textarea的内容被修改以后，再click就没有用了。
+            // FIXME 当textarea的内容被修改以后，再click就没有用了。debug发现请求数据已经响应过来，只是dom无法setvalue。
             var exp = $(this).attr("id").replace("lbl_SizeStandard_", "").split("_");
             var name = exp[0];
             var cateCode = exp[1];

@@ -99,4 +99,5 @@ public class SkuMoreViewService {
 
         return new QueryResult(skuMoreViewList, pager);
     }
+
 }
