@@ -63,3 +63,4 @@ src/main/webapp/gimg/sku/
 src/main/webapp/gimg/sku_rm/
 src/test/java/TestMain.java
 # #################### ignored by wukong #####################
+src/main/webapp/META-INF/MANIFEST.MF
