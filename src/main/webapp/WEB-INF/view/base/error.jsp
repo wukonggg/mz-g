@@ -7,7 +7,7 @@
 <%
     Object o = request.getAttribute("obj");
     String msg = "不知道为啥，感觉整个人都不好了。。。";
-    String href = request.getContextPath();
+    String href = request.getContextPath() + "/main.io";
     if (o instanceof AppRuntimeException) {
         AppRuntimeException ae = (AppRuntimeException) o;
         msg = ae.getMessage();
