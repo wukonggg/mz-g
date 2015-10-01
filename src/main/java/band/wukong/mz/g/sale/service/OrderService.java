@@ -39,7 +39,7 @@ public interface OrderService {
      * 2、查询产品的库存是否都足够。足够才下一步
      * 3、下单
      * 4、更新库存
-     * 5、看下单内容中有无服装类。有就更新用户表服装paymentClothing的值，新值为原有值+新单中服装类商品的成交价
+     * 5、看cust是不是非会员顾客、下单内容中有无服装类。都满足就更新用户表paymentclothing的值，新值为原有值+新单中服装类商品的成交价
      * 6、删除购物车中已下单的产品
      *
      * @param carts  carts

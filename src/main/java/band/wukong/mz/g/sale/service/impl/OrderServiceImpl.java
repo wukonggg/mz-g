@@ -119,7 +119,7 @@ public class OrderServiceImpl implements OrderService {
                     }
                     Item item = assembleItem(smv, c, nowPaymentClothing);
                     items.add(item);
-                    //计算paymentClothing
+                    //计算paymentClothing。newPaymentClothing > nowPaymentClothing证明是服装类
                     if (DiscountRule.discount(smv.getCateCode(), nowPaymentClothing) < 1) {
                         newPaymentClothing += item.getPayment();
                     }
@@ -129,8 +129,9 @@ public class OrderServiceImpl implements OrderService {
                 o.setItems(items);
                 order[0] = orderDao.insertWithItems(o);    //创建订单
 
-                // 5、看下单内容中有无服装类。看cust是不是非会员顾客，是会员才会更新paymentclothing
-                // 有就更新用户表服装paymentClothing的值，新值为原有值+新单中服装类商品的成交价
+                // 5、看cust是不是非会员顾客，
+                //    看下单内容中有无服装类(newPaymentClothing > nowPaymentClothing证明是服装类)。
+                //    都满足就更新用户表paymentclothing的值，新值为原有值+新单中服装类商品的成交价
                 if (o.getCustId() != Customer.NON_MEMBER_ID && newPaymentClothing > nowPaymentClothing) {
                     cust.setPaymentClothing(newPaymentClothing);
                     custService.updatePayment(cust);
