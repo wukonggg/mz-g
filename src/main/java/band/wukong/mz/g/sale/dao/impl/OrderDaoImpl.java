@@ -97,6 +97,7 @@ public class OrderDaoImpl implements OrderDao {
             }
         }
         if (Strings.isNotBlank(qcondOnCust)) {
+            qcondOnCust = qcondOnCust.trim();
             sql.params().set("cid", "%" + qcondOnCust + "%");
             sql.params().set("name", qcondOnCust);
             sql.params().set("msisdn", qcondOnCust);
