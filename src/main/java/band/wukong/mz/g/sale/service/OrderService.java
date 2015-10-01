@@ -5,7 +5,6 @@ import band.wukong.mz.common.privilege.bean.User;
 import band.wukong.mz.g.sale.bean.Cart;
 import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.bean.Order;
-import band.wukong.mz.g.sale.exception.OutOfStockException;
 import org.nutz.dao.QueryResult;
 
 /**
@@ -35,7 +34,7 @@ public interface OrderService {
     QueryResult listDetail(String qcondOnCust, Period p, User u, int pageNum, int pageSize);
 
     /**
-     * 支付/结帐
+     * 支付/结帐。库存不足时抛出OutOfStockException，整个订购回滚
      * 1、查询用户是否存在、营业员是否存在。都存在才下一步
      * 2、查询产品的库存是否都足够。足够才下一步
      * 3、下单
@@ -46,7 +45,6 @@ public interface OrderService {
      * @param carts  carts
      * @param userId userId
      * @return order insert的order，包括items
-     * @throws OutOfStockException 库存不足时抛出。整个订购回滚
      */
     Order pay(Cart[] carts, Long userId);
 
