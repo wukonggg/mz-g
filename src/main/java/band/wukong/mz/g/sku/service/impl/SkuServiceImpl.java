@@ -106,9 +106,9 @@ public class SkuServiceImpl implements SkuService {
         sku.setUtime(new Date());
 
         if (null != s.getGimg()) {
-            Files.deleteFile(new File(path + File.separator + sku.getImg()));
             File pic = new File(path + File.separator + sku.getSid() + "." + FileUtil.getFileExtension(s.getGimg()));
             Files.copy(s.getGimg(), pic);
+            sku.setImg(pic.getName());
         }
         skuDao.updateWithMore(sku);
     }

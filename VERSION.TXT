@@ -1,25 +1,48 @@
 + TODO -OPT 部分清单
+- mz。select_category.js的优化。暂时先用timeout //TODO -OPT 等待动态生成的catecodes加载完成后再去设置点击状态。暂时先用timeout
+//TODO -OPT goods sku 模块在save、update抛出异常时页面接无法收到具体信息或者是module中使用raw而js中试用mess.error.amAlertDanger等，这样太烂了。
+            目前都是抛出异常，然后交给jsp去处理的。以后要改成json形式的
+- SkuPropTypeService.listDistinctNameByCateCode 读取type的名称   //TODO -OPT 这里可以考虑不用读取数据库，直接写死
 - 表单校验
 - 检查所有的validator和数据库是否一致，是否在逻辑上存在漏洞
 - 分页优化，增加当前页的前3页和后3页，共7页（如果有的话）
-- SkuPropTypeService.listDistinctNameByCateCode 读取type的名称   //TODO -OPT 这里可以考虑不用读取数据库，直接写死
 - goods.catecode---skuproptype---sku.type，包括skumore的生成还需要设计一下
   skuMore部分的编辑，现在是textarea，以后可使用可编辑表格。  // TODO -OPT 这里暂时先用固定格式的文字表示，以后再优化为小型表格
-- mz。select_category.js的优化。暂时先用timeout //TODO -OPT 等待动态生成的catecodes加载完成后再去设置点击状态。暂时先用timeout
-- 所有update，改为先根据id从数据库查询，然后再set所有需要的字段，再update的模式
+
+- module和page全部改为ajax方式，分离前后端的联系，特别是异常处理。不再利用jsp中捕获
 
 + FIXME
-- SkuDaoImpl.updateWithMore  //FIXME 这里的事务还没有做单元测试
+- SkuDaoImpl.updateWithMore  //FIXME 还要再测试
 - sku_add_s2.jsp    //FIXME 当textarea的内容被修改以后，再click就没有用了。
-- SkuModule    //TODO FIXME 没有处理到异常。参考GoodsMoudle的save
+- sku_add_s2.jsp    //FIXME 这里可能是aralejs的问题，接收到的data不是json，而是包装成html了。
+- sku_mod.jsp       //FIXME 这里可能是aralejs的问题，接收到的data不是json，而是包装成html了。
+
 
 + TODO -NEXT
 - 给SKU增加一个备注字段
 - 增加根据产品信息查询订单的功能，查询某个产品在哪几个订单销售过
 - 增加订单号
 - 重构order模块。把jsp和module中return "done"全部改成return "ok"。和其他模块统一起来
-- 把deploy脚本中sku_prop_type的数据补全
 - 增加quratz定时调度任务。
+
+//TODO -ASK GoodsServiceImpl.listNoneSku的意义？？
+
+
+mz-g-0.4.1.2015.09xx
+==============================================
+1、[ok]去掉登陆成功的alert。{34c6dd7a883239b39e5eb0e811b4792423cc271f}
+1、[ok]SkuPropTypeService.list，orderby nameorder & valueorder。{6d9b249ec646b10c274908d5ae4f979fdd8dae19}
+2、[ok]会员模块
+-  customer_list，按照cid排序。{16d243c39bb7ba86472448828062f0897ea04de1}
+-  增加字段“微信”，修改对应的代码。{5e9525a5477ba144b24eefba90a7f9d639af2847}
+3、[now]商品模块
+-  goods的新增、修改提交操作返回改为ajax方式
+-  补充业务逻辑：当删除商品时，商品如果有对应SKU，则提示不能被删除
+-  现在删除时没有删除图片
+4、[now]SKU模块
+-  [ok]解决save sku抛出异常时页面无法接收到而直接跳到list页面的问题。{e37441501d51222d5d8ec9ab4650d0b7a4b06eb4}
+-  [ok]sku的新增、修改提交操作返回改为ajax方式
+-  现在删除时没有删除图片
 
 
 mz-g-0.4.1.2015.0927

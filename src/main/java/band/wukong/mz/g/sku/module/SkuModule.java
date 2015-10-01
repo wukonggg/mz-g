@@ -112,17 +112,26 @@ public class SkuModule {
     @Ok("json")
     @Fail("json")
     @AdaptBy(type = UploadAdaptor.class, args = {"${app.root}/WEB-INF/tmp"})
-    public void save(@Param("..") Sku sku, @Param("inputFile") File img,
+    public Object save(@Param("..") Sku sku, @Param("inputFile") File img,
                      @Param("more") String more, HttpServletRequest req) throws IOException {
         log.debug("Input params - sku: \n" + sku);
         log.debug("Input params - image file is uploaded: " + Boolean.valueOf(null != img));
         log.debug("Input params - more: " + more);
 
+        NutMap re = new NutMap();
+
         sku.setMoreList(SkuMoreHelper.convert2ListWhenSave(more));
         sku.setGimg(img);
-
         String path = req.getSession().getServletContext().getRealPath(GIMG_RELATIVE_PATH);
-        skuService.saveWithMore(sku, path);
+        try {
+            skuService.saveWithMore(sku, path);
+        } catch (AppRuntimeException e) {
+            return re.setv("ok", false).setv("msg", e.getMessage());
+        }
+
+//        return for test
+//        return re.setv("ok", false).setv("msg", "lalalalld");
+        return re.setv("ok", true);
     }
 
     @At("/mod")
@@ -144,21 +153,30 @@ public class SkuModule {
     @Ok("json")
     @Fail("json")
     @AdaptBy(type = UploadAdaptor.class, args = {"${app.root}/WEB-INF/tmp"})
-    public void upd(@Param("..") Sku sc, @Param("inputFile") File img,
+    public Object upd(@Param("..") Sku sc, @Param("inputFile") File img,
                     @Param("more") String more, HttpServletRequest req) throws IOException {
         log.debug("Input params - sc: \n" + sc);
         log.debug("Input params - image file is uploaded: " + Boolean.valueOf(null != img));
         log.debug("Input params - more: " + more);
 
+        NutMap re = new NutMap();
+
         if (sc.getId() <= 0) {
             throw new AppRuntimeException("木有找到你要更新的产品。。。");
         }
-
         sc.setGimg(img);
         sc.setMoreList(SkuMoreHelper.convert2ListWhenUpdate(more));
 
+
         String path = req.getSession().getServletContext().getRealPath(GIMG_RELATIVE_PATH);
-        skuService.updateWithMore(sc, path);
+        try {
+            skuService.updateWithMore(sc, path);
+        } catch (AppRuntimeException e) {
+            return re.setv("ok", false).setv("msg", e.getMessage());
+        }
+//        return for test
+//        return re.setv("ok", false).setv("msg", "lalalalld");
+        return re.setv("ok", true);
     }
 
     @At("/rm")

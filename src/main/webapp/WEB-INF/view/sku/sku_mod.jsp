@@ -185,12 +185,24 @@ XXL###超大号###0###备注备注备注</textarea>
                 postUploadFailed(null);
                 raw.wc.loading.hide();
             },
-            success: function(response) {
-                if (mess.error.isErrorPage(response)) {
-                    postUploadFailed(response);
-                    raw.wc.loading.hide();
+            success: function(data) {
+                console.log("response: " + data);
+                var json = null;
+                if (!raw.util.json.isJson(data)) {
+                    //FIXME 这里可能是aralejs的问题，接收到的data不是json，而是包装成html了。
+                    //Resource interpreted as Document but transferred with MIME type application/json: "http://localhost:8080/g/stock/sku/upd.io".
+                    //<pre style="word-wrap: break-word; white-space: pre-wrap;">{"ok":false,"msg":"lalalalld"}</pre>
+                    //<pre style="word-wrap: break-word; white-space: pre-wrap;">{"ok":ok}</pre>
+                    //所以需要把json提取出来
+                    json = $.parseJSON(raw.util.xml.findContent(data, "pre"));
                 } else {
+                    json = data;
+                }
+                if (json.ok == true) {
                     document.location.href = "${base}/stock/sku/list.io";
+                } else {
+                    postUploadFailed(json.msg);
+                    raw.wc.loading.hide();
                 }
             }
         }).change(function(filename) {
@@ -261,9 +273,11 @@ XXL###超大号###0###备注备注备注</textarea>
         form.append(more);
     }
 
-    function postUploadFailed(response) {
+    function postUploadFailed(info) {
         $("#frmFile").empty();
-        var alertHtml = mess.error.amAlertDanger(response, "mz-error-msg");
+        var msg = raw.util.string.isBlank(info) ? "出错啦！快去找悟空!" : msg;
+//        var alertHtml = mess.error.amAlertDanger(response, "mz-error-msg");
+        var alertHtml = mess.error.alertDangerInAM(msg, "mz-error-msg");
         $(".am-tabs-bd").prepend(alertHtml);
         $("html, body").animate({ scrollTop: 0 }, 120); //滚动到顶部，这样才能看见。。。
     }

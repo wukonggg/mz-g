@@ -47,3 +47,20 @@ window.mess.error.pickupErrorMsg = function (response) {
     }
     return response.msg;
 };
+
+
+window.mess.error.alertDangerInAM = function (msg, id) {
+    var html = '<div'
+        + ' class="am-alert am-alert-danger am-input-sm mz-am-alert-fixed"'
+        + ' data-am-alert>'
+        + '<button type="button" class="am-close">&times;</button>'
+        + '<p id="@id" >&nbsp;&nbsp;@msg</p>'
+        + '</div>';
+
+    if (undefined === id || null === id || "" === id) {
+        html = html.replace("@id", "mz-error-msg");
+    } else {
+        html = html.replace("@id", id);
+    }
+    return html.replace("@msg", msg);
+};
