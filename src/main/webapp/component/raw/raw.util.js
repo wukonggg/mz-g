@@ -13,6 +13,25 @@ window.raw.util.string = (function (ns, undefined) {
     };
 })(window.raw.util.string);
 
+
+window.raw.util.xml = (function (ns, undefined) {
+    var findContent= function(xml, tagName) {
+        if (tagName == "pre") {
+            var regExp = /<pre.*>(.*)<\/pre>/ig;
+            var arr = xml.match(regExp);
+            //alert(arr);
+            return RegExp.$1;
+        } else {
+            alert("暂不支持");
+            return "";
+        }
+    };
+    return {
+        findContent: findContent   //如果此字符串为undefined 或 null 或为空串（""），则返回 true
+    };
+})(window.raw.util.xml);
+
+
 window.raw.util.json = (function (ns, undefined) {
     /**
      * 是否是json数据
