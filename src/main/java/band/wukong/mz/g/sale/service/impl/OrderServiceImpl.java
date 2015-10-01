@@ -7,7 +7,7 @@ import band.wukong.mz.common.privilege.bean.User;
 import band.wukong.mz.common.privilege.service.UserService;
 import band.wukong.mz.g.customer.bean.Customer;
 import band.wukong.mz.g.customer.service.CustomerService;
-import band.wukong.mz.g.sale.OutOfStockException;
+import band.wukong.mz.g.sale.exception.OutOfStockException;
 import band.wukong.mz.g.sale.bean.Cart;
 import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.bean.Order;

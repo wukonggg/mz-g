@@ -1,4 +1,4 @@
-package band.wukong.mz.g.sale;
+package band.wukong.mz.g.sale.exception;
 
 import band.wukong.mz.base.exception.AppRuntimeException;
 
