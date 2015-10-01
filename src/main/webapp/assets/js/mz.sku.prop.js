@@ -16,17 +16,17 @@ window.mz.sku.prop = window.mz.sku.prop || {};
  * @param errorMsg errorMsg
  */
 window.mz.sku.prop.loadTypeTemplate = function (contextPath, cateCode, skuDictItem, skuDictName, textareaId, errorMsg) {
-    console.log("cateCode=" + cateCode);
-    console.log("skuDictItem=" + skuDictItem);
-    console.log("skuDictName=" + skuDictName);
-    console.log("textareaId=" + textareaId);
+    //console.log("cateCode=" + cateCode);
+    //console.log("skuDictItem=" + skuDictItem);
+    //console.log("skuDictName=" + skuDictName);
+    //console.log("textareaId=" + textareaId);
     $.ajax({
         type: 'POST',
         url: contextPath + "/sku/prop/loadTypeTemplate.io?cateCode="
             + cateCode + "&item=" + skuDictItem + "&name=" + skuDictName,
         dataType: "text",
         success: function (data) {
-            console.log("data=\n" + data);
+            //console.log("data=\n" + data);
             $("#" + textareaId).text(data);
         },
         error: function (e) {
