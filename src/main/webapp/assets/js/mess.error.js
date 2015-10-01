@@ -3,23 +3,23 @@
 
 window.mess = window.mess || {};
 window.mess.error = window.mess.error || {};
+window.mess.error.type = window.mess.error.type || {};
+window.mess.error.type.danger = "mz-alert-danger";
 
-/**
- * 检查相应是否是错误页面
- */
-window.mess.error.isErrorPage = function (response) {
-    return response.indexOf("detailMessage") > 0;
-};
 
 /**
  * 从response获取（错误）信息并声称alert html string
  *
- * @param response
+ * @param type mess.error.type.xxx
+ * @param msg
  * @param id alert信息div的id
  * @returns {string}
  */
-window.mess.error.amAlertDanger = function (response, id) {
-    var msg = this.pickupErrorMsg(response);
+window.mess.error.genAmzDangerAlert = function (type, msg, id) {
+    if (type != window.mess.error.type.danger) {
+        alert("暂不支持！");
+        return "";
+    }
     var html = '<div'
         + ' class="am-alert am-alert-danger am-input-sm mz-am-alert-fixed"'
         + ' data-am-alert>'
@@ -32,35 +32,12 @@ window.mess.error.amAlertDanger = function (response, id) {
     } else {
         html = html.replace("@id", id);
     }
-    return html.replace("@msg", msg);
-};
 
-/**
- * 从response获取（错误）信息
- *
- * @param response
- * @returns {string}
- */
-window.mess.error.pickupErrorMsg = function (response) {
-    if (raw.util.string.isBlank(response) || raw.util.string.isBlank(response.msg)) {
-        return "出错啦！快去找悟空!";
-    }
-    return response.msg;
-};
-
-
-window.mess.error.alertDangerInAM = function (msg, id) {
-    var html = '<div'
-        + ' class="am-alert am-alert-danger am-input-sm mz-am-alert-fixed"'
-        + ' data-am-alert>'
-        + '<button type="button" class="am-close">&times;</button>'
-        + '<p id="@id" >&nbsp;&nbsp;@msg</p>'
-        + '</div>';
-
-    if (undefined === id || null === id || "" === id) {
-        html = html.replace("@id", "mz-error-msg");
+    if (undefined === msg || null === msg || "" === msg) {
+        html = html.replace("@msg", "出错啦！快去找悟空!");
     } else {
-        html = html.replace("@id", id);
+        html = html.replace("@msg", msg)
     }
-    return html.replace("@msg", msg);
+
+    return html;
 };

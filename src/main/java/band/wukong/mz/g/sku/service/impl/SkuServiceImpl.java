@@ -24,7 +24,6 @@ import org.nutz.trans.Atom;
 import org.nutz.trans.Trans;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 /**

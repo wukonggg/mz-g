@@ -100,12 +100,27 @@
                 raw.wc.loading.hide();
                 postUploadFailed(null);
             },
-            success: function(response) {
-                if (mess.error.isErrorPage(response)) {
-                    postUploadFailed(response);
-                    raw.wc.loading.hide();
+            success: function(data) {
+                console.log("response: " + data);
+                var json = null;
+                if (!raw.util.json.isJson(data)) {
+                    //FIXME 这里可能是aralejs的问题，接收到的data不是json，而是包装成html了。
+                    //Resource interpreted as Document but transferred with MIME type application/json: "http://localhost:8080/g/stock/sku/upd.io".
+                    //<pre style="word-wrap: break-word; white-space: pre-wrap;">{"ok":false,"msg":"lalalalld"}</pre>
+                    //<pre style="word-wrap: break-word; white-space: pre-wrap;">{"ok":ok}</pre>
+                    //所以需要把json提取出来
+                    json = $.parseJSON(raw.util.xml.findContent(data, "pre"));
                 } else {
+                    json = data;
+                }
+                console.log("json: " + JSON.stringify(json));
+                console.log("json.ok: " + json.ok);
+
+                if (json.ok == true) {
                     document.location.href = "${base}/stock/goods/list.io";
+                } else {
+                    postUploadFailed(json.msg);
+                    raw.wc.loading.hide();
                 }
             }
         }).change(function(filename) {
@@ -132,9 +147,9 @@
         form.append(words);
     }
 
-    function postUploadFailed(response) {
+    function postUploadFailed(msg) {
         $("#frmFile").empty();
-        var alertHtml = mess.error.amAlertDanger(response, "mz-error-msg");
+        var alertHtml = mess.error.genAmzDangerAlert(mess.error.type.danger, msg, "mz-error-msg");
         $(".am-tabs-bd").prepend(alertHtml);
         $("html, body").animate({ scrollTop: 0 }, 120); //滚动到顶部，这样才能看见。。。
     }

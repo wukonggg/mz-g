@@ -5,6 +5,7 @@ import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.service.GoodsService;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.*;
@@ -57,19 +58,28 @@ public class GoodsModule {
     }
 
     @At("/save")
-    @Ok("raw")
+    @Ok("json")
     @Fail("json")
     @AdaptBy(type = UploadAdaptor.class, args = {"${app.root}/WEB-INF/tmp"})
-    public String save(@Param("..") Goods g, @Param("inputFile") File gimg, HttpServletRequest req) throws IOException {
+    public Object save(@Param("..") Goods g, @Param("inputFile") File gimg, HttpServletRequest req) throws IOException {
         log.debug("Input params - goods: \n" + g);
         log.debug("Input params - gimg:");
         log.debug(null != gimg ? gimg.getName() : "NULL");
 
-        g.setGimg(gimg);
+        NutMap re = new NutMap();
+        if (null != gimg) {
+            g.setGimg(gimg);
+        }
         String path = req.getSession().getServletContext().getRealPath(GIMG_RELATIVE_PATH);
-        goodsService.save(g, path);
+        try {
+            goodsService.save(g, path);
+        } catch (AppRuntimeException e) {
+            return re.setv("ok", false).setv("msg", e.getMessage());
+        }
 
-        return "ok";
+//        return for test
+//        return re.setv("ok", false).setv("msg", "lalalalld");
+        return re.setv("ok", true);
     }
 
     @At("/mod")
@@ -81,25 +91,32 @@ public class GoodsModule {
     }
 
     @At("/upd")
-    @Ok("raw")
+    @Ok("json")
     @Fail("json")
     @AdaptBy(type = UploadAdaptor.class, args = {"${app.root}/WEB-INF/tmp"})
-    public String upd(@Param("..") Goods g, @Param("inputFile") File gimg, HttpServletRequest req) throws IOException {
+    public Object upd(@Param("..") Goods g, @Param("inputFile") File gimg, HttpServletRequest req) throws IOException {
         log.debug("Input params - goods: \n" + g);
         log.debug("Input params - gimg:");
         log.debug(null != gimg ? gimg.getName() : "NULL");
 
+        NutMap re = new NutMap();
+
         if (g.getId() <= 0) {
             throw new AppRuntimeException("木有找到你要更新的产品。。。");
         }
-
         if (null != gimg) {
             g.setGimg(gimg);
         }
-
         String path = req.getSession().getServletContext().getRealPath(GIMG_RELATIVE_PATH);
-        goodsService.update(g, path);
-        return "ok";
+        try {
+            goodsService.update(g, path);
+        } catch (AppRuntimeException e) {
+            return re.setv("ok", false).setv("msg", e.getMessage());
+        }
+
+//        return for test
+//        return re.setv("ok", false).setv("msg", "lalalalld");
+        return re.setv("ok", true);
     }
 
     @At("/rm")

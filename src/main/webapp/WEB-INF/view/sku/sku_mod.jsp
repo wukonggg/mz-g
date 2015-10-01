@@ -273,11 +273,9 @@ XXL###超大号###0###备注备注备注</textarea>
         form.append(more);
     }
 
-    function postUploadFailed(info) {
+    function postUploadFailed(msg) {
         $("#frmFile").empty();
-        var msg = raw.util.string.isBlank(info) ? "出错啦！快去找悟空!" : msg;
-//        var alertHtml = mess.error.amAlertDanger(response, "mz-error-msg");
-        var alertHtml = mess.error.alertDangerInAM(msg, "mz-error-msg");
+        var alertHtml = mess.error.genAmzDangerAlert(mess.error.type.danger, msg, "mz-error-msg");
         $(".am-tabs-bd").prepend(alertHtml);
         $("html, body").animate({ scrollTop: 0 }, 120); //滚动到顶部，这样才能看见。。。
     }
