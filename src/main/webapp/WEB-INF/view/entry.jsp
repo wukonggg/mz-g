@@ -45,12 +45,12 @@
                 url : base + "/login.io",
                 type: "POST",
                 data:$('#frm_login').serialize(),
+                dataType:"json",
                 error: function(request) {
                     alert("Connection error");
                 },
-                dataType:"json",
                 success: function(data) {
-                    console.log(JSON.stringify(data));
+//                    console.log("log - " + JSON.stringify(data));
                     if (data.ok == true) {
 //                        alert("登陆成功");
                         document.location = "${base}/main.io";
