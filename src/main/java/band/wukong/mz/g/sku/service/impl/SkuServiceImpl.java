@@ -125,15 +125,6 @@ public class SkuServiceImpl implements SkuService {
         skuDao.updateWithMore(sku);
 
         // REQ 现在删除时没有删除图片
-        File src = new File("");
-        File target = new File("");
-
-        try {
-            Files.copyFile(src, target);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Files.deleteFile(src);
     }
 
     @Override

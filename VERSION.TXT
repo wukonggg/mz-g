@@ -28,21 +28,19 @@
 //TODO -ASK GoodsServiceImpl.listNoneSku的意义？？
 
 
-mz-g-0.4.1.2015.09xx
+mz-g-0.4.1.2015.10xx
 ==============================================
 1、[ok]去掉登陆成功的alert。{34c6dd7a883239b39e5eb0e811b4792423cc271f}
-1、[ok]SkuPropTypeService.list，orderby nameorder & valueorder。{6d9b249ec646b10c274908d5ae4f979fdd8dae19}
-2、[ok]会员模块
+2、[ok]SkuPropTypeService.list，orderby nameorder & valueorder。{6d9b249ec646b10c274908d5ae4f979fdd8dae19}
+3、[ok]会员模块
 -  customer_list，按照cid排序。{16d243c39bb7ba86472448828062f0897ea04de1}
 -  增加字段“微信”，修改对应的代码。{5e9525a5477ba144b24eefba90a7f9d639af2847}
-3、[now]商品模块
+4、[now]商品模块
 -  goods的新增、修改提交操作返回改为ajax方式
 -  补充业务逻辑：当删除商品时，商品如果有对应SKU，则提示不能被删除
--  现在删除时没有删除图片
-4、[now]SKU模块
+5、[ok]SKU模块
 -  [ok]解决save sku抛出异常时页面无法接收到而直接跳到list页面的问题。{e37441501d51222d5d8ec9ab4650d0b7a4b06eb4}
--  [ok]sku的新增、修改提交操作返回改为ajax方式
--  现在删除时没有删除图片
+-  [ok]sku的新增、修改提交操作返回改为ajax方式。{c42b3651bf457bbb3a02dc204531b7a565493f21}
 
 
 mz-g-0.4.1.2015.0927
