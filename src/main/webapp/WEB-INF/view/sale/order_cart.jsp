@@ -247,6 +247,16 @@
                 iconNode.addClass("am-icon-plus");
                 iconNode.html("&nbsp;&nbsp;展开全部")
             }
+            $(".am-panel-hd").each(function() {
+                var subIconNode = $(this).children(":first");
+                if(iconNode.attr("class") == "am-icon-plus") {
+                    subIconNode.removeClass("am-icon-minus");
+                    subIconNode.addClass("am-icon-plus");
+                } else {
+                    subIconNode.removeClass("am-icon-plus");
+                    subIconNode.addClass("am-icon-minus");
+                }
+            });
             return false;
         });
 
