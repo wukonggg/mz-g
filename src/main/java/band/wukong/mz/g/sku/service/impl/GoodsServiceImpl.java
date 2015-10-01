@@ -2,7 +2,10 @@ package band.wukong.mz.g.sku.service.impl;
 
 import band.wukong.mz.base.exception.IllegalParameterException;
 import band.wukong.mz.g.sku.bean.Goods;
+import band.wukong.mz.g.sku.bean.Sku;
 import band.wukong.mz.g.sku.dao.GoodsDao;
+import band.wukong.mz.g.sku.dao.SkuDao;
+import band.wukong.mz.g.sku.exception.HasActiveStockException;
 import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.util.FileUtil;
 import org.nutz.dao.QueryResult;
@@ -27,6 +30,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Inject
     private GoodsDao goodsDao;
+
+    @Inject
+    private SkuDao skuDao;
 
     @Override
     public Goods save(Goods g, String path) {
@@ -74,10 +80,16 @@ public class GoodsServiceImpl implements GoodsService {
             throw new IllegalParameterException();
         }
 
+        // 商品如果有对应SKU，则提示不能被删除
+        Sku sku = skuDao.findByGoodsId(id);
+        if (null != sku && !Sku.STATE_RM.equals(sku.getState())) {
+            throw new HasActiveStockException("无法删除仍有有效库存的商品");
+        }
+
         Goods g = goodsDao.find(id);
         g.setState(Goods.STATE_RM);
         goodsDao.update(g);
-        // REQ 补充业务逻辑：当删除商品时，商品如果有对应SKU，则提示不能被删除
+
         // REQ 现在删除时没有删除图片
     }
 
@@ -90,4 +102,5 @@ public class GoodsServiceImpl implements GoodsService {
     public QueryResult listNoneSku(String qcond, int pageNum, int pageSize) {
         return goodsDao.listWitchHasNoneSku(qcond, pageNum, pageSize);
     }
+
 }

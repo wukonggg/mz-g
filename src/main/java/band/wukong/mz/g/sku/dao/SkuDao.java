@@ -60,4 +60,12 @@ public interface SkuDao {
      */
     QueryResult list(String cateCode, String qcond, int pageNum, int pageSize);
 
+    /**
+     * 根据goodsId找SKU
+     *
+     * @param goodsId goodsId
+     * @return
+     */
+    Sku findByGoodsId(Long goodsId);
+
 }

@@ -155,6 +155,11 @@ public class SkuDaoImpl implements SkuDao {
         */
     }
 
+    @Override
+    public Sku findByGoodsId(Long goodsId) {
+        return dao.fetch(Sku.class, Cnd.where("goodsId", "=", goodsId));
+    }
+
     /**
      * @param e        原始查询语句，select具体内容的
      * @param cateCode cateCode
