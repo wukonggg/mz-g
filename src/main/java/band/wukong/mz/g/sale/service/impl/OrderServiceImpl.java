@@ -119,10 +119,14 @@ public class OrderServiceImpl implements OrderService {
                     }
                     Item item = assembleItem(smv, c, nowPaymentClothing);
                     items.add(item);
-                    //计算paymentClothing。newPaymentClothing > nowPaymentClothing证明是服装类
-                    if (DiscountRule.discount(smv.getCateCode(), nowPaymentClothing) < 1) {
+                    //计算paymentClothing。
+                    if (DiscountRule.hasClothingDiscount(smv.getCateCode())) {
+//                  if (DiscountRule.discount(smv.getCateCode(), nowPaymentClothing) < 1) {
+                        // newPaymentClothing > nowPaymentClothing - 证明是服装类
+                        // newPaymentClothing = nowPaymentClothing - 有可能不是服装类，也有可能是首次购买服装
                         newPaymentClothing += item.getPayment();
                     }
+
                     //减少库存
                     skuService.reduceStock(smv.getSkuMoreId(), c.getCount());
                 }
