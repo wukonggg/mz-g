@@ -181,7 +181,7 @@
                                             <input id="inp_payment_${cartsKV.key}_${c.skuMoreId}" name="payment"
                                                    type="text"
                                                    class="am-form-field am-input-sm mz-ic-cart-tbody-payment"
-                                                   value="${o:calcDpriceInString(c.cateCode, c.paymentClothing, c.sprice, 2, "0.00")}"/>
+                                                   value="${o:calcPaymentInString(c.cateCode, c.paymentClothing, c.sprice, c.count, 2, "0.00")}"/>
                                         </td>
                                         <td>
                                             <a id="btn_cart_rm_${cartsKV.key}_${c.custId}_${c.skuMoreId}" href="#">删除</a>
@@ -326,14 +326,21 @@
             var scount = $(this).parent().parent().nextAll(".mz-ic-carts-scount").val();
 
             if (scount < parseInt(count) + 1) {
-                alert("购买数量超出库存");
+                alert("已达到最大库存数量");
                 return false;
             }
-
             $(countNode).val(parseInt(count) + 1);
             $(countNode).change();
+
             updateCount($(cartId).val(), countNode.val());
+
+            var cid = $(this).parent().parent().nextAll(".mz-ic-carts-cid").val();
+            var skuMoreId = $(this).parent().parent().nextAll(".mz-ic-carts-skuMoreId").val();
+            var dprice = $(this).parent().parent().nextAll(".mz-ic-carts-dprice").val();
+            var payment = dprice * $(countNode).val();
+            $("#inp_payment_" + cid + "_" + skuMoreId).val(payment.toFixed(2));
         });
+
         //减少商品数量
         $("button[name='btn_count_reduce']").click(function () {
             var cartId = $(this).parent().parent().nextAll(".mz-ic-cart-id");
@@ -344,30 +351,16 @@
             }
             $(countNode).val(count - 1);
             $(countNode).change();
+
             updateCount($(cartId).val(), countNode.val());
-        });
 
-        //商品数量改变时的事件绑定
-        $(".mz-ic-carts-count").on("change", function () {
-            var cartId = $(this).parent().nextAll(".mz-ic-cart-id").val();
-            var scount = $(this).parent().nextAll(".mz-ic-carts-scount").val();
-            var currDcount = $(this).val();
-            if (!raw.re.patterns.integer_gt0.test(currDcount)) {
-                currDcount = 1;
-                $(this).val(currDcount);
-            } else if (currDcount > scount) {
-                alert("已到达最大库存量");
-                currDcount = scount;
-                $(this).val(scount);
-            }
-
-            var cid = $(this).parent().nextAll(".mz-ic-carts-cid").val();
-            var skuMoreId = $(this).parent().nextAll(".mz-ic-carts-skuMoreId").val();
-            var dprice = $(this).parent().nextAll(".mz-ic-carts-dprice").val();
-            var payment = dprice * currDcount;
+            var cid = $(this).parent().parent().nextAll(".mz-ic-carts-cid").val();
+            var skuMoreId = $(this).parent().parent().nextAll(".mz-ic-carts-skuMoreId").val();
+            var dprice = $(this).parent().parent().nextAll(".mz-ic-carts-dprice").val();
+            var payment = dprice * $(countNode).val();
             $("#inp_payment_" + cid + "_" + skuMoreId).val(payment.toFixed(2));
-            updateCount(cartId, currDcount);
         });
+
 
         //清空整个购物车
         $("#btn_clear").click(function (e) {
@@ -464,13 +457,13 @@
             }
 
             loadCarts();
-            console.log("carts.size():" + carts.size());
+//            console.log("carts.size():" + carts.size());
             var ja = "[";
             carts.each(function(key, value, i){
                 ja += JSON.stringify(value) + ","
             });
             ja = ja.substring(0, ja.length - 1) + "]";
-            console.log("ja = \n" + ja);
+//            console.log("ja = \n" + ja);
             $("#carts").val(ja);
             $("#frmMain").submit();
         });

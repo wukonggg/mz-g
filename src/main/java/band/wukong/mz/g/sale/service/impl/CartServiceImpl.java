@@ -75,6 +75,7 @@ public class CartServiceImpl implements CartService {
             c.setUserId(userId);
             c.setCustId(cust.getId());
             c.setSkuMoreId(Long.parseLong(skuMoreId));
+            c.setCount(1);
             Cart cart = findByCondition(c);
             if (null == cart) {
                 carts.add(dao.insert(c));
