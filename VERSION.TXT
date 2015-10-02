@@ -3,12 +3,10 @@
 //TODO -OPT goods sku 模块在save、update抛出异常时页面接无法收到具体信息或者是module中使用raw而js中试用mess.error.amAlertDanger等，这样太烂了。
             目前都是抛出异常，然后交给jsp去处理的。以后要改成json形式的
 - SkuPropTypeService.listDistinctNameByCateCode 读取type的名称   //TODO -OPT 这里可以考虑不用读取数据库，直接写死
-- 表单校验
-- 检查所有的validator和数据库是否一致，是否在逻辑上存在漏洞
+- 表单校验 & 检查所有的validator和数据库是否一致，是否在逻辑上存在漏洞
 - 分页优化，增加当前页的前3页和后3页，共7页（如果有的话）
 - goods.catecode---skuproptype---sku.type，包括skumore的生成还需要设计一下
   skuMore部分的编辑，现在是textarea，以后可使用可编辑表格。  // TODO -OPT 这里暂时先用固定格式的文字表示，以后再优化为小型表格
-
 - module和page全部改为ajax方式，分离前后端的联系，特别是异常处理。不再利用jsp中捕获
 
 + FIXME
@@ -28,6 +26,16 @@
 - 增加quratz定时调度任务。
 
 //TODO -ASK GoodsServiceImpl.listNoneSku的意义？？
+
+
+mz-g-0.4.1.2015.1002
+==============================================
+1、[Fixed]购物车中点击收缩/展开全部时，顾客购物车的收缩按钮没有跟随变化。{7e4e0549a0456514f5cdd43eb07827169f80f287}
+2、[Fixed]查询订单时，查询条件字符串两端有空格就查不出来。{5b2d9bdc2e3ce734e51d7540e972175737542f21}
+3、完善OrderTag & order.tld.{85011327f412b85c890414885bb775478d60db8f}
+4、[Fixing]购物车选中结账的商品购买数量<=0时也能提交页面。当然，跑到错误页面去了。  {31c3e9fd49509154968c54f7976bc11a1933764e}
+5、[Fixing]购物车购买的商品更改数量随便点两下就到最大库存了。                     {31c3e9fd49509154968c54f7976bc11a1933764e}
+6、[Fixing]购物车页面加载后“金额”一栏显示的是单价，不是总价。                   {31c3e9fd49509154968c54f7976bc11a1933764e}
 
 
 mz-g-0.4.1.2015.1001
