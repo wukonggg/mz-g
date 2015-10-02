@@ -211,7 +211,7 @@ public class OrderServiceImpl implements OrderService {
                 skuService.addStock(item4return[0].getSkuMoreId(), i.getDcount());
 
                 //4、如果商品是服装类，就更新用户表服装paymentClothing的值，新值为原有值+新单中服装类商品的成交价（成交价为负值）
-                //4.1、如果是非会员客户就不用算paymentClothing了
+                //4.1、如果是非会员顾客就不用算paymentClothing了
                 Order order = orderDao.find(item4return[0].getOid());
                 if (order.getCustId() != Customer.NON_MEMBER_ID) {
                     Customer cust = custService.find(order.getCustId());
