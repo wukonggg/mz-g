@@ -7,6 +7,8 @@ package band.wukong.mz.base.exception;
  */
 public class AppRuntimeException extends RuntimeException {
 
+    private static final long serialVersionUID = 6503732753991985677L;
+
     private String url;
 
     public AppRuntimeException() {

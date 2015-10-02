@@ -7,6 +7,8 @@ package band.wukong.mz.base.exception;
  */
 public class AppException extends Exception {
 
+    private static final long serialVersionUID = -6339959428822547104L;
+
     public AppException() {
     }
 

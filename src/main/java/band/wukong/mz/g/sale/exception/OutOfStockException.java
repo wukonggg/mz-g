@@ -9,6 +9,8 @@ import band.wukong.mz.base.exception.AppRuntimeException;
  */
 public class OutOfStockException extends AppRuntimeException {
 
+    private static final long serialVersionUID = -1693597453930502176L;
+
     public OutOfStockException() {
         super("库存不够");
     }

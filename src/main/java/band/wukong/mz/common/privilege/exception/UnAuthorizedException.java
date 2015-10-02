@@ -9,6 +9,8 @@ import band.wukong.mz.base.exception.AppException;
  */
 public class UnAuthorizedException extends AppException {
 
+    private static final long serialVersionUID = 3283242871690372985L;
+
     public UnAuthorizedException() {
     }
 

@@ -9,6 +9,8 @@ import band.wukong.mz.base.exception.AppRuntimeException;
  */
 public class HasActiveStockException extends AppRuntimeException {
 
+    private static final long serialVersionUID = -6337242908176205242L;
+
     public HasActiveStockException() {
     }
 

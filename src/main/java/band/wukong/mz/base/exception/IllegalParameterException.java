@@ -6,7 +6,11 @@ package band.wukong.mz.base.exception;
  * @author wukong(wukonggg@139.com)
  */
 public class IllegalParameterException extends AppRuntimeException {
+
+    private static final long serialVersionUID = -6855517662522101628L;
+
     private static final String MSG = "Illegal parameter was found during pre-check.";
+
 
     /**
      * 默认无参构造方法会自动载入一个默认的message。
