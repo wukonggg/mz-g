@@ -58,7 +58,7 @@ public class OrderTag {
     }
 
     /**
-     * 计算（预）成交价。
+     * 计算（预）成交单价。
      *
      * @param cateCode cateCode
      * @param fee      历史购买服装类商品支付的总金额
@@ -70,5 +70,22 @@ public class OrderTag {
     public static String calcDpriceInString(String cateCode, double fee, double sprice, int scale, String p) {
         double dprice = calcDpriceInDouble(cateCode, fee, sprice, scale);
         return Calculator.format(dprice, scale, p);
+    }
+
+    /**
+     * 计算（预）成交总价。
+     *
+     * @param cateCode cateCode
+     * @param fee      历史购买服装类商品支付的总金额
+     * @param sprice   商品零售价
+     * @param dcount   购买数量
+     * @param scale    小数点后保留n位
+     * @param p        pattern。如按"0.00"的格式，固定保留两位小数
+     * @return
+     */
+    public static String calcPaymentInString(String cateCode, double fee, double sprice, int dcount, int scale, String p) {
+        double dprice = calcDpriceInDouble(cateCode, fee, sprice, scale);
+        double payment = dprice * dcount;
+        return Calculator.format(payment, scale, p);
     }
 }

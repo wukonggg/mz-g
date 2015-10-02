@@ -44,4 +44,11 @@
         <function-signature>java.lang.String calcDpriceInString(java.lang.String,double,double,int,java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <description>calcPaymentInString</description>
+        <name>calcPaymentInString</name>
+        <function-class>band.wukong.mz.g.sale.OrderTag</function-class>
+        <function-signature>java.lang.String calcPaymentInString(java.lang.String,double,double,int,int,java.lang.String)</function-signature>
+    </function>
+
 </taglib>
