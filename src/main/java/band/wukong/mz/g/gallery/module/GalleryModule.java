@@ -4,8 +4,6 @@ import band.wukong.mz.g.gallery.service.GalleryServive;
 import band.wukong.mz.g.sku.bean.Goods;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.log.Log;
-import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.*;
 import org.nutz.mvc.filter.CheckSession;
 

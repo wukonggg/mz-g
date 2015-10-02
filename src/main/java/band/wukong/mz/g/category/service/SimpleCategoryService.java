@@ -5,8 +5,6 @@ import band.wukong.mz.g.category.bean.Category;
 import band.wukong.mz.g.category.dao.CategoryDao;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.log.Log;
-import org.nutz.log.Logs;
 
 import java.util.HashMap;
 import java.util.List;

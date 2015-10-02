@@ -6,8 +6,6 @@ import band.wukong.mz.g.sku.dao.SkuMoreDao;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.log.Log;
-import org.nutz.log.Logs;
 
 /**
  * As you see...
