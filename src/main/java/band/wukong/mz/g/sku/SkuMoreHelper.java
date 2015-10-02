@@ -21,9 +21,9 @@ public class SkuMoreHelper {
      *
      * @param sdList
      * @return
-     * @deprecated 这里暂时先用固定格式的文字表示，以后再优化为小型表格
      */
     public static String convertSkuDict2Text(List<SkuPropType> sdList) {
+        // TODO -OPT 这里暂时先用固定格式的文字表示，以后再优化为小型表格
         if (null == sdList || sdList.size() == 0) {
             return "";
         }
@@ -44,9 +44,9 @@ public class SkuMoreHelper {
      *
      * @param skuMore skuMore
      * @return
-     * @deprecated 这里暂时先用固定格式的文字表示，以后再优化为小型表格
      */
     public static List<SkuMore> convert2ListWhenSave(String skuMore) {
+        // TODO -OPT 这里暂时先用固定格式的文字表示，以后再优化为小型表格
         if (Strings.isBlank(skuMore)) {
             throw new IllegalParameterException();
         }
@@ -78,9 +78,9 @@ public class SkuMoreHelper {
      *
      * @param skuMore skuMore
      * @return
-     * @deprecated 这里暂时先用固定格式的文字表示，以后再优化为小型表格
      */
     public static List<SkuMore> convert2ListWhenUpdate(String skuMore) {
+        // TODO -OPT 这里暂时先用固定格式的文字表示，以后再优化为小型表格
         if (Strings.isBlank(skuMore)) {
             throw new IllegalParameterException();
         }
@@ -112,9 +112,9 @@ public class SkuMoreHelper {
      *
      * @param scmList
      * @return
-     * @deprecated 这里暂时先用固定格式的文字表示，以后再优化为小型表格
      */
     public static String convert2Text(List<SkuMore> scmList) {
+        // TODO -OPT 这里暂时先用固定格式的文字表示，以后再优化为小型表格
         if (null == scmList || scmList.size() == 0) {
             return "";
         }
