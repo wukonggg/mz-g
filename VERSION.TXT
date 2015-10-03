@@ -22,10 +22,20 @@
 - 给SKU增加一个备注字段
 - 增加根据产品信息查询订单的功能，查询某个产品在哪几个订单销售过
 - 增加订单号
+- 增加商品下架功能
 - 重构order模块。把jsp和module中return "done"全部改成return "ok"。和其他模块统一起来
 - 增加quratz定时调度任务???
 
 //TODO -ASK GoodsServiceImpl.listNoneSku的意义？？
+
+
+mz-gallery-0.5b.2-SNAPSHOT
+==============================================
+1、Bug修复
+- [Fixed]玩具sku的尺码标准拉出的内容不对。
+- [New]已经有order的sku不能删除
+2、
+
 
 
 mz-gallery-0.5b.1
