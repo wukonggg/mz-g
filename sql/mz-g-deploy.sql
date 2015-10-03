@@ -11,13 +11,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- 导出 mz-g 的数据库结构
-DROP DATABASE IF EXISTS `mz-g`;
 CREATE DATABASE IF NOT EXISTS `mz-g` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `mz-g`;
 
 
 -- 导出  表 mz-g.t_cart 结构
-DROP TABLE IF EXISTS `t_cart`;
 CREATE TABLE IF NOT EXISTS `t_cart` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL COMMENT '当前用户id',
@@ -25,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `t_cart` (
   `sku_more_id` int(11) unsigned NOT NULL COMMENT 'sku_more_id',
   `count` int(11) unsigned NOT NULL COMMENT '数量',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=1 COMMENT='购物车';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=1 COMMENT='购物车';
 
 -- 正在导出表  mz-g.t_cart 的数据：~0 rows (大约)
 DELETE FROM `t_cart`;
@@ -34,7 +32,6 @@ DELETE FROM `t_cart`;
 
 
 -- 导出  表 mz-g.t_cate 结构
-DROP TABLE IF EXISTS `t_cate`;
 CREATE TABLE IF NOT EXISTS `t_cate` (
   `title` varchar(50) NOT NULL COMMENT '标题。用于在用户交互时展示。',
   `code` varchar(20) NOT NULL COMMENT '品类编码',
@@ -51,52 +48,46 @@ DELETE FROM `t_cate`;
 /*!40000 ALTER TABLE `t_cate` DISABLE KEYS */;
 INSERT INTO `t_cate` (`title`, `code`, `pcode`, `ord`, `seq`, `remark`, `state`) VALUES
 	('SIMPLE', 'S', '0', 0, 0, 'SIMPLE CATEGORY', '1'),
-	('A上衣套装', 'S-A', 'S', 1, 15, 'A上衣套装', '1'),
-	('B裤子', 'S-B', 'S', 2, 3, 'B裤子', '1'),
-	('C内衣', 'S-C', 'S', 3, 2, 'C内衣', '1'),
+	('A上衣套装', 'S-A', 'S', 1, 3, 'A上衣套装', '1'),
+	('B裤子', 'S-B', 'S', 2, 0, 'B裤子', '1'),
+	('C内衣', 'S-C', 'S', 3, 0, 'C内衣', '1'),
 	('D鞋子', 'S-D', 'S', 4, 0, 'D鞋子', '1'),
 	('E袜子/护袖/口水巾/罩衫', 'S-E', 'S', 5, 0, 'E袜子/护袖/口水巾/罩衫', '1'),
 	('F零食', 'S-F', 'S', 6, 0, 'F零食', '1'),
 	('G包包', 'S-G', 'S', 7, 0, 'G包包', '1'),
 	('H帽子', 'S-H', 'S', 8, 0, 'H帽子', '1'),
 	('I尿不湿', 'S-I', 'S', 9, 0, 'I尿不湿', '1'),
-	('J玩具', 'S-J', 'S', 10, 2, 'J玩具', '1'),
+	('J玩具', 'S-J', 'S', 10, 0, 'J玩具', '1'),
 	('K文具', 'S-K', 'S', 11, 0, 'K文具', '1');
 /*!40000 ALTER TABLE `t_cate` ENABLE KEYS */;
 
 
 -- 导出  表 mz-g.t_customer 结构
-DROP TABLE IF EXISTS `t_customer`;
 CREATE TABLE IF NOT EXISTS `t_customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cid` varchar(20) NOT NULL COMMENT '会员卡号',
   `name` varchar(20) DEFAULT NULL COMMENT '会员姓名',
   `birth` date DEFAULT NULL COMMENT '宝宝生日',
   `msisdn` varchar(20) DEFAULT NULL COMMENT '手机号',
+  `weixin` varchar(20) DEFAULT NULL COMMENT '微信',
   `address` varchar(50) DEFAULT NULL COMMENT '地址',
   `remark` varchar(50) DEFAULT NULL COMMENT '备注',
   `payment_clothing` int(11) DEFAULT '0' COMMENT '服装类消费总额',
   `state` char(2) NOT NULL COMMENT '0：已删除；1：有效；',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='客户表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='客户表';
 
--- 正在导出表  mz-g.t_customer 的数据：~8 rows (大约)
+-- 正在导出表  mz-g.t_customer 的数据：~3 rows (大约)
 DELETE FROM `t_customer`;
 /*!40000 ALTER TABLE `t_customer` DISABLE KEYS */;
-INSERT INTO `t_customer` (`id`, `cid`, `name`, `birth`, `msisdn`, `address`, `remark`, `payment_clothing`, `state`) VALUES
-	(1, '00000004', '非会员顾客', '2014-11-16', '0', '0', NULL, 0, '1'),
-	(2, '99999999999', 'Abel', '2015-04-10', '18181798763', 'LHW', '11', 5000, '1'),
-	(3, '99999999998', 'Black', '2015-04-10', '18982746372', 'LHW', NULL, 3000, '1'),
-	(4, '99999999997', 'Candy', '2015-04-10', '18238374659', NULL, NULL, 1000, '1'),
-	(5, '99999999996', 'Daniel', '2015-04-10', '18928374678', NULL, NULL, 0, '1'),
-	(6, '99999999995', 'Ema', '2015-04-10', '18238479906', '123123sd阿斯达', NULL, 0, '0'),
-	(7, '99999999995', 'Frank', '2015-05-01', '18998773495', 'White house', 'power', 0, '1'),
-	(12, '99999999994', 'Gary', '2015-07-01', '13790785566', 'nanjing', 'nanjing', 0, '1');
+INSERT INTO `t_customer` (`id`, `cid`, `name`, `birth`, `msisdn`, `weixin`, `address`, `remark`, `payment_clothing`, `state`) VALUES
+	(1, '00000004', '非会员顾客', '2014-11-16', '', '00000004', '', '非会员顾客购买时使用', 0, '1'),
+	(2, '90001001', 'Alex-阿莱克斯', NULL, '19012341001', '90001001', '', '', 20, '1'),
+	(3, '90001002', 'Black-布莱克', NULL, '19012341002', '90001002', '', '', 0, '1');
 /*!40000 ALTER TABLE `t_customer` ENABLE KEYS */;
 
 
 -- 导出  表 mz-g.t_goods 结构
-DROP TABLE IF EXISTS `t_goods`;
 CREATE TABLE IF NOT EXISTS `t_goods` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `cate_code` varchar(20) NOT NULL COMMENT '品类',
@@ -107,16 +98,17 @@ CREATE TABLE IF NOT EXISTS `t_goods` (
   `utime` datetime DEFAULT NULL,
   `state` char(2) NOT NULL COMMENT '0：已删除；1：有效；',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
 
 -- 正在导出表  mz-g.t_goods 的数据：~0 rows (大约)
 DELETE FROM `t_goods`;
 /*!40000 ALTER TABLE `t_goods` DISABLE KEYS */;
+INSERT INTO `t_goods` (`id`, `cate_code`, `gname`, `words`, `img`, `ctime`, `utime`, `state`) VALUES
+	(4, 'S-A', 'Nike卫衣', 'Nike卫衣Nike卫衣Nike卫衣', '0e0b4f7f-cbd6-48c2-b7f5-b00595a966fa.png', '2015-10-02 02:11:25', '2015-10-02 02:11:32', '1');
 /*!40000 ALTER TABLE `t_goods` ENABLE KEYS */;
 
 
 -- 导出  表 mz-g.t_item 结构
-DROP TABLE IF EXISTS `t_item`;
 CREATE TABLE IF NOT EXISTS `t_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sku_id` int(11) NOT NULL DEFAULT '0' COMMENT 'sku表pk',
@@ -133,32 +125,37 @@ CREATE TABLE IF NOT EXISTS `t_item` (
   `state` char(2) NOT NULL DEFAULT '0' COMMENT '0：已删除；1：有效；2：退货',
   `order_id` int(11) NOT NULL DEFAULT '0' COMMENT 'order表pk',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_item 的数据：~0 rows (大约)
+-- 正在导出表  mz-g.t_item 的数据：~4 rows (大约)
 DELETE FROM `t_item`;
 /*!40000 ALTER TABLE `t_item` DISABLE KEYS */;
+INSERT INTO `t_item` (`id`, `sku_id`, `sku_more_id`, `cate_code_snapshot`, `sprice_snapshot`, `dprice`, `dcount`, `payment`, `return_time`, `return_user_id`, `return_reason`, `return_desc`, `state`, `order_id`) VALUES
+	(14, 17, 403, 'S-A', 20, 20, 2, 40, NULL, 0, NULL, NULL, '1', 6),
+	(15, 18, 408, 'S-A', 50, 50, 1, 50, NULL, 0, NULL, NULL, '1', 6),
+	(16, 18, 408, 'S-A', 50, 50, -1, -50, '2015-10-03 01:31:01', 1, '1', '', '2', 6),
+	(17, 17, 403, 'S-A', 20, 20, -1, -20, '2015-10-03 01:31:10', 1, '1', '', '2', 6);
 /*!40000 ALTER TABLE `t_item` ENABLE KEYS */;
 
 
 -- 导出  表 mz-g.t_order 结构
-DROP TABLE IF EXISTS `t_order`;
 CREATE TABLE IF NOT EXISTS `t_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL COMMENT '营业员id',
   `cust_id` int(11) NOT NULL COMMENT '顾客id',
   `dtime` datetime NOT NULL COMMENT '成交时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  mz-g.t_order 的数据：~0 rows (大约)
 DELETE FROM `t_order`;
 /*!40000 ALTER TABLE `t_order` DISABLE KEYS */;
+INSERT INTO `t_order` (`id`, `user_id`, `cust_id`, `dtime`) VALUES
+	(6, 1, 2, '2015-10-03 01:27:15');
 /*!40000 ALTER TABLE `t_order` ENABLE KEYS */;
 
 
 -- 导出  表 mz-g.t_permission 结构
-DROP TABLE IF EXISTS `t_permission`;
 CREATE TABLE IF NOT EXISTS `t_permission` (
   `id` bigint(64) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
@@ -177,7 +174,6 @@ DELETE FROM `t_permission`;
 
 
 -- 导出  表 mz-g.t_role 结构
-DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE IF NOT EXISTS `t_role` (
   `id` bigint(64) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
@@ -196,7 +192,6 @@ DELETE FROM `t_role`;
 
 
 -- 导出  表 mz-g.t_role_permission 结构
-DROP TABLE IF EXISTS `t_role_permission`;
 CREATE TABLE IF NOT EXISTS `t_role_permission` (
   `role_id` bigint(64) DEFAULT NULL,
   `permission_id` bigint(64) DEFAULT NULL
@@ -209,7 +204,6 @@ DELETE FROM `t_role_permission`;
 
 
 -- 导出  表 mz-g.t_sku 结构
-DROP TABLE IF EXISTS `t_sku`;
 CREATE TABLE IF NOT EXISTS `t_sku` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sid` varchar(50) NOT NULL COMMENT 'sku_id。sku_xxx的唯一id，因为id可能在不同的sku_xxx表中重复',
@@ -224,16 +218,19 @@ CREATE TABLE IF NOT EXISTS `t_sku` (
   `state` char(2) NOT NULL COMMENT '0：已删除；1：上架；2：下架',
   `goods_id` int(11) NOT NULL COMMENT '商品id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='商品SKU主表';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='商品SKU主表';
 
--- 正在导出表  mz-g.t_sku 的数据：~0 rows (大约)
+-- 正在导出表  mz-g.t_sku 的数据：~2 rows (大约)
 DELETE FROM `t_sku`;
 /*!40000 ALTER TABLE `t_sku` DISABLE KEYS */;
+INSERT INTO `t_sku` (`id`, `sid`, `model`, `type`, `ptime`, `pprice`, `sprice`, `img`, `ctime`, `utime`, `state`, `goods_id`) VALUES
+	(17, 'A0000000F101', '经典蓝', 'SIZE', '2015-10-02 00:00:00', 10, 20, 'A0000000F101.png', '2015-10-02 02:12:19', NULL, '1', 4),
+	(18, 'A0000000T302', '中国蓝', 'SIZE', '2015-10-02 00:00:00', 30, 50, 'A0000000T302.png', '2015-10-02 02:13:06', NULL, '1', 4),
+	(19, 'A0000000B203', '怀旧蓝', 'SIZE', '2015-10-02 00:00:00', 20, 40, 'A0000000B203.png', '2015-10-02 02:13:43', '2015-10-02 02:14:03', '1', 4);
 /*!40000 ALTER TABLE `t_sku` ENABLE KEYS */;
 
 
 -- 导出  表 mz-g.t_sku_more 结构
-DROP TABLE IF EXISTS `t_sku_more`;
 CREATE TABLE IF NOT EXISTS `t_sku_more` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sku_id` int(11) NOT NULL COMMENT 't_sku_clothing表的id',
@@ -241,16 +238,28 @@ CREATE TABLE IF NOT EXISTS `t_sku_more` (
   `count` int(11) unsigned NOT NULL COMMENT '数量',
   `remark` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8 COMMENT='商品SKU更多表';
+) ENGINE=InnoDB AUTO_INCREMENT=423 DEFAULT CHARSET=utf8 COMMENT='商品SKU更多表';
 
--- 正在导出表  mz-g.t_sku_more 的数据：~0 rows (大约)
+-- 正在导出表  mz-g.t_sku_more 的数据：~12 rows (大约)
 DELETE FROM `t_sku_more`;
 /*!40000 ALTER TABLE `t_sku_more` DISABLE KEYS */;
+INSERT INTO `t_sku_more` (`id`, `sku_id`, `size`, `count`, `remark`) VALUES
+	(403, 17, 'S', 9, '备注备注备注'),
+	(404, 17, 'M', 10, '备注备注备注'),
+	(405, 17, 'L', 10, '备注备注备注'),
+	(406, 17, 'XL', 10, '备注备注备注'),
+	(407, 18, 'S', 10, '备注备注备注'),
+	(408, 18, 'M', 10, '备注备注备注'),
+	(409, 18, 'L', 10, '备注备注备注'),
+	(410, 18, 'XL', 10, '备注备注备注'),
+	(419, 19, 'S', 10, '备注备注备注'),
+	(420, 19, 'M', 10, '备注备注备注'),
+	(421, 19, 'L', 10, '备注备注备注'),
+	(422, 19, 'XL', 10, '备注备注备注');
 /*!40000 ALTER TABLE `t_sku_more` ENABLE KEYS */;
 
 
 -- 导出  表 mz-g.t_sku_prop_type 结构
-DROP TABLE IF EXISTS `t_sku_prop_type`;
 CREATE TABLE IF NOT EXISTS `t_sku_prop_type` (
   `cate_code` varchar(20) NOT NULL COMMENT 'cate_code&item&name联合保持唯一性',
   `item` varchar(50) DEFAULT NULL COMMENT '项目',
@@ -391,7 +400,6 @@ INSERT INTO `t_sku_prop_type` (`cate_code`, `item`, `name`, `title`, `evalue`, `
 
 
 -- 导出  表 mz-g.t_user 结构
-DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE IF NOT EXISTS `t_user` (
   `id` bigint(64) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
@@ -404,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `t_user` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_user 的数据：~1 rows (大约)
+-- 正在导出表  mz-g.t_user 的数据：~0 rows (大约)
 DELETE FROM `t_user`;
 /*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
 INSERT INTO `t_user` (`id`, `name`, `passwd`, `locked`, `state`, `ct`, `ut`) VALUES
@@ -413,7 +421,6 @@ INSERT INTO `t_user` (`id`, `name`, `passwd`, `locked`, `state`, `ct`, `ut`) VAL
 
 
 -- 导出  表 mz-g.t_user_permission 结构
-DROP TABLE IF EXISTS `t_user_permission`;
 CREATE TABLE IF NOT EXISTS `t_user_permission` (
   `u_id` bigint(64) DEFAULT NULL,
   `permission_id` bigint(64) DEFAULT NULL
@@ -426,7 +433,6 @@ DELETE FROM `t_user_permission`;
 
 
 -- 导出  表 mz-g.t_user_role 结构
-DROP TABLE IF EXISTS `t_user_role`;
 CREATE TABLE IF NOT EXISTS `t_user_role` (
   `u_id` bigint(64) DEFAULT NULL,
   `role_id` bigint(64) DEFAULT NULL
@@ -439,7 +445,6 @@ DELETE FROM `t_user_role`;
 
 
 -- 导出  视图 mz-g.v_cart 结构
-DROP VIEW IF EXISTS `v_cart`;
 -- 创建临时表以解决视图依赖性错误
 CREATE TABLE `v_cart` (
 	`id` INT(11) UNSIGNED NOT NULL,
@@ -463,7 +468,6 @@ CREATE TABLE `v_cart` (
 
 
 -- 导出  视图 mz-g.v_sku_more 结构
-DROP VIEW IF EXISTS `v_sku_more`;
 -- 创建临时表以解决视图依赖性错误
 CREATE TABLE `v_sku_more` (
 	`skuId` INT(11) NOT NULL,
@@ -485,14 +489,12 @@ CREATE TABLE `v_sku_more` (
 
 
 -- 导出  视图 mz-g.v_cart 结构
-DROP VIEW IF EXISTS `v_cart`;
 -- 移除临时表并创建最终视图结构
 DROP TABLE IF EXISTS `v_cart`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_cart` AS select `ca`.`id` AS `id`,`ca`.`user_id` AS `user_id`,`cu`.`id` AS `cust_id`,`cu`.`cid` AS `cid`,`cu`.`name` AS `name`,`cu`.`msisdn` AS `msisdn`,`cu`.`payment_clothing` AS `payment_clothing`,`g`.`gname` AS `gname`,`g`.`cate_code` AS `cate_code`,`sku`.`sid` AS `sid`,`sku`.`img` AS `img`,`sku`.`model` AS `model`,`sku`.`sprice` AS `sprice`,`sm`.`id` AS `sku_more_id`,`sm`.`size` AS `size`,`sm`.`count` AS `scount`,`ca`.`count` AS `count` from ((((`t_cart` `ca` join `t_sku_more` `sm` on((`sm`.`id` = `ca`.`sku_more_id`))) join `t_sku` `sku` on((`sku`.`id` = `sm`.`sku_id`))) join `t_goods` `g` on((`g`.`id` = `sku`.`goods_id`))) join `t_customer` `cu` on((`cu`.`id` = `ca`.`cust_id`))) where ((`cu`.`state` = 1) and (`g`.`state` = 1) and (`sku`.`state` = 1));
 
 
 -- 导出  视图 mz-g.v_sku_more 结构
-DROP VIEW IF EXISTS `v_sku_more`;
 -- 移除临时表并创建最终视图结构
 DROP TABLE IF EXISTS `v_sku_more`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_sku_more` AS select `t1`.`id` AS `skuId`,`t`.`id` AS `skumoreId`,`t2`.`id` AS `goodsId`,`t2`.`gname` AS `gname`,`t2`.`cate_code` AS `cateCode`,`t1`.`sid` AS `sid`,`t1`.`model` AS `model`,`t1`.`ptime` AS `ptime`,`t1`.`pprice` AS `pprice`,`t1`.`sprice` AS `sprice`,`t1`.`img` AS `img`,`t1`.`state` AS `state`,`t`.`size` AS `size`,`t`.`count` AS `count`,`t`.`remark` AS `remark` from ((`t_sku_more` `t` join `t_sku` `t1` on((`t1`.`id` = `t`.`sku_id`))) join `t_goods` `t2` on((`t2`.`id` = `t1`.`goods_id`))) where (`t1`.`state` <> 0) order by `t2`.`id`,`t`.`id`;
