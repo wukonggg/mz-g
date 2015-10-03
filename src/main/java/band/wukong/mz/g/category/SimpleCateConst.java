@@ -48,14 +48,14 @@ public class SimpleCateConst {
     public static final String CATE_CODE_H_MZ = "S-H";
 
     /**
-     * 品类代码-I尿不湿
+     * 品类代码-I玩具
      */
-    public static final String CATE_CODE_I_NBS = "S-I";
+    public static final String CATE_CODE_I_WJ = "S-I";
 
     /**
-     * 品类代码-J玩具
+     * 品类代码-J尿不湿
      */
-    public static final String CATE_CODE_J_WJ = "S-J";
+    public static final String CATE_CODE_J_NBS = "S-J";
 
     /**
      * 品类代码-K文具
