@@ -6,7 +6,7 @@
     <groupId>band.wukong.mz</groupId>
     <artifactId>mz-g</artifactId>
     <packaging>war</packaging>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.5b.1</version>
     <name>MZ Gallery CRM on Retail</name>
     <url>http://mz.wukong.band</url>
 
@@ -92,7 +92,7 @@
     </dependencies>
 
     <build>
-        <finalName>mz-g</finalName>
+        <finalName>gallery</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
