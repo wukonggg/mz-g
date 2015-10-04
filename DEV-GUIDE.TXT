@@ -1,6 +1,22 @@
 开发指南
+1、版本说明
 
-1、包结构介绍
++  这里的版本指什么
+-  一共有三个地方体现版本：github上的release，version.txt和pom.xml
+-  这里主要是指git release的版本，和pom.xml一致。
+-  日常开发一定会更新VERSION.TXT，但不一定会更新pom.xml
+
++  几个个栗子
+-  0.5.1.yyyy.mmdd：snapshot
+-  0.5b.1: beta版
+-  0.5b.2.yyyy.mmdd：beta版的snapshot。。。。
+
++  还有
+-  估计一直会是0.x的版本，因为1.0意味着这个小软件不再是玩票，可以去换钞票啦！
+
+
+
+2、包结构介绍
 
 + /
 - DEV-GUIDE.TXT                  开发指南
@@ -8,70 +24,63 @@
 - VERSION.TXT                    版本信息
 - README.MD                      介绍
 
++ /script                        随便放一些脚本
+
 + /sql
-- mz-g-deploy.sql                开发/测试数据库脚本
-- mz-g-select.sql                写起来比较麻烦的查询
-- mz-g-view.sql                  视图的sql
+- db-clean.sql                   干净的数据库脚本
+- db-dev.sql                     开发用的数据库脚本
+- mz-g-select.sql                写起来比较麻烦的查询，存个档
+- mz-g-view.sql                  view的sql
 
-
-+ src/main/resources
-- log4j.properties               log4j配置文件
-- db.properties                  数据库连接配置文件
-- db.js                          数据源配置文件
-- beans.js                       ioc bean的配置文件
++ src/main/resources             什么都不说
 
 + src/main/java
-- band.wukong.mz                 top package
-- band.wukong.mz.base            基础包
-- band.wukong.mz.common          公共组件包
-- band.wukong.mz.g               MZ-G PROJECT顶层包
-- band.wukong.mz.nutz            nutz框架相关的内容
-- band.wukong.mz.tablib          自封装的tag
-- band.wukong.mz.util            工具类
+- band.wukong.mz                        萌主精选顶层包
+- band.wukong.mz.base                   基础包
+- band.wukong.mz.common                 公共组件包
+- band.wukong.mz.common.privilege       公共组件包
+- band.wukong.mz.g                      Gallery项目顶层包
+- band.wukong.mz.nutz                   nutz框架相关的内容
+- band.wukong.mz.tablib                 自封装的tag
 
-
-+ /test
-- 不说了
++ /test                                 什么都不说
 
 + src/main/webapp
-- src/main/webapp/assets                    这里放着所有非component的资源
-- src/main/webapp/component                 这里存放所有项目需要用到的完整前端组件。按照/项目名称/版本号/内容的目录排放
-- src/main/webapp/component/raw             这部分是自己写的组件
-- src/main/webapp/gimg                      上传图片目录
-- src/main/webapp/css                       自定义css目录
-- src/main/webapp/img                       自定义图片目录
-- src/main/webapp/js                        自研组件。mess系列，大多为组件，和页面关联较大，有通用性但比raw的抽象度更低。mz系列是和业务相关联的
-- src/main/webapp/sample                    一些例子
-- src/main/webapp/WEB-INF/view/common       基础、公共画面
-- src/main/webapp/WEB-INF/view/其他目录      业务系统画面
-- src/main/webapp/WEB-INF/tld               tld文件夹
+- src/main/webapp/assets                      所有非component的资源
+- src/main/webapp/assets/css                  自定义css目录
+- src/main/webapp/assets/img                  自定义图片目录
+- src/main/webapp/js                          mess系列，大多为组件，和页面关联较大，有通用性但比raw的抽象度更低。mz系列是完全只和业务相关联的
+- src/main/webapp/component                   所有项目需要用到的完整前端组件。按照/项目名称/版本号/内容的目录排放
+- src/main/webapp/component/raw               这部分是自己写的烂组件（如果可以叫组件的话）
+- src/main/webapp/gimg                        上传图片目录
+- src/main/webapp/sample                      一些例子
+- src/main/webapp/WEB-INF/view/common         基础、公共画面
+- src/main/webapp/WEB-INF/view/其他目录        业务系统画面
+- src/main/webapp/WEB-INF/tld                 什么都不说
 
 
-2、开发规约
+3、开发规约
 + 软件的MVC分层
 - 不同的Layer之间传输使用的PO时，如不是特殊情况，不要改变传入参数PO的值
 - 和页面相关的const统一放在各个module中
-
 
 + Java代码命名约定
 - ×××Const：常量类
 - ***Validator：一般用来做入参校验，面向module，service和dao
 - ***Impl: 一般为service或者dao的实现类
 
-+ HTML代码命名约定
++ HTML代码建议命名约定（不是所有的页面都按照这个来的，具体情况看心情）
 - element id: {'btn/rad/inp_xx_yy': 'dom元素缩写_业务名称_业务名称'}
 - element name：根据用途视情况而定。如为了form提交的参数，则根据服务端pojo；如为了页面选择器，则可以视页面情况，建议与参照id的命名规范。
 - element class: {'页内样式': 'mz-ic-xxx','外部公共样式文件':'mz-xxx'}
 
-+ 类方法排序
++ 类方法排序（一般情况下是这样，最终怎么排看心情）
 - module中核心方法排序依次为：public的list、add、save、mod、upd、rm，然后是自身特有public方法，最后是private方法
 - service中核心方法排序依次为：public的save、find、upd、rm、list，然后是自身特有public方法，最后是private方法
 - dao中核心方法排序依次为：public的insert、find、upd、rm、list，然后是自身特有public方法，最后是private方法
 
-
 + jsp
-- 页面js顺序，尽量放到body中的最下方，引用的js文件在上，嵌入的js文本在下。在无法正常运行的情况下，才放到head中。
-  在head中时，放到css的上方。
+- 页面js顺序，尽量放到body中的最下方，引用的js文件在上，嵌入的js文本在下。在无法正常运行的情况下，才放到head中。在head中时，放到css的上方。
 
 + js
 - 会被多页面引用的js放到js文件中，js文件中的代码应使用命名空间
@@ -83,8 +92,6 @@
 + TODO的类型说明
 - // TODO            普通
 - // FIXME           待修复的bug
-- // NOW             马上要做的工作
-- // REQ             需求
 - // CASE            样板代码
 
 
@@ -93,7 +100,7 @@
 - 到处都是sample，都是奔着最佳实践去的。如果你觉得还不够好，那就告诉我，如果你愿意的话，自己动手来改然后提交git吧！
 
 + 如何使用异常？
-- band.wukong.mz.base.exception中已经封装了一些异常。
+- band.wukong.mz.base.exception以及各模块中已经封装了一些异常。
 - 所有的异常都应被catch掉。
 - 原则上module负责最异常的总控，只向外抛出AppRuntimeException。错误画面会获得这个异常，并getMessage。
 - service layer和工具类等各种代码可以使用非运行时Exception。但最终到了module中都应被catch。
@@ -101,7 +108,8 @@
 + module中抛出异常如何处理？
 - 所有的Module、Service、Dao都可能throw AppRuntimeException if invalid params.
   提示信息示例：Invalid param was found during pre-insert check.
+- 目前module与页面交互的方式有的是转向jsp，有的是json。以后会慢慢都改成json。在这之前，module抛出的异常会被error.jsp接收到。
 
-+ 日志如何处理？
++ 日志如何处理
 - JAVA: 所有入参统一log格式为"log.debug("Input params - ${beanName}: \n" + ${var});"
 - JS: 使用raw.log.js或直接console.log。不要alert！！！
