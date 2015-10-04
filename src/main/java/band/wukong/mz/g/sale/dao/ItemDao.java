@@ -54,4 +54,10 @@ public interface ItemDao {
      * @return item list
      */
     List<Item> listSameItems(long itemId);
+
+    /**
+     * 指定sku是否已经被购买国
+     * @return
+     */
+    boolean isSkuInOrder(long skuId);
 }

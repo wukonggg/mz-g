@@ -107,5 +107,10 @@ public class ItemDaoImpl implements ItemDao {
         return dao.query(Item.class, Cnd.where("oid", "=", item.getOid()).and("skuMoreId", "=", item.getSkuMoreId()));
 
     }
+
+    @Override
+    public boolean isSkuInOrder(long skuId) {
+        return dao.count(Item.class, Cnd.where("skuid", "=", skuId)) > 0;
+    }
 }
 

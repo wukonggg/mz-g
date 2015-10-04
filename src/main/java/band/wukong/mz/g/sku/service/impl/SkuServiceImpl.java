@@ -3,12 +3,14 @@ package band.wukong.mz.g.sku.service.impl;
 import band.wukong.mz.base.exception.AppRuntimeException;
 import band.wukong.mz.base.exception.IllegalParameterException;
 import band.wukong.mz.g.category.service.SimpleCategoryService;
+import band.wukong.mz.g.sale.dao.ItemDao;
 import band.wukong.mz.g.sale.exception.OutOfStockException;
 import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.bean.Sku;
 import band.wukong.mz.g.sku.bean.SkuMore;
 import band.wukong.mz.g.sku.dao.SkuDao;
 import band.wukong.mz.g.sku.dao.SkuMoreDao;
+import band.wukong.mz.g.sku.exception.SkuInOrderException;
 import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.mz.g.sku.service.SidGenerator;
 import band.wukong.mz.g.sku.service.SkuService;
@@ -50,6 +52,9 @@ public class SkuServiceImpl implements SkuService {
 
     @Inject
     private SidGenerator sidGenerator;
+
+    @Inject
+    private ItemDao itemDao;
 
     @Override
     public Sku saveWithMore(final Sku s, String path) {
@@ -116,6 +121,11 @@ public class SkuServiceImpl implements SkuService {
     public void rm(Long id) {
         if (null == id || id <= 0) {
             throw new IllegalParameterException();
+        }
+
+        boolean is = itemDao.isSkuInOrder(id);
+        if (is) {
+            throw new SkuInOrderException("该SKU已经被购买过，无法删除。");
         }
 
         Sku sku = skuDao.findWithLinks(id);

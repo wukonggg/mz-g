@@ -86,4 +86,10 @@ public class ItemDaoImplTest {
         Assert.assertTrue(items.size() == 2);
     }
 
+    @Test
+    public void hasSkuBeenOrdered() {
+        boolean has = itemDao.isSkuInOrder(1);
+        Assert.assertTrue(has);
+    }
+
 }

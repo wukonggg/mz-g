@@ -7,6 +7,7 @@ import band.wukong.mz.g.sku.SkuMoreHelper;
 import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.bean.Sku;
 import band.wukong.mz.g.sku.bean.SkuPropType;
+import band.wukong.mz.g.sku.exception.SkuInOrderException;
 import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.mz.g.sku.service.SkuMoreViewService;
 import band.wukong.mz.g.sku.service.SkuPropTypeService;
@@ -181,15 +182,29 @@ public class SkuModule {
     }
 
     @At("/rm")
-    @Ok("redirect:/stock/sku/list.io")
-    public void rm(@Param("id") Long id) {
-        log.debug("Input params - id:" + id);
+    @Ok("json")
+    @Fail("json")
+//    @Ok("redirect:/stock/sku/list.io")
+    public Object rm(@Param("skuId") Long id) {
+        log.debug("Input params - skuId:" + id);
 
         if (null == id || id <= 0) {
             throw new AppRuntimeException("木有找到你要删除的产品SKU。。。");
         }
 
-        skuService.rm(id);
+        NutMap re = new NutMap();
+
+        try {
+            skuService.rm(id);
+        } catch (Exception e) {
+            if (e instanceof AppRuntimeException) {
+                return re.setv("ok", false).setv("msg", e.getMessage());
+            } else {
+                return re.setv("ok", false).setv("msg", "你从火星来的吗？？？");
+            }
+        }
+
+        return re.setv("ok", true);
     }
 
     @At("/rest")

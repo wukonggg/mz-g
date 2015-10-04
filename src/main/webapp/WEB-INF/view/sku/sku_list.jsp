@@ -175,10 +175,28 @@
             form.submit();
         });
         //绑定删除事件
-        $("button[name^='btnRm_']").click(function(e) {
+        $("button[name^='btnRm_']").click(function (e) {
             e.preventDefault();
-            $("#id").val($(this).val());
-            mess.modal.confirmAndSubmitForm("mz-modal-confirm", "frmMain", "${base}/stock/sku/rm.io");
+            var skuId = $(this).val();
+            mess.modal.confirm({
+                modalDivId: "mz-modal-confirm",
+                confirmPostFunction: function () {
+                    $.post("${base}/stock/sku/rm.io", {skuId: skuId}, function (data) {
+                        if (data.ok) {
+                            document.location = "${base}/stock/sku/list.io";
+                        } else {
+                            if (data.msg) {
+                                console.log(data.msg);
+                                alert(data.msg);
+                            } else {
+                                console.log(data);
+                                alert("出错啦！快去找悟空！");
+                            }
+                        }
+                    });
+                },
+                cancelPostFunction: null
+            });
         });
 
         mess.pagination.load();

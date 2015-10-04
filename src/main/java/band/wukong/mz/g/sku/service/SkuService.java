@@ -35,7 +35,7 @@ public interface SkuService {
     void updateWithMore(Sku sc, String path);
 
     /**
-     * remove in db
+     * remove in db。已经有order的sku不能删除，如果遇到，会抛出SkuInOrderException
      *
      * @param id id
      */
