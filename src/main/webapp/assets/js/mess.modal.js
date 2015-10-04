@@ -33,6 +33,27 @@ window.mess.modal.prompt = function (modalDivId, confirmPostFunction, cancelPost
 };
 
 /**
+ * confirm模拟。
+ *
+ * @param options.modalDivId/confirmPostFunction/cancelPostFunction
+ */
+window.mess.modal.confirm = function (options) {
+    $("#" + options.modalDivId).modal({
+        onConfirm: function (e) {
+            //alert('你输入的是：' + e.data || '');
+            if (null != options.confirmPostFunction) {
+                options.confirmPostFunction(e);
+            }
+        },
+        onCancel: function (e) {
+            if (null != options.confirmPostFunction) {
+                options.cancelPostFunction(e);
+            }
+        }
+    });
+};
+
+/**
  * 模态confirm，并通过Form提交请求。
  *
  * @param modalDivId modelDivId
@@ -50,7 +71,6 @@ window.mess.modal.confirmAndSubmitForm = function (modalDivId, submitFormId, act
         }
     });
 };
-
 
 
 /**
