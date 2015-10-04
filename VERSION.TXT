@@ -34,6 +34,9 @@ mz-gallery-0.5b.2
 1、Bug修复
 - [Fixed]玩具sku的尺码标准拉出的内容不对。
 2、增加业务逻辑：已经有order的sku不能删除。
+3、更新dev-guide
+4、更新sql
+5、增加mysql启停脚本
 
 
 mz-gallery-0.5b.1
