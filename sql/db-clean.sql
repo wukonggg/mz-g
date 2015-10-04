@@ -51,7 +51,7 @@ INSERT INTO `t_cate` (`title`, `code`, `pcode`, `ord`, `seq`, `remark`, `state`)
 	('A上衣套装', 'S-A', 'S', 1, 0, 'A上衣套装', '1'),
 	('B裤子', 'S-B', 'S', 2, 0, 'B裤子', '1'),
 	('C内衣', 'S-C', 'S', 3, 0, 'C内衣', '1'),
-	('D鞋子', 'S-D', 'S', 4, 0, 'D鞋子', '1'),
+	('D鞋子', 'S-D', 'S', 4, 1, 'D鞋子', '1'),
 	('E袜子/护袖/口水巾/罩衫', 'S-E', 'S', 5, 0, 'E袜子/护袖/口水巾/罩衫', '1'),
 	('F零食', 'S-F', 'S', 6, 0, 'F零食', '1'),
 	('G包包', 'S-G', 'S', 7, 0, 'G包包', '1'),
@@ -83,7 +83,7 @@ DELETE FROM `t_customer`;
 INSERT INTO `t_customer` (`id`, `cid`, `name`, `birth`, `msisdn`, `weixin`, `address`, `remark`, `payment_clothing`, `state`) VALUES
 	(1, '00000004', '非会员顾客', '2014-11-16', '', '00000004', '', '非会员顾客购买时使用', 0, '1'),
 	(2, '90001001', 'Alex-阿莱克斯', NULL, '19012341001', '90001001', '', '', 20, '1'),
-	(3, '90001002', 'Black-布莱克', NULL, '19012341002', '90001002', '', '', 0, '1');
+	(3, '90001002', 'Black-布莱克', NULL, '19012341002', '90001002', '', '', 200, '1');
 /*!40000 ALTER TABLE `t_customer` ENABLE KEYS */;
 
 
@@ -98,9 +98,9 @@ CREATE TABLE IF NOT EXISTS `t_goods` (
   `utime` datetime DEFAULT NULL,
   `state` char(2) NOT NULL COMMENT '0：已删除；1：有效；',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表。 TODO -OPT 以后扩展：供应商，厂家，品牌等';
 
--- 正在导出表  mz-g.t_goods 的数据：~0 rows (大约)
+-- 正在导出表  mz-g.t_goods 的数据：~1 rows (大约)
 DELETE FROM `t_goods`;
 /*!40000 ALTER TABLE `t_goods` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_goods` ENABLE KEYS */;
@@ -123,9 +123,9 @@ CREATE TABLE IF NOT EXISTS `t_item` (
   `state` char(2) NOT NULL DEFAULT '0' COMMENT '0：已删除；1：有效；2：退货',
   `order_id` int(11) NOT NULL DEFAULT '0' COMMENT 'order表pk',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  mz-g.t_item 的数据：~4 rows (大约)
+-- 正在导出表  mz-g.t_item 的数据：~0 rows (大约)
 DELETE FROM `t_item`;
 /*!40000 ALTER TABLE `t_item` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_item` ENABLE KEYS */;
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   `cust_id` int(11) NOT NULL COMMENT '顾客id',
   `dtime` datetime NOT NULL COMMENT '成交时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 正在导出表  mz-g.t_order 的数据：~0 rows (大约)
 DELETE FROM `t_order`;
@@ -209,9 +209,9 @@ CREATE TABLE IF NOT EXISTS `t_sku` (
   `state` char(2) NOT NULL COMMENT '0：已删除；1：上架；2：下架',
   `goods_id` int(11) NOT NULL COMMENT '商品id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='商品SKU主表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品SKU主表';
 
--- 正在导出表  mz-g.t_sku 的数据：~5 rows (大约)
+-- 正在导出表  mz-g.t_sku 的数据：~0 rows (大约)
 DELETE FROM `t_sku`;
 /*!40000 ALTER TABLE `t_sku` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_sku` ENABLE KEYS */;
@@ -225,9 +225,9 @@ CREATE TABLE IF NOT EXISTS `t_sku_more` (
   `count` int(11) unsigned NOT NULL COMMENT '数量',
   `remark` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=430 DEFAULT CHARSET=utf8 COMMENT='商品SKU更多表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='商品SKU更多表';
 
--- 正在导出表  mz-g.t_sku_more 的数据：~19 rows (大约)
+-- 正在导出表  mz-g.t_sku_more 的数据：~0 rows (大约)
 DELETE FROM `t_sku_more`;
 /*!40000 ALTER TABLE `t_sku_more` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_sku_more` ENABLE KEYS */;
