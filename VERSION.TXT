@@ -29,13 +29,11 @@
 //TODO -ASK GoodsServiceImpl.listNoneSku的意义？？
 
 
-mz-gallery-0.5b.2-SNAPSHOT
+mz-gallery-0.5b.2
 ==============================================
 1、Bug修复
 - [Fixed]玩具sku的尺码标准拉出的内容不对。
-- [New]已经有order的sku不能删除
-2、
-
+2、增加业务逻辑：已经有order的sku不能删除。
 
 
 mz-gallery-0.5b.1
