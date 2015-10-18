@@ -56,6 +56,7 @@ src/main/java/band/wukong/mz/g/whisper/
 src/test/java/band/wukong/mz/g/whisper/
 
 # ignored project inner folder and file
+dist/
 log/
 src/main/webapp/META-INF/MANIFEST.MF
 src/test/java/TestMain.java
