@@ -41,7 +41,6 @@ public class SimpleCategoryService {
      */
     public Map<String, Category> listAllFlat() {
         List<Category> cateList = cateDao.list(Category.CATE_CODE_TYPE_SIMPLE);
-        ;
 
         Map<String, Category> cateMap = new HashMap<String, Category>();
         for (Category cate : cateList) {

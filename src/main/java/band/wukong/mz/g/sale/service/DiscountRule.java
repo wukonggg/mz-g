@@ -90,15 +90,15 @@ public class DiscountRule {
      * @return 返回折扣
      */
     private static double discountClothing(double paymentClothing) {
-        if (paymentClothing >= 10000) {
+        if (paymentClothing >= M10000) {
             return D80;
-        } else if (paymentClothing >= 5000) {
+        } else if (paymentClothing >= M5000) {
             return D85;
-        } else if (paymentClothing >= 3000) {
+        } else if (paymentClothing >= M3000) {
             return D88;
-        } else if (paymentClothing >= 1000) {
+        } else if (paymentClothing >= M1000) {
             return D90;
-        } else if (paymentClothing >= 100) {
+        } else if (paymentClothing >= M100) {
             return D95;
         } else {
             return D100;

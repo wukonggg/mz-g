@@ -68,3 +68,4 @@ src/main/webapp/WEB-INF/classes/
 src/main/webapp/WEB-INF/lib/
 src/main/webapp/WEB-INF/tmp/
 target/
+src/test/java/Test.java
