@@ -24,7 +24,6 @@
 - 增加订单号
 - 增加商品下架功能
 - 重构order模块。把jsp和module中return "done"全部改成return "ok"。和其他模块统一起来
-- 增加quratz定时调度任务???
 
 //TODO -ASK GoodsServiceImpl.listNoneSku的意义？？
 
