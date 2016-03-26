@@ -19,14 +19,16 @@
 2、包结构介绍
 
 + /
-- DEV-GUIDE.TXT                  开发指南
 - LICENSE.TXT                    开源许可证
 - VERSION.TXT                    版本信息
 - README.MD                      介绍
 
-+ /script                        随便放一些脚本
++ /guide                         指南
+- /guide/script                  随便放一些脚本，目前只有数据库启停脚本
+- /guide/DEV-GUIDE.TXT           开发指南
+- /guide/ROADMAP.TXT             线路图
 
-+ /sql
++ /guide/sql                     系统相关脚本
 - db-clean.sql                   干净的数据库脚本
 - db-dev.sql                     开发用的数据库脚本
 - mz-g-select.sql                写起来比较麻烦的查询，存个档
