@@ -1,0 +1,1 @@
+mysqldump -u root -p mz-g > db-0.6.0a.2016.03.26.sql
