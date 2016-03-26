@@ -1,31 +1,9 @@
-+ TODO -OPT 部分清单
-- mz。select_category.js的优化。暂时先用timeout //TODO -OPT 等待动态生成的catecodes加载完成后再去设置点击状态。暂时先用timeout
-//TODO -OPT goods sku 模块在save、update抛出异常时页面接无法收到具体信息或者是module中使用raw而js中试用mess.error.amAlertDanger等，这样太烂了。
-            目前都是抛出异常，然后交给jsp去处理的。以后要改成json形式的
-- SkuPropTypeService.listDistinctNameByCateCode 读取type的名称   //TODO -OPT 这里可以考虑不用读取数据库，直接写死
-- 表单校验 & 检查所有的validator和数据库是否一致，是否在逻辑上存在漏洞
-- 分页优化，增加当前页的前3页和后3页，共7页（如果有的话）
-- goods.catecode---skuproptype---sku.type，包括skumore的生成还需要设计一下
-  skuMore部分的编辑，现在是textarea，以后可使用可编辑表格。  // TODO -OPT 这里暂时先用固定格式的文字表示，以后再优化为小型表格
-- module和page全部改为ajax方式，分离前后端的联系，特别是异常处理。不再利用jsp中捕获
-
-+ FIXME
-- SkuDaoImpl.updateWithMore  //FIXME 还要再测试
-- sku_add_s2.jsp    //FIXME 当textarea的内容被修改以后，再click就没有用了。
-- sku_add_s2.jsp    //FIXME 这里可能是aralejs的问题，接收到的data不是json，而是包装成html了。
-- sku_mod.jsp       //FIXME 这里可能是aralejs的问题，接收到的data不是json，而是包装成html了。
-- goods_add.jsp       //FIXME 这里可能是aralejs的问题，接收到的data不是json，而是包装成html了。
-- goods_mod.jsp       //FIXME 这里可能是aralejs的问题，接收到的data不是json，而是包装成html了。
 
 
-+ TODO -NEXT
-- 给SKU增加一个备注字段
-- 增加根据产品信息查询订单的功能，查询某个产品在哪几个订单销售过
-- 增加订单号
-- 增加商品下架功能
-- 重构order模块。把jsp和module中return "done"全部改成return "ok"。和其他模块统一起来
+mz-gallery-0.6.0
+==============================================
+1.根据SID生成条形码图片，并显示在商品画面
 
-//TODO -ASK GoodsServiceImpl.listNoneSku的意义？？
 
 
 mz-gallery-0.5b.3
