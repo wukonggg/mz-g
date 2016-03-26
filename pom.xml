@@ -7,7 +7,8 @@
     <artifactId>mz-g</artifactId>
     <packaging>war</packaging>
     <version>0.6.0a</version>
-    <name>MZ Gallery CRM on Retail</name>
+    <name>wukong-mz-gallery</name>
+    <description>CRM on Retail</description>
     <url>http://www.wukong.band/p/mz-gallery</url>
 
     <dependencies>
@@ -99,8 +100,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
