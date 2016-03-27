@@ -57,7 +57,6 @@ src/test/java/band/wukong/mz/g/whisper/
 
 # ignored project inner folder and file
 dist/
-guide/sql/db-*a*.sql
 log/
 src/main/webapp/META-INF/MANIFEST.MF
 src/test/java/TestMain.java
