@@ -8,7 +8,7 @@ package band.wukong.mz.g.category;
 public class SimpleCateConst {
 
     /**
-     * 品类代码-A上衣套装
+     * 品类代码-A上衣&套装
      */
     public static final String CATE_CODE_A_SYTZ = "S-A";
 
@@ -28,38 +28,33 @@ public class SimpleCateConst {
     public static final String CATE_CODE_D_XZ = "S-D";
 
     /**
-     * 品类代码-E袜子/护袖/口水巾/罩衫
+     * 品类代码-E日化
      */
-    public static final String CATE_CODE_E_WZ = "S-E";
+    public static final String CATE_CODE_E_RH = "S-E";
 
     /**
-     * 品类代码-F零食
+     * 品类代码-F零食&保健品
      */
-    public static final String CATE_CODE_F_LS = "S-F";
+    public static final String CATE_CODE_F_LSBJ = "S-F";
 
     /**
-     * 品类代码-G包包
+     * 品类代码-G奶粉
      */
-    public static final String CATE_CODE_G_BB = "S-G";
+    public static final String CATE_CODE_G_NF = "S-G";
 
     /**
-     * 品类代码-H帽子
+     * 品类代码-H玩具
      */
-    public static final String CATE_CODE_H_MZ = "S-H";
+    public static final String CATE_CODE_H_WJ = "S-H";
 
     /**
-     * 品类代码-I玩具
+     * 品类代码-I尿不湿
      */
-    public static final String CATE_CODE_I_WJ = "S-I";
+    public static final String CATE_CODE_I_NBS = "S-I";
 
     /**
-     * 品类代码-J尿不湿
+     * 品类代码-J文具
      */
-    public static final String CATE_CODE_J_NBS = "S-J";
-
-    /**
-     * 品类代码-K文具
-     */
-    public static final String CATE_CODE_K_WJ = "S-K";
+    public static final String CATE_CODE_J_WJ = "S-J";
 
 }

@@ -7,7 +7,6 @@ import band.wukong.mz.g.sku.SkuMoreHelper;
 import band.wukong.mz.g.sku.bean.Goods;
 import band.wukong.mz.g.sku.bean.Sku;
 import band.wukong.mz.g.sku.bean.SkuPropType;
-import band.wukong.mz.g.sku.exception.SkuInOrderException;
 import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.mz.g.sku.service.SkuMoreViewService;
 import band.wukong.mz.g.sku.service.SkuPropTypeService;
@@ -216,7 +215,7 @@ public class SkuModule {
             cateCodes = loadSimpleCateCodes4rest();
         }
         if(null == counts || counts.length == 0) {
-            counts =  new int[] {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2};
+            counts =  new int[] {2, 2, 2, 2, 2, 2, 2, 2, 2, 2};
         }
         log.debug("Input params - cateCodes:" + Arrays.toString(cateCodes));
         log.debug("Input params - counts:" + Arrays.toString(counts));
@@ -232,9 +231,9 @@ public class SkuModule {
 
     private String[] loadSimpleCateCodes4rest() {
         return new String[] {SimpleCateConst.CATE_CODE_A_SYTZ, SimpleCateConst.CATE_CODE_B_KZ
-                , SimpleCateConst.CATE_CODE_C_NY, SimpleCateConst.CATE_CODE_D_XZ, SimpleCateConst.CATE_CODE_E_WZ
-                , SimpleCateConst.CATE_CODE_F_LS, SimpleCateConst.CATE_CODE_G_BB, SimpleCateConst.CATE_CODE_H_MZ
-                , SimpleCateConst.CATE_CODE_I_WJ, SimpleCateConst.CATE_CODE_J_NBS, SimpleCateConst.CATE_CODE_K_WJ
+                , SimpleCateConst.CATE_CODE_C_NY, SimpleCateConst.CATE_CODE_D_XZ, SimpleCateConst.CATE_CODE_E_RH
+                , SimpleCateConst.CATE_CODE_F_LSBJ, SimpleCateConst.CATE_CODE_G_NF, SimpleCateConst.CATE_CODE_H_WJ
+                , SimpleCateConst.CATE_CODE_I_NBS, SimpleCateConst.CATE_CODE_J_WJ
         };
     }
 
