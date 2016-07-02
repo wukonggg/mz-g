@@ -15,7 +15,7 @@
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutz</artifactId>
-            <version>1.r.55</version>
+            <version>1.r.56</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -45,7 +45,7 @@
         <dependency>
             <groupId>band.wukong</groupId>
             <artifactId>wukong-util</artifactId>
-            <version>0.1.0.2015.0717</version>
+            <version>0.1.4a</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -93,7 +93,7 @@
     </dependencies>
 
     <build>
-        <finalName>gallery-${project.version}</finalName>
+        <finalName>g</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
