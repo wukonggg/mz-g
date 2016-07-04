@@ -1,7 +1,5 @@
 package band.wukong.mz.g.sku.service;
 
-import band.wukong.mz.g.sku.bean.Sku;
-
 /**
  * 采用Oracle风格方法命名的sid生成器
  *
@@ -9,13 +7,8 @@ import band.wukong.mz.g.sku.bean.Sku;
  */
 public interface SidGenerator {
 
-    /**
-     * nextSid。不同的cateCode的sid生成规则也不同
-     *
-     * @param cateCode cateCode
-     * @param sku      sku
-     * @return
-     */
-    String nextSid(String cateCode, Sku sku);
+    String currval(String cateCode);
+
+    String nextval(String cateCode);
 
 }

@@ -68,7 +68,7 @@ public class SkuServiceImpl implements SkuService {
 
         Trans.exec(new Atom() {
             public void run() {
-                s.setSid(sidGenerator.nextSid(cateCode, s));
+                s.setSid(sidGenerator.nextval(cateCode));
                 if (null != s.getGimg()) {
                     s.setImg(s.getSid() + "." + FileUtil.getFileExtension(s.getGimg()));
                 } else {
