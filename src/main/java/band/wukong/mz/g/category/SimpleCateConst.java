@@ -1,7 +1,7 @@
 package band.wukong.mz.g.category;
 
 /**
- * As you see...
+ * 注意：数据库中的t_cate表中有这些值。如果要改，两边就都要改
  *
  * @author wukong(wukonggg@139.com)
  */
