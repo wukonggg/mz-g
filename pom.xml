@@ -32,7 +32,7 @@
             <artifactId>druid</artifactId>
             <version>1.0.18</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-all</artifactId>
             <version>1.2.4</version>
@@ -41,7 +41,7 @@
             <groupId>org.nutz</groupId>
             <artifactId>nutz-integration-shiro</artifactId>
             <version>1.b.52</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>band.wukong</groupId>
             <artifactId>wukong-util</artifactId>
@@ -95,6 +95,19 @@
     <build>
         <finalName>g</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.3</version>
+                <configuration>
+                    <!-- <configLocation>${basedir}/springside-findbugs.xml</configLocation> -->
+                    <threshold>High</threshold>
+                    <effort>Default</effort>
+                    <findbugsXmlOutput>true</findbugsXmlOutput>
+                    <!-- findbugs xml输出路径-->
+                    <findbugsXmlOutputDirectory>target/site</findbugsXmlOutputDirectory>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
