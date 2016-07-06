@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>band.wukong.mz</groupId>
-    <artifactId>mz-g</artifactId>
+    <artifactId>mz-gallery</artifactId>
     <packaging>war</packaging>
     <version>0.6.0a</version>
     <name>wukong-mz-gallery</name>
@@ -32,7 +32,7 @@
             <artifactId>druid</artifactId>
             <version>1.0.18</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-all</artifactId>
             <version>1.2.4</version>
@@ -41,7 +41,7 @@
             <groupId>org.nutz</groupId>
             <artifactId>nutz-integration-shiro</artifactId>
             <version>1.b.52</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>band.wukong</groupId>
             <artifactId>wukong-util</artifactId>
@@ -98,16 +98,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.5.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18.1</version>
+                <version>2.19.1</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
