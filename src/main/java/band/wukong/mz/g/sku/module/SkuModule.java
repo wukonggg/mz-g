@@ -1,6 +1,7 @@
 package band.wukong.mz.g.sku.module;
 
 import band.wukong.mz.base.exception.AppRuntimeException;
+import band.wukong.mz.g.AppConf;
 import band.wukong.mz.g.category.SimpleCateConst;
 import band.wukong.mz.g.category.bean.Category;
 import band.wukong.mz.g.sku.SkuMoreHelper;
@@ -11,9 +12,12 @@ import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.mz.g.sku.service.SkuMoreViewService;
 import band.wukong.mz.g.sku.service.SkuPropTypeService;
 import band.wukong.mz.g.sku.service.SkuService;
+import band.wukong.practice.barcode.zxing.BarcodeTool;
+import com.google.zxing.BarcodeFormat;
 import org.nutz.dao.QueryResult;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Files;
 import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
 import org.nutz.log.Log;
@@ -25,10 +29,10 @@ import org.nutz.mvc.upload.UploadAdaptor;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.util.*;
 
 /**
  * As you see...
@@ -56,6 +60,8 @@ public class SkuModule {
     @Inject("refer:skuPropTypeService")
     private SkuPropTypeService sptService;
 
+    @Inject("app_conf")
+    private AppConf appConf;
 
     @At("/list")
     @Ok("jsp:view.sku.sku_list")
@@ -133,6 +139,25 @@ public class SkuModule {
 //        return for test
 //        return re.setv("ok", false).setv("msg", "lalalalld");
         return re.setv("ok", true);
+    }
+
+    @At("/printBarcode")
+    @Ok("raw:txt")
+    public Object printBarcode(@Param("barcode") String barcode) {
+        log.debug("Input params - barcode: \n" + barcode);
+
+        int width = appConf.getInt(AppConf.BARCODE_IMAGE_WIDTH);
+        int height = appConf.getInt(AppConf.BARCODE_IMAGE_HEIGHT);
+        String format = appConf.get(AppConf.BARCODE_IMAGE_FORMAT);
+        String way = appConf.get(AppConf.BARCODE_IMAGE_PATH);
+        way = way.replace("$name", UUID.randomUUID().toString());
+
+        FileSystem fileSystem = FileSystems.getDefault();
+        Path path = fileSystem.getPath(way);
+
+        BarcodeTool.encode(barcode, BarcodeFormat.CODE_128, width, height, path, format);
+
+        return Files.findFile(way);
     }
 
     @At("/mod")

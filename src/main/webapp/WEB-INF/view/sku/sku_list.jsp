@@ -44,6 +44,7 @@
     <!-- content start -->
     <form id="frmMain" name="frmMain" class="am-form" method="post">
     <input type="hidden" id="id" name="id" value="">
+    <input type="hidden" id="barcode" name="barcode" value="">
     <div class="admin-content">
         <jsp:include page="../base/admin_breadcrumb.jsp">
             <jsp:param name="info1" value="Stock"/>
@@ -96,7 +97,7 @@
                         <th>名称</th>
                         <th>款型</th>
                         <th>SKU编码</th>
-                        <th style="width: 150px;">操作</th>
+                        <th style="width: 250px;">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -111,6 +112,10 @@
                         <td>
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
+                                    <button name="btnPrintBarcode_${sc.id}" value="${sc.sid}"
+                                            class="am-btn am-btn-default am-btn-xs">
+                                        <span class="am-icon-print"></span> 打印条码
+                                    </button>
                                     <button name="btnMod_${sc.id}" value="${sc.id}"
                                         class="am-btn am-btn-default am-btn-xs am-text-secondary">
                                         <span class="am-icon-pencil-square-o"></span> 编辑
@@ -162,16 +167,26 @@
         $("#btnList").click(function() {
             var form = $("#frmMain");
             form.attr("action", "${base}/stock/sku/list.io");
+            form.attr("target", "_self");
             form.submit();
         });
         $("#btnAdd").click(function() {
             document.location.href = "${base}/stock/sku/add_s1.io";
+        });
+        //绑定打印条码事件
+        $("button[name^='btnPrintBarcode_']").click(function() {
+            $("#barcode").val($(this).val());
+            var form = $("#frmMain");
+            form.attr("action", "${base}/stock/sku/printBarcode.io");
+            form.attr("target", "_blank");
+            form.submit();
         });
         //绑定修改事件
         $("button[name^='btnMod_']").click(function() {
             $("#id").val($(this).val());
             var form = $("#frmMain");
             form.attr("action", "${base}/stock/sku/mod.io");
+            form.attr("target", "_self");
             form.submit();
         });
         //绑定删除事件

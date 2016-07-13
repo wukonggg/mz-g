@@ -1,9 +1,9 @@
 var ioc = {
-    config : {
+    db_conf : {
         type : "org.nutz.ioc.impl.PropertiesProxy",
         fields : {
-//            paths : ["custom/db.properties"]
-            paths : ["custom/"]
+            paths : ["custom/db.properties"]
+            //paths : ["custom/"]
         }
     },
     dataSource: {
@@ -12,15 +12,15 @@ var ioc = {
             depose: 'close'
         },
         fields: {
-            driverClassName      : {java : "$config.get('db.driver')"},
-            url                  : {java : "$config.get('db.url')"},
-            username             : {java : "$config.get('db.username')"},
-            password             : {java : "$config.get('db.password')"},
-            testWhileIdle        : {java : "$config.get('db.testWhileIdle')"},
-            validationQuery      : {java : "$config.get('db.validationQuery')"},
-            maxActive            : {java : "$config.get('db.maxActive')"},
-            filters              : {java : "$config.get('db.maxActive')"},
-            connectionProperties : {java : "$config.get('db.connectionProperties')"}
+            driverClassName      : {java : "$db_conf.get('db.driver')"},
+            url                  : {java : "$db_conf.get('db.url')"},
+            username             : {java : "$db_conf.get('db.username')"},
+            password             : {java : "$db_conf.get('db.password')"},
+            testWhileIdle        : {java : "$db_conf.get('db.testWhileIdle')"},
+            validationQuery      : {java : "$db_conf.get('db.validationQuery')"},
+            maxActive            : {java : "$db_conf.get('db.maxActive')"},
+            filters              : {java : "$db_conf.get('db.maxActive')"},
+            connectionProperties : {java : "$db_conf.get('db.connectionProperties')"}
             /*
              initialSize: 1,
              minIdle: 1,

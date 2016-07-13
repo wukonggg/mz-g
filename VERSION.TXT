@@ -5,7 +5,7 @@
 
 
 ==============================================
-[now]mz-gallery-0.6.1     [publish on 2016.07.xx]
+[now]mz-gallery-0.6.1     [publish on 2016.07.13]
 1.调整SID策略，使用sequence的方式，sequence基于category+序列数字
 2.根据SID生成条形码，并显示在SKU画面提供下载链接
 
