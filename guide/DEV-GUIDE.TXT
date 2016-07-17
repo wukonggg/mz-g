@@ -6,15 +6,6 @@
 -  这里主要是指git release的版本，和pom.xml一致。
 -  日常开发一定会更新VERSION.TXT，但不一定会更新pom.xml
 
-+  几个个栗子
--  0.5.1.yyyy.mmdd：snapshot
--  0.5b.1: beta版
--  0.5b.2.yyyy.mmdd：beta版的snapshot。。。。
-
-+  还有
--  估计一直会是0.x的版本，因为1.0意味着这个小软件不再是玩票，可以去换钞票啦！
-
-
 
 2、包结构介绍
 
@@ -22,15 +13,13 @@
 - LICENSE.TXT                    开源许可证
 - VERSION.TXT                    版本信息
 - README.MD                      介绍
-
-+ /guide                         指南
-- /guide/script                  随便放一些脚本，目前只有数据库启停脚本
+随便放一些脚本，目前只有数据库启停脚本
++ /guide/                         指南
+- /guide/db/                     数据库脚本
 - /guide/DEV-GUIDE.TXT           开发指南
 - /guide/ROADMAP.TXT             线路图
 
-+ /guide/sql                     系统相关脚本
-- db-clean.sql                   干净的数据库脚本
-- db-dev.sql                     开发用的数据库脚本
++ /guide/sql /                   一些sql
 - mz-g-select.sql                写起来比较麻烦的查询，存个档
 - mz-g-view.sql                  view的sql
 
@@ -40,7 +29,7 @@
 - band.wukong.mz                        萌主精选顶层包
 - band.wukong.mz.base                   基础包
 - band.wukong.mz.common                 公共组件包
-- band.wukong.mz.common.privilege       公共组件包
+- band.wukong.mz.common.privilege       权限组件包
 - band.wukong.mz.g                      Gallery项目顶层包
 - band.wukong.mz.nutz                   nutz框架相关的内容
 - band.wukong.mz.tablib                 自封装的tag

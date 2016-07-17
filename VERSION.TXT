@@ -2,10 +2,12 @@
 1.考虑是否需要改造营业员的order模块，使其无法修改成交价格。
 
 
+
+### 生产环境还需要调整数据库用户、权限、初始化数据 ###
 [now]mz-gallery-0.6.2     [publish on 2016.07.xx]
 1.db-0.6.2
 - 在t_sequence表增加基础数据，所有cate的sequence
-- 修复mz-gallery-root在localhost没有mz-g数据库权限的缺陷
+- 重构数据库的用户，修复mz-gallery-root在localhost没有mz-g数据库权限的缺陷
 2.设计最简单的菜单权限，去掉shiro。仅考虑销售员和老板的不同菜单。营业员只有order模块。
 3.BUY菜单增加扫码枪加购物车的功能。
 4.修复bug：退货的价格不对，应该使用成交价，而不是零售价（原价）。
