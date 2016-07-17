@@ -3,18 +3,18 @@
 .classpath
 .project
 .settings
-/mz-g.iml
+mz-g.iml
 
 # ignored project inner folder and file
 dist/
 log/
-/src/main/resources/custom/db.properties
-/src/main/webapp/gimg/goods/
-/src/main/webapp/gimg/goods_rm/
-/src/main/webapp/gimg/sku/
-/src/main/webapp/gimg/sku_rm/
-/src/main/webapp/WEB-INF/classes/
-/src/main/webapp/WEB-INF/lib/
-/src/main/webapp/WEB-INF/tmp/
-/target/
-/src/test/java/Test.java
+src/main/resources/custom/db.properties
+src/main/webapp/gimg/goods/
+src/main/webapp/gimg/goods_rm/
+src/main/webapp/gimg/sku/
+src/main/webapp/gimg/sku_rm/
+src/main/webapp/WEB-INF/classes/
+src/main/webapp/WEB-INF/lib/
+src/main/webapp/WEB-INF/tmp/
+src/test/java/Test.java
+target/
