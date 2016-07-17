@@ -1,20 +1,15 @@
 package band.wukong.mz;
 
-import band.wukong.mz.common.privilege.bean.User;
 import band.wukong.mz.g.AppWebConst;
 import band.wukong.mz.g.category.bean.Category;
 import band.wukong.mz.g.category.service.SimpleCategoryService;
-import org.nutz.dao.Dao;
-import org.nutz.dao.util.Daos;
 import org.nutz.ioc.Ioc;
-import org.nutz.lang.random.R;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.NutConfig;
 import org.nutz.mvc.Setup;
 
 import javax.servlet.ServletContext;
-import java.util.Date;
 import java.util.Map;
 
 /**
