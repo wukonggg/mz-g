@@ -24,7 +24,7 @@ public class User extends BaseBean {
     protected String name;
 
     @Column("passwd")
-    @ColDefine(width=128)
+    @ColDefine(width = 128)
     protected String password;
 
     private String salt;
@@ -35,7 +35,7 @@ public class User extends BaseBean {
     @Column
     private String state;
 
-    @ManyMany(from="u_id", relation="t_user_role", target=Role.class, to="role_id")
+    @ManyMany(from = "u_id", relation = "t_user_role", target = Role.class, to = "role_id")
     protected List<Role> roles;
 
     public long getId() {
@@ -97,13 +97,13 @@ public class User extends BaseBean {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
-                ", locked=" + locked +
-                ", state='" + state + '\'' +
-                ", roles=" + roles +
-                '}';
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", password='" + password + '\'' +
+            ", salt='" + salt + '\'' +
+            ", locked=" + locked +
+            ", state='" + state + '\'' +
+            ", roles=" + roles +
+            '}';
     }
 }
