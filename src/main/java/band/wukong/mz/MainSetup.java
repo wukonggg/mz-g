@@ -4,7 +4,6 @@ import band.wukong.mz.common.privilege.bean.User;
 import band.wukong.mz.g.AppWebConst;
 import band.wukong.mz.g.category.bean.Category;
 import band.wukong.mz.g.category.service.SimpleCategoryService;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.nutz.dao.Dao;
 import org.nutz.dao.util.Daos;
 import org.nutz.ioc.Ioc;
@@ -31,25 +30,9 @@ public class MainSetup implements Setup {
         log.info("MainSetup init...");
 
         Ioc ioc = nc.getIoc();
-
-        Dao dao = ioc.get(Dao.class);
-        Daos.createTablesInPackage(dao, "band.wukong.mz", false);
-        createAdminIfNoneUser(dao);
-
+//        Dao dao = ioc.get(Dao.class);
+//        Daos.createTablesInPackage(dao, "band.wukong.mz", false);
         loadCategory(ioc.get(SimpleCategoryService.class), nc.getServletContext());
-    }
-
-    private void createAdminIfNoneUser(Dao dao) {
-        if (dao.count(User.class) == 0) {
-            User user = new User();
-            user.setName("admin");
-            user.setPassword(new Sha256Hash("123456", user.getSalt()).toHex());
-            user.setSalt(R.UU16());
-            user.setCreateTime(new Date());
-            user.setUpdateTime(user.getCreateTime());
-            user.setState(User.STATE_OK);
-            dao.insert(user);
-        }
     }
 
     @Override

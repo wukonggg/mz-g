@@ -38,9 +38,6 @@ public class User extends BaseBean {
     @ManyMany(from="u_id", relation="t_user_role", target=Role.class, to="role_id")
     protected List<Role> roles;
 
-    @ManyMany(from="u_id", relation="t_user_permission", target=Permission.class, to="permission_id")
-    protected List<Permission> permissions;
-
     public long getId() {
         return id;
     }
@@ -97,14 +94,6 @@ public class User extends BaseBean {
         this.roles = roles;
     }
 
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -115,7 +104,6 @@ public class User extends BaseBean {
                 ", locked=" + locked +
                 ", state='" + state + '\'' +
                 ", roles=" + roles +
-                ", permissions=" + permissions +
                 '}';
     }
 }
