@@ -141,7 +141,6 @@ public class SkuServiceImpl implements SkuService {
         if (Strings.isBlank(cateCode)) {
             throw new IllegalParameterException();
         }
-
         return skuDao.list(cateCode, qcond, pageNum, pageSize);
     }
 

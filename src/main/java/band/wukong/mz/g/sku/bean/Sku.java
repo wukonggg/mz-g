@@ -78,6 +78,8 @@ public class Sku {
 
     private File gimg;
 
+    private int count;  //sku list中用于显示库存数量
+
     public long getId() {
         return id;
     }
@@ -198,24 +200,33 @@ public class Sku {
         this.gimg = gimg;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     @Override
     public String toString() {
         return "Sku{" +
-                "id=" + id +
-                ", sid='" + sid + '\'' +
-                ", model='" + model + '\'' +
-                ", type='" + type + '\'' +
-                ", ptime=" + ptime +
-                ", pprice=" + pprice +
-                ", sprice=" + sprice +
-                ", img='" + img + '\'' +
-                ", ctime=" + ctime +
-                ", utime=" + utime +
-                ", state='" + state + '\'' +
-                ", goodsId=" + goodsId +
-                ", goods=" + goods +
-                ", moreList=" + moreList +
-                ", gimg=" + gimg +
-                '}';
+            "id=" + id +
+            ", sid='" + sid + '\'' +
+            ", model='" + model + '\'' +
+            ", type='" + type + '\'' +
+            ", ptime=" + ptime +
+            ", pprice=" + pprice +
+            ", sprice=" + sprice +
+            ", img='" + img + '\'' +
+            ", ctime=" + ctime +
+            ", utime=" + utime +
+            ", state='" + state + '\'' +
+            ", goodsId=" + goodsId +
+            ", goods=" + goods +
+            ", moreList=" + moreList +
+            ", gimg=" + gimg +
+            ", count=" + count +
+            '}';
     }
 }

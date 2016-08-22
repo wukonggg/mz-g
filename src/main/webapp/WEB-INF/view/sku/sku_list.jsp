@@ -16,8 +16,13 @@
 <%
     Map retMap = (Map) request.getAttribute("obj");
     QueryResult qr = (QueryResult) retMap.get("result");
-    List<Sku> scList = qr.getList(Sku.class);
-    Pager pager = qr.getPager();
+
+    List<Sku> scList = null;
+    Pager pager = null;
+    if (qr != null) {
+        scList = qr.getList(Sku.class);
+        pager = qr.getPager();
+    }
     request.setAttribute("scList", scList);
     request.setAttribute("pager", pager);
     request.setAttribute("cateCode", retMap.get("cateCode"));
@@ -96,6 +101,7 @@
                         <th>品类</th>
                         <th>名称</th>
                         <th>款型</th>
+                        <th>库存量</th>
                         <th>SKU编码</th>
                         <th style="width: 250px;">操作</th>
                     </tr>
@@ -108,6 +114,7 @@
                         <td>${cate:title(sc.goods.cateCode, applicationScope["APP_CATE_FLAT_MAP"])}</td>  <!-- TODO -OPT 这里如何能做到不用字面字符串？-->
                         <td class="mz-tooltip " title="${sc.goods.gname}">${one:string4short(sc.goods.gname, 16)}</td>
                         <td>${sc.model}</td>
+                        <td>${sc.count}</td>
                         <td>${sc.sid}</td>
                         <td>
                             <div class="am-btn-toolbar">
