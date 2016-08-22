@@ -45,24 +45,6 @@
             <div class="am-tabs-bd">
                 <div class="am-tab-panel am-fade am-in am-active" id="tab3">
                     <div class="am-g am-margin-top-sm">
-                        <label for="_dcount" class="am-u-sm-2 am-form-label mz-admin-label-fixed">已购数量</label>
-                        <div class="am-u-sm-4 am-u-end">
-                            <input id="_dcount" name="_dcount" value="${item.dcount}" type="text" class="am-input-sm" readonly>
-                        </div>
-                    </div>
-                    <div class="am-g am-margin-top-sm">
-                        <label for="inpDcount" class="am-u-sm-2 am-form-label mz-admin-label-fixed">退货数量</label>
-                        <div class="am-u-sm-4 am-u-end">
-                            <input id="inpDcount" name="dcount" value="${item.dcount}" type="text" class="am-input-sm">
-                        </div>
-                    </div>
-                    <div class="am-g am-margin-top-sm">
-                        <label for="inpPayment" class="am-u-sm-2 am-form-label mz-admin-label-fixed">退货金额</label>
-                        <div class="am-u-sm-4 am-u-end">
-                            <input id="inpPayment" name="lin_dprice" value="${item.dcount * item.dprice}" type="text" class="am-input-sm" readonly>
-                        </div>
-                    </div>
-                    <div class="am-g am-margin-top-sm">
                         <label for="returnReason" class="am-u-sm-2 am-form-label mz-admin-label-fixed">退货原因</label>
                         <div class="am-u-sm-4 am-u-end">
                             <select id="returnReason" name="returnReason" class="am-input-sm mz-admin-select-fixed">
@@ -99,34 +81,15 @@
 <script>
     $(function () {
         mess.sidebar.load(mess.sidebar.bars.SALE);
-        var dprice = "${item.dprice}";
-        var dcount = "${item.dcount}";
-        $('#inpDcount').keyup(function(){
-            var rcount = $(this).val();
-            if (!raw.re.patterns.integer_gt0.test(rcount)) {
-                alert("请输入正整数!");
-                $(this).val(dcount);
-                $(this).focus();
-                return false;
-            } else if (rcount > dcount) {
-                alert("退货数量不能大于购买数量!");
-                $(this).val(dcount);
-                $(this).focus();
+        $("form").submit(function() {
+            var returnReason = $("#returnReason").val();
+            var returnDesc = $("#returnDesc").val();
+            if (!returnReason) {
+                alert("请输入退货原因!");
                 return false;
             }
-            $("#inpPayment").val($(this).val() * dprice);
-        });
-        $("form").submit(function() {
-            var rcount = $("#inpDcount").val();
-            if (!raw.re.patterns.integer_gt0.test(rcount)) {
-                alert("请输入正整数!");
-                $(this).val(dcount);
-                $(this).focus();
-                return false;
-            } else if (rcount > dcount) {
-                alert("退货数量不能大于购买数量!");
-                $(this).val(dcount);
-                $(this).focus();
+            if (!returnDesc) {
+                alert("请输入退货描述!");
                 return false;
             }
         });
