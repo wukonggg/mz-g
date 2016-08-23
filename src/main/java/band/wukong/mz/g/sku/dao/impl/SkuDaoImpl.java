@@ -109,24 +109,14 @@ public class SkuDaoImpl implements SkuDao {
             throw new IllegalParameterException();
         }
 
-        String exp =
-            "select t1.id as 'g.id', t1.cate_code as 'g.cate_code', t1.gname as 'g.gname'\n" +
-                "     , t.id as 'sc.id', t.sid as 'sc.sid', t.model as 'sc.model', t.img as 'sc.img', t.pprice as 'sc.pprice', t1.id as 'sc.goods_id'\n" +
-                "     , sum(t2.count) as 'sc.count'\n" +
-                "from t_sku t\n" +
-                "inner join t_goods t1 on t1.id = t.goods_id\n" +
-                "inner join t_sku_more t2 on t2.sku_id = t.id\n" +
-                "where t.state = @t_state and t1.state = @t1_state\n" +
-                "and t1.cate_code like @cate_code\n" +
-                "and (t.sid like @qcond or t1.gname like @qcond)\n" +
-                "group by t.id";
-
-        Sql sql = Sqls.queryRecord(exp);
+        Sql sql = dao.sqls().create("sku.list");
 
         sql.params().set("t_state", Sku.STATE_ON);
         sql.params().set("t1_state", Goods.STATE_OK);
         sql.params().set("cate_code", cateCode + "%");
         sql.params().set("qcond", "%" + qcond + "%");
+
+        sql.setCallback(Sqls.callback.records());
 
         int count = count4List(sql.getSourceSql(), cateCode, qcond);
         Pager pager = NutzDaoHelper.createPager(pageNum, pageSize, count);

@@ -17,4 +17,5 @@ src/main/webapp/WEB-INF/classes/
 src/main/webapp/WEB-INF/lib/
 src/main/webapp/WEB-INF/tmp/
 src/test/java/Test.java
+src/test/resources/custom/db.properties
 target/

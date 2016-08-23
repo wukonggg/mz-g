@@ -32,10 +32,15 @@ var ioc = {
              */
         }
     },
+    sqlManager: {
+        type: "org.nutz.dao.impl.FileSqlManager",
+        args: "sqls/"
+    },
     dao: {
         type: "org.nutz.dao.impl.NutDao",
         args: [
-            {refer: "dataSource"}
+            {refer: "dataSource"},
+            {refer: "sqlManager"}
         ]
     }
 };
