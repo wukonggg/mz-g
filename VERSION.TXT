@@ -5,17 +5,20 @@
 4.新增BUY菜单增加扫码枪加购物车的功能。
 5.支持直接扫澳洲产品条码
 
+
 [now]mz-gallery-0.6.3     [publish on 2016.08.xx]
-1.增加goods下架功能。sku的值为0时自动下架。退货时如果库存为0，需要自动上架。
-2.特惠商品。在sku编辑时，更改价格，勾选特价。系统自动把所有同goods的sku全部更改价格并勾选特惠。
+1.[Fixed]sku_list画面回车无法查询，并且还会自动下载条码。
+
+2.增加goods下架功能。sku的值为0时自动下架。退货时如果库存为0，需要自动上架。
+3.特惠商品。在sku编辑时，更改价格，勾选特价。系统自动把所有同goods的sku全部更改价格并勾选特惠。
   特惠商品在结算时，不参与订单折扣。
-2.db-0.6.3
-3.调整打折策略
+4.调整打折策略(4.db-0.6.3)
 - 支付时不再计算customer的clothingPayment，去除customer表的clothingPayment
-- 打折策略改为按order，不再考虑历史成交金额。
+- 打折策略改为按order满减，不再考虑历史成交金额。
+- 满减
 
 
-[ok]mz-gallery-0.6.2     [publish on 2016.08.23]
+mz-gallery-0.6.2     [publish on 2016.08.23]
 1.db-0.6.2
 - 在t_sequence表增加基础数据，所有cate的sequence
 - 重构数据库的用户，修复mz-gallery-root在localhost没有mz-g数据库权限的缺陷
@@ -26,13 +29,13 @@
 
 
 
-[ok]mz-gallery-0.6.1     [publish on 2016.07.13]
+mz-gallery-0.6.1     [publish on 2016.07.13]
 1.调整SID策略，使用sequence的方式，sequence基于category+序列数字
 2.根据SID生成条形码，并显示在SKU画面提供下载链接
 
 
 
-[ok]mz-gallery-0.6.0a       [publish on 2016.04.10]
+mz-gallery-0.6.0a       [publish on 2016.04.10]
 1.对应数据库设计版本。
 - 0.5b.3 > db-0.5.3     备份版本
 - 0.6.3  > db-0.6.0     新版本

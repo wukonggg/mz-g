@@ -171,7 +171,12 @@
             fade: false,
             slide: false
         });
-        $("#btnList").click(function() {
+        $("#qcond").keyup(function(e) {
+            if(e.keyCode == 13) { // 回车键事件
+                $("#btnList").click();
+            }
+        });
+        $("#btnList").live('click', function() {
             var form = $("#frmMain");
             form.attr("action", "${base}/stock/sku/list.io");
             form.attr("target", "_self");
