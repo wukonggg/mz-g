@@ -16,6 +16,7 @@ src/main/webapp/gimg/sku_rm/
 src/main/webapp/WEB-INF/classes/
 src/main/webapp/WEB-INF/lib/
 src/main/webapp/WEB-INF/tmp/
+src/main/webapp/META-INF/
 src/test/java/Test.java
 src/test/resources/custom/db.properties
 target/
