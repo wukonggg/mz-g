@@ -161,7 +161,7 @@ public class SkuDaoImpl implements SkuDao {
      * @return count(*)的数量
      */
     private int count4List(String e, String cateCode, String qcond) {
-        Sql sql = Sqls.create(NutzSqlHelper.convertSql2Count(e));
+        Sql sql = Sqls.create(NutzSqlHelper.convertSql2Count2(e));
         sql.params().set("t_state", Sku.STATE_ON);
         sql.params().set("t1_state", Goods.STATE_OK);
         sql.params().set("cate_code", cateCode + "%");
