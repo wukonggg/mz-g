@@ -96,6 +96,7 @@
                         <th>品类</th>
                         <th>名称</th>
                         <th>商品描述</th>
+                        <th>更新日期</th>
                         <th>创建日期</th>
                         <th style="width: 150px;">操作</th>
                     </tr>
@@ -107,7 +108,8 @@
                         <td class="mz-admin-tbl-td-img"><img src="${base}/gimg/goods/${g.img}" class="mz-admin-tbl-td-image"/></td>
                         <td class="mz-tooltip" title="品类编码：${g.cateCode}">${cate:title(g.cateCode, applicationScope["APP_CATE_FLAT_MAP"])}</td>  <!-- TODO -OPT 这里如何能做到不用字面字符串？-->
                         <td class="mz-tooltip" title="${g.gname}"><a href="#">${one:string4short(g.gname, 18)}</a></td>
-                        <td class="mz-tooltip" title="${g.words}">${one:string4short(g.words, 30)}</td>
+                        <td class="mz-tooltip" title="${g.words}">${one:string4short(g.words, 20)}</td>
+                        <td>${one:dateToStringShort(g.utime)}</td>
                         <td>${one:dateToStringShort(g.ctime)}</td>
                         <td>
                             <div class="am-btn-toolbar">

@@ -41,8 +41,9 @@ public class GoodsDaoImpl implements GoodsDao {
         if (!GoodsDaoValidator.insert(g)) {
             throw new IllegalParameterException();
         }
-
-        g.setCtime(new Date());
+        Date now = new Date();
+        g.setCtime(now);
+        g.setUtime(now);
         return dao.insert(g);
     }
 
@@ -89,7 +90,7 @@ public class GoodsDaoImpl implements GoodsDao {
         if (Strings.isNotBlank(cateCode) && !Category.CATE_CODE_TYPE_SIMPLE.equals(cateCode)) {
             c = Cnd.where(e1).and(e2).and(Cnd.exps("cateCode", "=", cateCode)).desc("ctime");
         } else {
-            c = Cnd.where(e1).and(e2).desc("ctime");
+            c = Cnd.where(e1).and(e2).desc("utime").desc("ctime");
         }
 
         int recordCount = dao.count(Goods.class, c);
