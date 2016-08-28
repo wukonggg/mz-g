@@ -63,7 +63,9 @@ public class SkuServiceImpl implements SkuService {
         Goods g = goodsService.find(s.getGoodsId());
         final String cateCode = g.getCateCode();
 
-        s.setCtime(new Date());
+        Date now = new Date();
+        s.setCtime(now);
+        s.setUtime(now);
         s.setState(Sku.STATE_ON);
 
         Trans.exec(new Atom() {

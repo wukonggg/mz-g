@@ -171,12 +171,7 @@
             fade: false,
             slide: false
         });
-        $("#qcond").keyup(function(e) {
-            if(e.keyCode == 13) { // 回车键事件
-                $("#btnList").click();
-            }
-        });
-        $("#btnList").live('click', function() {
+        $("#btnList").click(function() {
             var form = $("#frmMain");
             form.attr("action", "${base}/stock/sku/list.io");
             form.attr("target", "_self");
@@ -228,6 +223,14 @@
 
         mess.pagination.load();
         mz.loadCategory("${base}", "cateCode", "查询商品分类时出错啦！快去找悟空！", "${cateCode}", '<%=Category.CATE_CODE_TYPE_SIMPLE%>');
+
+        $("#qcond").focus().keyup(function(e) {
+            alert(1);
+            if(e.keyCode == 13) { // 回车键事件
+                alert("enter");
+//                $("#btnList").click();
+            }
+        });
     });
 
 </script>
