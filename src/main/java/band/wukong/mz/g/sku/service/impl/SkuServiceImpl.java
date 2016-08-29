@@ -27,6 +27,8 @@ import org.nutz.trans.Trans;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * As you see...
@@ -68,6 +70,15 @@ public class SkuServiceImpl implements SkuService {
         s.setUtime(now);
         s.setState(Sku.STATE_ON);
 
+
+        Iterator<SkuMore> iterator = s.getMoreList().iterator();
+        while(iterator.hasNext()) {
+            SkuMore sm = iterator.next();
+            if (sm.getCount() <= 0) {
+                iterator.remove();
+            }
+        }
+
         Trans.exec(new Atom() {
             public void run() {
                 s.setSid(sidGenerator.nextval(cateCode));
@@ -105,11 +116,19 @@ public class SkuServiceImpl implements SkuService {
         sku.setModel(s.getModel());
         sku.setPprice(s.getPprice());
         sku.setSprice(s.getSprice());
-        for (SkuMore sm : s.getMoreList()) {
-            sm.setSkuId(sku.getId());
+        sku.setUtime(new Date());
+        Iterator<SkuMore> iterator = s.getMoreList().iterator();
+        while(iterator.hasNext()) {
+            SkuMore sm = iterator.next();
+            if (sm.getCount() <= 0) {
+                iterator.remove();
+            } else {
+                //其实页面也能取到，这样做事担心页面取错数据，或者是数据被篡改
+                sm.setSkuId(sku.getId());
+            }
         }
         sku.setMoreList(s.getMoreList());
-        sku.setUtime(new Date());
+
 
         if (null != s.getGimg()) {
             File pic = new File(path + File.separator + sku.getSid() + "." + FileUtil.getFileExtension(s.getGimg()));

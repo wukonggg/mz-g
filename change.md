@@ -8,11 +8,12 @@
 
 # gallery-0.6.3a     [publish on 2016.08.xx]
 - db-0.6.3
-- 该用markdown
+- 改用markdown做change.md
 - fix: 修复0.6.2版本中sku——list分页无法正常使用的问题（sku菜单的列表增加一列“库存数量”导致）
 - add: goods list按照utime,ctime倒序排列。save时更新utime, 画面增加ctime。
 - add: sku list列表按照utime,ctime倒序排列。save时更新utime。
 - add: 查询列表改为8条/页
+- add: 检查save&update时，moreList中是否有数量为0的，如果有，就remove掉。
 
 - add：goods下架功能。sku的值为0时自动下架。退货时如果库存为0，需要自动上架。
 

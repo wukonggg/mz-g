@@ -12,6 +12,7 @@ public interface SkuService {
 
     /**
      * 保存Sku以及SkuMore。先保存图片文件到文件系统，再进数据库。
+     * 检查moreList中是否有数量为0的，如果有，就remove掉。
      *
      * @param s    pojo without id
      * @param path 图片文件存放路径
@@ -28,6 +29,7 @@ public interface SkuService {
 
     /**
      * update db and file system
+     * 检查moreList中是否有数量为0的，如果有，就remove掉。
      *
      * @param sc 包含moreList
      * @param path     图片文件存放路径

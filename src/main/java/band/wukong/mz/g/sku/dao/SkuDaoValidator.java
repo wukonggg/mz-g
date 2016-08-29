@@ -26,7 +26,7 @@ public class SkuDaoValidator {
                 && BaseValidator.gtZero(sc.getPprice())
                 && BaseValidator.gtZero(sc.getSprice())
                 && BaseValidator.notNull(sc.getCtime())
-                && null == sc.getUtime()
+                && null != sc.getUtime()
                 && Strings.isNotBlank(sc.getState())
                 && sc.getGoodsId() > 0
                 && null != sc.getMoreList() && sc.getMoreList().size() > 0;
