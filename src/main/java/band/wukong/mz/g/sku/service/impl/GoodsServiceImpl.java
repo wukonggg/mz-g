@@ -17,6 +17,7 @@ import org.nutz.log.Logs;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -81,9 +82,9 @@ public class GoodsServiceImpl implements GoodsService {
         }
 
         // 商品如果有对应SKU，则提示不能被删除
-        Sku sku = skuDao.findByGoodsId(id);
-        if (null != sku && !Sku.STATE_RM.equals(sku.getState())) {
-            throw new HasActiveStockException("无法删除仍有有效库存的商品");
+        List<Sku> skuList = skuDao.listByGoodsId_STATE_NOT_RM(id);
+        if (null != skuList && !skuList.isEmpty()) {
+            throw new HasActiveStockException("无法删除仍有库存的商品");
         }
 
         Goods g = goodsDao.find(id);

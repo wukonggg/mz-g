@@ -25,7 +25,7 @@ public interface SkuService {
      * @param id id
      * @return
      */
-    Sku findWithLinks(Long id);
+    Sku findWithLinks(long id);
 
     /**
      * update db and file system
@@ -71,4 +71,10 @@ public interface SkuService {
      * @return 返回当前总库存量
      */
     int addStock(long skuMoreId, int count);
+
+    /**
+     * sku及商品下架
+     * @param goodsId
+     */
+    void offShelf(long goodsId);
 }

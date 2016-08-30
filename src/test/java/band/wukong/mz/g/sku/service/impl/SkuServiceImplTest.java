@@ -132,7 +132,7 @@ public class SkuServiceImplTest {
         Assert.assertNotNull(qr1.getList(Sku.class));
         Assert.assertTrue(qr1.getList(Sku.class).size() > 0);
 
-        QueryResult qr2 = skuService.list(SimpleCateConst.CATE_CODE_A_SYTZ, "10", 0 , 100);
+        QueryResult qr2 = skuService.list(SimpleCateConst.CATE_CODE_A_SYTZ, "10", 0, 100);
         Assert.assertNotNull(qr2.getPager());
         Assert.assertNotNull(qr2.getList(Sku.class));
         Assert.assertTrue(qr2.getList(Sku.class).size() > 0);
@@ -165,4 +165,8 @@ public class SkuServiceImplTest {
         Assert.assertTrue(s1.getCount() == countAdded + skuMore.getCount());
     }
 
+    @Test
+    public void offShelf() {
+        skuService.offShelf(8);
+    }
 }

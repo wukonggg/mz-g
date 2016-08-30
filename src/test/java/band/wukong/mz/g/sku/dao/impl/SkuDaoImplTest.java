@@ -132,5 +132,16 @@ public class SkuDaoImplTest {
 
     }
 
+    @Test
+    public void listByGoodsId_STATE_NOT_RM() {
+        List<Sku> skuList = skuDao.listByGoodsId_STATE_NOT_RM(1L);
+        Assert.assertTrue(!skuList.isEmpty());
+    }
+
+    @Test
+    public void countByGoodsId_STATE_NOT_RM() {
+        int count = skuDao.countByGoodsId_STATE_NOT_RM(8L);
+        Assert.assertEquals(14, count);
+    }
 
 }

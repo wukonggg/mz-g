@@ -11,3 +11,11 @@ and t1.cate_code like @cate_code
 and (t.sid like @qcond or t1.gname like @qcond)
 group by t.id
 ORDER BY t.utime DESC, t.ctime DESC
+
+
+/* sku.countByGoodsId_STATE_NOT_RM */
+select sum(t.count) from t_sku_more t
+inner join t_sku t1 on t1.id = t.sku_id
+inner join t_goods t2 on t2.id = t1.goods_id
+where t1.state!=@t1_state and t2.id=@t2_id
+

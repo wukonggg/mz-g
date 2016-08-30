@@ -54,7 +54,7 @@ public class SkuDaoImpl implements SkuDao {
     }
 
     @Override
-    public Sku findWithLinks(Long id) {
+    public Sku findWithLinks(long id) {
         if (!BaseValidator.gtZero(id)) {
             throw new IllegalParameterException();
         }
@@ -150,8 +150,18 @@ public class SkuDaoImpl implements SkuDao {
     }
 
     @Override
-    public Sku findByGoodsId(Long goodsId) {
-        return dao.fetch(Sku.class, Cnd.where("goodsId", "=", goodsId));
+    public List<Sku> listByGoodsId_STATE_NOT_RM(long goodsId) {
+        return dao.query(Sku.class, Cnd.where("goodsId", "=", goodsId).and("state", "!=", Sku.STATE_RM));
+    }
+
+    @Override
+    public int countByGoodsId_STATE_NOT_RM(long goodsId) {
+        Sql sql = dao.sqls().create("sku.countByGoodsId_STATE_NOT_RM");
+        sql.params().set("t1_state", Sku.STATE_RM);
+        sql.params().set("t2_id", goodsId);
+        sql.setCallback(Sqls.callback.integer());
+        dao.execute(sql);
+        return sql.getInt();
     }
 
     /**

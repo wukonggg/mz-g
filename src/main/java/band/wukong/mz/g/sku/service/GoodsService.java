@@ -43,7 +43,7 @@ public interface GoodsService {
     void update(Goods g, String path);
 
     /**
-     * remove in db.当删除商品时，商品如果有对应SKU，则提示不能被删除
+     * remove in db.当删除商品时，商品如果有对应SKU(STATE!=RM)，则提示不能被删除
      *
      * @param id id
      */

@@ -41,6 +41,7 @@ public interface OrderService {
      * 4、更新库存
      * 5、看cust是不是非会员顾客、下单内容中有无服装类。都满足就更新用户表paymentclothing的值，新值为原有值+新单中服装类商品的成交价
      * 6、删除购物车中已下单的产品
+     * 7、判断goods所有的sku的count是否为0，为0自动下架sku，不为0不做操作。
      *
      * @param carts  carts
      * @param userId userId

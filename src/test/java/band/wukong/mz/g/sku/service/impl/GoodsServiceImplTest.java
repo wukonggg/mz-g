@@ -2,6 +2,7 @@ package band.wukong.mz.g.sku.service.impl;
 
 import band.wukong.mz.g.category.SimpleCateConst;
 import band.wukong.mz.g.sku.bean.Goods;
+import band.wukong.mz.g.sku.exception.HasActiveStockException;
 import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.mz.nutz.test.NutzTestHelper;
 import band.wukong.util.DateUtil;
@@ -99,5 +100,10 @@ public class GoodsServiceImplTest {
         QueryResult qr = service.list(SimpleCateConst.CATE_CODE_A_SYTZ, "", 0, 10);
         List<Goods> glist = qr.getList(Goods.class);
         Assert.assertTrue(glist.size() > 0);
+    }
+
+    @Test(expected = HasActiveStockException.class)
+    public void rm() {
+        service.rm(1L);
     }
 }

@@ -15,7 +15,11 @@ import band.wukong.mz.g.sku.service.GoodsService;
 import band.wukong.mz.g.sku.service.SidGenerator;
 import band.wukong.mz.g.sku.service.SkuService;
 import band.wukong.util.FileUtil;
+import org.nutz.dao.Cnd;
+import org.nutz.dao.Dao;
+import org.nutz.dao.FieldFilter;
 import org.nutz.dao.QueryResult;
+import org.nutz.dao.util.Daos;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Files;
@@ -41,6 +45,9 @@ public class SkuServiceImpl implements SkuService {
     private static final Log log = Logs.get();
 
     @Inject
+    private SidGenerator sidGenerator;
+
+    @Inject
     private GoodsService goodsService;
 
     @Inject
@@ -53,10 +60,10 @@ public class SkuServiceImpl implements SkuService {
     private SkuMoreDao skuMoreDao;
 
     @Inject
-    private SidGenerator sidGenerator;
+    private ItemDao itemDao;
 
     @Inject
-    private ItemDao itemDao;
+    private Dao dao;
 
     @Override
     public Sku saveWithMore(final Sku s, String path) {
@@ -100,7 +107,7 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Override
-    public Sku findWithLinks(Long id) {
+    public Sku findWithLinks(long id) {
         return skuDao.findWithLinks(id);
     }
 
@@ -191,6 +198,16 @@ public class SkuServiceImpl implements SkuService {
         skuMoreDao.update(sm);
 
         return sm.getCount();
+    }
+
+    @Override
+    public void offShelf(long goodsId) {
+        Dao privateDao = Daos.ext(dao, FieldFilter.create(Sku.class, "^state$"));
+        List<Sku> skuList = dao.query(Sku.class, Cnd.where("goodsId", "=", goodsId));
+        for (Sku sku : skuList) {
+            sku.setState(Sku.STATE_OFF);
+            privateDao.update(sku);
+        }
     }
 
 }

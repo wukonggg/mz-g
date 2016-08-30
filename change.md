@@ -7,16 +7,16 @@
 
 
 # gallery-0.6.3a     [publish on 2016.08.xx]
-- db-0.6.3
+- db-0.6.3a
 - 改用markdown做change.md
 - fix: 修复0.6.2版本中sku——list分页无法正常使用的问题（sku菜单的列表增加一列“库存数量”导致）
 - add: goods list按照utime,ctime倒序排列。save时更新utime, 画面增加ctime。
 - add: sku list列表按照utime,ctime倒序排列。save时更新utime。
 - add: 查询列表改为8条/页
 - add: 检查save&update时，moreList中是否有数量为0的，如果有，就remove掉。
+- add：goods自动下架功能。sku的值为0时自动下架，触发逻辑为在order商品或修改sku时判断是否所有SKU都为0。
 
-- add：goods下架功能。sku的值为0时自动下架。退货时如果库存为0，需要自动上架。
-
+- add：goods自动上架功能。sku的值为0时自动下架，触发逻辑为在退货时如果库存为0，需要自动上架。
 - 调整打折策略(db-0.6.3)。支付时不再计算customer的clothingPayment，去除customer表的clothingPayment。打折策略改为按order满减，不再考虑历史成交金额。
 - 满减
 - 特惠商品。在sku编辑时，更改价格，勾选特价。系统自动把所有同goods的sku全部更改价格并勾选特惠。

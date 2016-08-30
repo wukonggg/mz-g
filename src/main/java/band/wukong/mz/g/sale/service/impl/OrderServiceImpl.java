@@ -18,6 +18,7 @@ import band.wukong.mz.g.sale.service.DiscountRule;
 import band.wukong.mz.g.sale.service.OrderService;
 import band.wukong.mz.g.sale.service.OrderServiceValidator;
 import band.wukong.mz.g.sku.bean.SkuMoreView;
+import band.wukong.mz.g.sku.dao.SkuDao;
 import band.wukong.mz.g.sku.service.SkuMoreViewService;
 import band.wukong.mz.g.sku.service.SkuService;
 import org.nutz.dao.QueryResult;
@@ -46,6 +47,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Inject
     private ItemDao itemDao;
+
+    @Inject
+    private SkuDao skuDao;
 
     @Inject
     private CartService cartService;
@@ -129,6 +133,13 @@ public class OrderServiceImpl implements OrderService {
 
                     //减少库存
                     skuService.reduceStock(smv.getSkuMoreId(), c.getCount());
+
+
+                    //7、判断goods所有的sku的count是否为0，为0自动下架sku，不为0不做操作。
+                    boolean isCount0 = skuDao.countByGoodsId_STATE_NOT_RM(smv.getGoodsId()) == 0;
+                    if (isCount0) {
+                        skuService.offShelf(smv.getGoodsId());
+                    }
                 }
                 o.setItems(items);
                 order[0] = orderDao.insertWithItems(o);    //创建订单

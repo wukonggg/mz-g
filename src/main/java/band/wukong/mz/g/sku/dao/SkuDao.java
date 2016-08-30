@@ -3,6 +3,8 @@ package band.wukong.mz.g.sku.dao;
 import band.wukong.mz.g.sku.bean.Sku;
 import org.nutz.dao.QueryResult;
 
+import java.util.List;
+
 /**
  * As you see...
  *
@@ -24,7 +26,7 @@ public interface SkuDao {
      * @param id id
      * @return
      */
-    Sku findWithLinks(Long id);
+    Sku findWithLinks(long id);
 
     /**
      * find from db
@@ -61,11 +63,20 @@ public interface SkuDao {
     QueryResult list(String cateCode, String qcond, int pageNum, int pageSize);
 
     /**
-     * 根据goodsId找SKU
+     * 根据goodsId找SKUList
+     *
+     * @param goodsId goodsId
+     *
+     * @return
+     */
+    List<Sku> listByGoodsId_STATE_NOT_RM(long goodsId);
+
+    /**
+     * 看goods对应的库存数量
      *
      * @param goodsId goodsId
      * @return
      */
-    Sku findByGoodsId(Long goodsId);
+    int countByGoodsId_STATE_NOT_RM(long goodsId);
 
 }
