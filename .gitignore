@@ -8,7 +8,11 @@ mz-g.iml
 # ignored project inner folder and file
 dist/
 log/
+target/
+
 src/main/resources/custom/db.properties
+src/test/resources/custom/db.properties
+
 src/main/webapp/gimg/goods/
 src/main/webapp/gimg/goods_rm/
 src/main/webapp/gimg/sku/
@@ -18,5 +22,3 @@ src/main/webapp/WEB-INF/lib/
 src/main/webapp/WEB-INF/tmp/
 src/main/webapp/META-INF/
 src/test/java/Test.java
-src/test/resources/custom/db.properties
-target/
