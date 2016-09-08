@@ -30,6 +30,7 @@ public interface SkuService {
     /**
      * update db and file system
      * 检查moreList中是否有数量为0的，如果有，就remove掉。
+     * order退货时，在退货时如果goods当前库存为0，触发自动自动上架。
      *
      * @param sc 包含moreList
      * @param path     图片文件存放路径
@@ -64,7 +65,7 @@ public interface SkuService {
     int reduceStock(long skuMoreId, int count);
 
     /**
-     * （退货时）增加库存量
+     * （退货时）增加库存量。在退货时如果发现当前sku的总库存为0，触发自动自动上架。
      *
      * @param skuMoreId skuMoreId
      * @param count     需要增加的库存量

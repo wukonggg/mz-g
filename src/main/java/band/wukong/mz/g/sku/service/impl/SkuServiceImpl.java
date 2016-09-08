@@ -195,7 +195,24 @@ public class SkuServiceImpl implements SkuService {
 
         SkuMore sm = skuMoreDao.find(skuMoreId);
         sm.setCount(sm.getCount() + count);
-        skuMoreDao.update(sm);
+
+        Sku sku = skuDao.find(sm.getSkuId());
+        List<Sku> skuList = skuDao.listByGoodsId_STATE_NOT_RM(sku.getGoodsId());
+
+        if (null == skuList || skuList.size() == 0) {
+            skuMoreDao.update(sm);
+
+        } else {
+            for (Sku s : skuList) {
+                s.setState(Sku.STATE_ON);
+            }
+            Trans.exec(new Atom() {
+                public void run() {
+                    dao.update(skuList);
+                    skuMoreDao.update(sm);
+                }
+            });
+        }
 
         return sm.getCount();
     }

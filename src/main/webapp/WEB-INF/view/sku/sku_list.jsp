@@ -103,6 +103,7 @@
                         <th>款型</th>
                         <th>库存量</th>
                         <th>SKU编码</th>
+                        <th>状态</th>
                         <th style="width: 250px;">操作</th>
                     </tr>
                     </thead>
@@ -116,6 +117,14 @@
                         <td>${sc.model}</td>
                         <td>${sc.count}</td>
                         <td>${sc.sid}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${sc.state == '1'}">上</c:when>
+                                <c:when test="${sc.state == '2'}">下</c:when>
+                                <c:when test="${sc.state == '0'}">删</c:when>
+                                <c:otherwise>见鬼了！</c:otherwise>
+                            </c:choose>
+                        </td>
                         <td>
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
@@ -225,7 +234,6 @@
         mz.loadCategory("${base}", "cateCode", "查询商品分类时出错啦！快去找悟空！", "${cateCode}", '<%=Category.CATE_CODE_TYPE_SIMPLE%>');
 
         $("#qcond").focus().keyup(function(e) {
-            alert(1);
             if(e.keyCode == 13) { // 回车键事件
                 alert("enter");
 //                $("#btnList").click();

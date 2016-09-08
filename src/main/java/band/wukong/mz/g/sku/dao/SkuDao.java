@@ -21,6 +21,14 @@ public interface SkuDao {
     Sku insertWithMore(Sku s);
 
     /**
+     * find
+     *
+     * @param id id
+     * @return
+     */
+    Sku find(long id);
+
+    /**
      * find from db
      *
      * @param id id

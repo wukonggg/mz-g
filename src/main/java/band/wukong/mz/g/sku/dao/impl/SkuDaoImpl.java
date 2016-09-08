@@ -54,14 +54,19 @@ public class SkuDaoImpl implements SkuDao {
     }
 
     @Override
-    public Sku findWithLinks(long id) {
+    public Sku find(long id) {
         if (!BaseValidator.gtZero(id)) {
             throw new IllegalParameterException();
         }
-        Sku sc = dao.fetch(Sku.class, id);
-        dao.fetchLinks(sc, "moreList");
-        dao.fetchLinks(sc, "goods");
-        return sc;
+        return dao.fetch(Sku.class, id);
+    }
+
+    @Override
+    public Sku findWithLinks(long id) {
+        Sku sku = find(id);
+        dao.fetchLinks(sku, "moreList");
+        dao.fetchLinks(sku, "goods");
+        return sku;
     }
 
     @Override
@@ -111,7 +116,7 @@ public class SkuDaoImpl implements SkuDao {
 
         Sql sql = dao.sqls().create("sku.list");
 
-        sql.params().set("t_state", Sku.STATE_ON);
+        sql.params().set("t_state", Sku.STATE_RM);
         sql.params().set("t1_state", Goods.STATE_OK);
         sql.params().set("cate_code", cateCode + "%");
         sql.params().set("qcond", "%" + qcond + "%");

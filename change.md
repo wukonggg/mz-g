@@ -4,6 +4,9 @@
 3. 新增BUY菜单增加扫码枪加购物车的功能。
 4. 支持直接扫澳洲产品条码
 5. sku_list画面回车无法查询，并且还会触发其他的绑定事件？？？
+6. sku和sku_more更新时，会删除原有skumore并新增。这时order-item中的sku_more_id就会找不到。
+7. 生产环境已将【J文具】作为特惠服装的catecode
+
 
 
 # gallery-0.6.3a     [publish on 2016.08.xx]
@@ -14,9 +17,13 @@
 - add: sku list列表按照utime,ctime倒序排列。save时更新utime。
 - add: 查询列表改为8条/页
 - add: 检查save&update时，moreList中是否有数量为0的，如果有，就remove掉。
-- add：goods自动下架功能。sku的值为0时自动下架，触发逻辑为在order商品或修改sku时判断是否所有SKU都为0。
+- add：sku列表增加状态列
+- add：goods自动下架功能。在order商品时判断是否所有SKU的count都为0，如果为0就触发自动下架。
+- add：goods自动上架功能。order退货时，在退货时如果goods当前库存为0，触发自动自动上架。
+- [待测试]add：goods自动上下架功能。修改sku时，判断count，如果goods的当前库存为0且要改成大于0，触发自动上架。
 
-- add：goods自动上架功能。sku的值为0时自动下架，触发逻辑为在退货时如果库存为0，需要自动上架。
+
+- [进行中]订购增加confirm
 - 调整打折策略(db-0.6.3)。支付时不再计算customer的clothingPayment，去除customer表的clothingPayment。打折策略改为按order满减，不再考虑历史成交金额。
 - 满减
 - 特惠商品。在sku编辑时，更改价格，勾选特价。系统自动把所有同goods的sku全部更改价格并勾选特惠。
