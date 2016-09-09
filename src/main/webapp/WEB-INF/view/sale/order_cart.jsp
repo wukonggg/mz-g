@@ -455,15 +455,19 @@
                 alert("请先选择商品再结帐");
                 return false;
             }
+            var really = confirm("确定要结账吗？");
+            if (!really) {
+                return false;
+            }
 
             loadCarts();
-//            console.log("carts.size():" + carts.size());
+
             var ja = "[";
             carts.each(function(key, value, i){
                 ja += JSON.stringify(value) + ","
             });
             ja = ja.substring(0, ja.length - 1) + "]";
-//            console.log("ja = \n" + ja);
+
             $("#carts").val(ja);
             $("#frmMain").submit();
         });
