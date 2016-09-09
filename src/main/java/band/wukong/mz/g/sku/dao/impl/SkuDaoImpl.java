@@ -91,11 +91,11 @@ public class SkuDaoImpl implements SkuDao {
             public void run() {
                 dao.update(s);
                 dao.clear(SkuMore.class, Cnd.where("skuId", "=", s.getId()));
-                dao.fastInsert(s.getMoreList());
+                if (null != s.getMoreList() && s.getMoreList().size() > 0) {
+                    dao.fastInsert(s.getMoreList());
+                }
             }
         });
-        //CASE nutz:dao 数据库事务的使用
-        // FIXME 这里的事务还没有做失败时的单元测试
     }
 
     @Override

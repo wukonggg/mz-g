@@ -46,7 +46,7 @@ public interface SkuDao {
 
 
     /**
-     * update
+     * update。update时有个事务：1.更新sku；2.删除关联的所有skuMore；3.插入新的skuMore
      *
      * @param s s
      */

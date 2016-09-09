@@ -20,8 +20,8 @@
 - add：sku列表增加状态列
 - add：goods自动下架功能。在order商品时判断是否所有SKU的count都为0，如果为0就触发自动下架。
 - add：goods自动上架功能。order退货时，在退货时如果goods当前库存为0，触发自动自动上架。
-- [待测试]add：goods自动上下架功能。修改sku时，判断count，如果goods的当前库存为0且要改成大于0，触发自动上架。
-
+- add：goods自动上下架功能。修改sku时，判断count，如果sku的newCount>0，触发自动上架。如果sku的newCount=0 && goods的currCount=0 触发自动下架。
+- del: 去除updateSku的逻辑“检查moreList中是否有数量为0的，如果有，就remove掉。”
 
 - [进行中]订购增加confirm
 - 调整打折策略(db-0.6.3)。支付时不再计算customer的clothingPayment，去除customer表的clothingPayment。打折策略改为按order满减，不再考虑历史成交金额。

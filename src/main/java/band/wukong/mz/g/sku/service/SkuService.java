@@ -28,9 +28,9 @@ public interface SkuService {
     Sku findWithLinks(long id);
 
     /**
-     * update db and file system
+     * update db and file system。注意：调用者必须保证morelist不为null
      * 检查moreList中是否有数量为0的，如果有，就remove掉。
-     * order退货时，在退货时如果goods当前库存为0，触发自动自动上架。
+     * 判断count，如果sku的newCount>0，触发自动上架。如果sku的newCount=0 && goods的currCount=0 触发自动下架。
      *
      * @param sc 包含moreList
      * @param path     图片文件存放路径

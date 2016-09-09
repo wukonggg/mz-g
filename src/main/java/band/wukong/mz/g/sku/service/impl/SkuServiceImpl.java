@@ -124,12 +124,13 @@ public class SkuServiceImpl implements SkuService {
         sku.setPprice(s.getPprice());
         sku.setSprice(s.getSprice());
         sku.setUtime(new Date());
-        Iterator<SkuMore> iterator = s.getMoreList().iterator();
-        while(iterator.hasNext()) {
-            SkuMore sm = iterator.next();
-            if (sm.getCount() <= 0) {
-                iterator.remove();
+
+        int newCount = 0;
+        for (SkuMore sm : s.getMoreList()) {
+            if (sm.getCount() < 0) {
+                throw new IllegalParameterException("存在非法SkuMore，数量小于0");
             } else {
+                newCount += sm.getCount();
                 //其实页面也能取到，这样做事担心页面取错数据，或者是数据被篡改
                 sm.setSkuId(sku.getId());
             }
@@ -137,12 +138,19 @@ public class SkuServiceImpl implements SkuService {
         sku.setMoreList(s.getMoreList());
 
 
+        if (newCount > 0) {
+            sku.setState(Sku.STATE_ON);
+        } else {
+            sku.setState(Sku.STATE_OFF);
+        }
+
+        skuDao.updateWithMore(sku);
+
         if (null != s.getGimg()) {
             File pic = new File(path + File.separator + sku.getSid() + "." + FileUtil.getFileExtension(s.getGimg()));
             Files.copy(s.getGimg(), pic);
             sku.setImg(pic.getName());
         }
-        skuDao.updateWithMore(sku);
     }
 
     @Override
