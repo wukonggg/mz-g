@@ -13,7 +13,7 @@
 - 对应数据库版本：db-0.6.3a
 - [now]数据库调整，见lin.sql
 - [now]customer模块，去除clothingPayment相关
--
+
 
 - OrderService.pay, OrderService.returnItem, DiscountRule
 
