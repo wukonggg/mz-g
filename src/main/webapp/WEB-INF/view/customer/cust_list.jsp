@@ -85,7 +85,6 @@
                         <th style="width:15%">手机</th>
                         <th style="width:10%">微信</th>
                         <th style="width:12%">姓名</th>
-                        <th style="width:10%">服消</th>
                         <th style="width:15%">操作</th>
                     </tr>
                     </thead>
@@ -97,7 +96,6 @@
                         <td>${cust.msisdn}</td>
                         <td>${cust.weixin}</td>
                         <td>${cust.name}</td>
-                        <td>${cust.paymentClothing}</td>
                         <td>
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">

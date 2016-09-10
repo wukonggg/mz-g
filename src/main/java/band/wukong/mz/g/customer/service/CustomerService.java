@@ -1,13 +1,12 @@
 package band.wukong.mz.g.customer.service;
 
+import band.wukong.mz.base.exception.AppRuntimeException;
 import band.wukong.mz.base.exception.IllegalParameterException;
 import band.wukong.mz.g.customer.bean.Customer;
 import band.wukong.mz.nutz.NutzDaoHelper;
-import org.nutz.dao.Cnd;
-import org.nutz.dao.Condition;
-import org.nutz.dao.Dao;
-import org.nutz.dao.QueryResult;
+import org.nutz.dao.*;
 import org.nutz.dao.pager.Pager;
+import org.nutz.dao.util.Daos;
 import org.nutz.dao.util.cri.SqlExpressionGroup;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -15,6 +14,7 @@ import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,6 +39,9 @@ public class CustomerService {
         if (!CustomerServiceValidator.save(c)) {
             throw new IllegalParameterException();
         }
+        Date now = new Date();
+        c.setCtime(now);
+        c.setUtime(now);
         c.setState(Customer.STATE_OK);
         return dao.insert(c);
     }
@@ -95,11 +98,12 @@ public class CustomerService {
         if (!CustomerServiceValidator.update(c)) {
             throw new IllegalParameterException();
         }
-
-        Customer cust = dao.fetch(Customer.class, c.getId());
-        c.setPaymentClothing(cust.getPaymentClothing());
-        c.setState(Customer.STATE_OK);//修改的时候是不改state的，肯定是ok
-        dao.update(c);
+        Customer cust = find(c.getId());
+        if (null == cust) {
+            throw new AppRuntimeException("没有找到该用户:" + c.toString());
+        }
+        c.setUtime(new Date());
+        Daos.ext(dao, FieldFilter.create(Customer.class, null, "^ctime|state$", true)).update(c);
     }
 
     /**
@@ -193,16 +197,5 @@ public class CustomerService {
         return "[\n" + custs.toString().substring(2) + "\n]";
     }
 
-    /**
-     * udpate payment 在order的支付（pay）和退货（return）时用
-     *
-     * @param c
-     */
-    public void updatePayment(Customer c) {
-        if (!CustomerServiceValidator.updatePayment(c)) {
-            throw new IllegalParameterException();
-        }
-        dao.update(c);
-    }
 }
 

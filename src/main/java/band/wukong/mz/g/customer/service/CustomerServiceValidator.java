@@ -23,8 +23,6 @@ public class CustomerServiceValidator {
     }
 
     public static boolean updatePayment(Customer c) {
-        return null != c
-                && c.getId() > 0
-                && c.getPaymentClothing() >= 0;
+        return null != c && c.getId() > 0;
     }
 }

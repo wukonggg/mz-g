@@ -2,6 +2,7 @@ package band.wukong.mz.g.customer.service;
 
 import band.wukong.mz.g.customer.bean.Customer;
 import band.wukong.mz.nutz.test.NutzTestHelper;
+import band.wukong.util.DateUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,6 +28,15 @@ public class CustomerServiceTest {
     @After
     public void tearDown() {
         NutzTestHelper.destroyIoc(ioc);
+    }
+
+    @Test
+    public void update() {
+        Customer c = service.find(1);
+        c.setRemark("非会员顾客"); // 非会员顾客
+        c.setUtime(DateUtil.convert2date("1999-12-30 09:09:09"));
+        c.setState(Customer.STATE_RM);
+        service.update(c);
     }
 
     @Test

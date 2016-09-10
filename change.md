@@ -5,13 +5,17 @@
 4. 生产环境已将【J文具】作为特惠服装的catecode
 5. 新增BUY菜单增加扫码枪加购物车的功能。
 6. sku_list画面回车无法查询，并且还会触发其他的绑定事件？？？
-
+7. 维护customer时记录ctime, utime, uuid
 
 
 # [now]gallery-0.6.3a2     [publish on 2016.08.09xx]
-- db-0.6.3a
-- [now]调整打折策略(db-0.6.3)。支付时不再计算customer的clothingPayment，去除customer表的clothingPayment。
-       db, OrderService.pay, OrderService.returnItem, DiscountRule
+主题：支付时不再计算customer的clothingPayment
+- 对应数据库版本：db-0.6.3a
+- [now]数据库调整，见lin.sql
+- [now]customer模块，去除clothingPayment相关
+-
+
+- OrderService.pay, OrderService.returnItem, DiscountRule
 
 - 打折策略改为按order满减，不再考虑历史成交金额。
 - 满减
