@@ -8,7 +8,7 @@
 
 
 
-# gallery-0.6.3a     [publish on 2016.08.09xx]
+# [now]gallery-0.6.3a2     [publish on 2016.08.09xx]
 - db-0.6.3a
 - [now]调整打折策略(db-0.6.3)。支付时不再计算customer的clothingPayment，去除customer表的clothingPayment。
        db, OrderService.pay, OrderService.returnItem, DiscountRule
@@ -17,6 +17,7 @@
 - 满减
 - 特惠商品。在sku编辑时，更改价格，勾选特价。系统自动把所有同goods的sku全部更改价格并勾选特惠。
   特惠商品在结算时，不参与订单折扣。
+
 
 
 # gallery-0.6.3a1     [publish on 2016.08.0910]
