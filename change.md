@@ -8,7 +8,18 @@
 
 
 
-# gallery-0.6.3a     [publish on 2016.08.xx]
+# gallery-0.6.3a     [publish on 2016.08.09xx]
+- db-0.6.3a
+- [now]调整打折策略(db-0.6.3)。支付时不再计算customer的clothingPayment，去除customer表的clothingPayment。
+       db, OrderService.pay, OrderService.returnItem, DiscountRule
+
+- 打折策略改为按order满减，不再考虑历史成交金额。
+- 满减
+- 特惠商品。在sku编辑时，更改价格，勾选特价。系统自动把所有同goods的sku全部更改价格并勾选特惠。
+  特惠商品在结算时，不参与订单折扣。
+
+
+# gallery-0.6.3a1     [publish on 2016.08.0910]
 - db-0.6.3a
 - 改用markdown做change.md
 - fix: 修复0.6.2版本中sku——list分页无法正常使用的问题（sku菜单的列表增加一列“库存数量”导致）
@@ -22,11 +33,6 @@
 - add：goods自动上下架功能。修改sku时，判断count，如果sku的newCount>0，触发自动上架。如果sku的newCount=0 && goods的currCount=0 触发自动下架。
 - del: 去除updateSku的逻辑“检查moreList中是否有数量为0的，如果有，就remove掉。”
 - add: cart结账增加confirm
-
-- 调整打折策略(db-0.6.3)。支付时不再计算customer的clothingPayment，去除customer表的clothingPayment。打折策略改为按order满减，不再考虑历史成交金额。
-- 满减
-- 特惠商品。在sku编辑时，更改价格，勾选特价。系统自动把所有同goods的sku全部更改价格并勾选特惠。
-  特惠商品在结算时，不参与订单折扣。
 
 
 # version.txt
