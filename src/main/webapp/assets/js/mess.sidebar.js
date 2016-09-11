@@ -5,14 +5,35 @@ window.mess = window.mess || {};
 window.mess.sidebar = window.mess.sidebar || {};
 
 
-window.mess.sidebar.bars = {SALE:"collapse-nav-sale", SKU:"collapse-nav-sku"};
+window.mess.sidebar.bars = {
+    SALE : "collapse-nav-sale",
+    SALE_BUY : "collapse-nav-sale-buy",
+    SALE_CART : "collapse-nav-sale-cart",
+    SALE_ORDER : "collapse-nav-sale-order",
+    SKU : "collapse-nav-sku"
+};
 
 /**
  * 载入时打开传入的节点，折叠其他节点
- * @param displayId
+ * @param displayId 需要展开的一级节点
  */
 window.mess.sidebar.load = function(displayId) {
     var node = $("#" + displayId);
     node.removeClass("am-collapse");
     node.addClass("am-in");
+};
+
+/**
+ * 载入时打开传入的节点，折叠其他节点
+ * @param displayId 需要展开的一级节点
+ * @param highlightId 需要高亮的id
+ */
+window.mess.sidebar.load = function(displayId, highlightId) {
+    var node = $("#" + displayId);
+    node.removeClass("am-collapse");
+    node.addClass("am-in");
+
+    //$("#" + highlightId).siblings().css("background-color","#fff");
+    $("#" + highlightId).css("background-color","gainsboro");
+
 };

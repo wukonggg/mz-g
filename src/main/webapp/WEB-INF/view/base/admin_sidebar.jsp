@@ -15,9 +15,9 @@
                 <span class="am-icon-angle-right am-fr am-margin-right"></span>
             </a>
             <ul id="collapse-nav-sale" class="am-list admin-sidebar-sub am-collapse">
-                <li><a href="${base}/sale/order/buy.io"><span class="am-icon-cart-plus"></span> Buy</a></li>
-                <li><a href="${base}/sale/order/cart/list.io"><span class="am-icon-cart-arrow-down"></span> Cart</a></li>
-                <li><a href="${base}/sale/order/list.io"><span class="am-icon-history"></span> Order</a></li>
+                <li id="collapse-nav-sale-buy"><a href="${base}/sale/order/buy.io"><span class="am-icon-cart-plus"></span> Buy</a></li>
+                <li id="collapse-nav-sale-cart"><a href="${base}/sale/order/cart/list.io"><span class="am-icon-cart-arrow-down"></span> Cart</a></li>
+                <li id="collapse-nav-sale-order"><a href="${base}/sale/order/list.io"><span class="am-icon-history"></span> Order</a></li>
             </ul>
         </li>
         <li class="admin-parent">

@@ -2,26 +2,29 @@
 1. 仅考虑销售员和老板的不同菜单。营业员只有order模块
 2. 改造营业员的order模块，使其无法修改成交价格。
 3. 支持直接扫澳洲产品条码
-4. 生产环境已将【J文具】作为特惠服装的catecode
 5. 新增BUY菜单增加扫码枪加购物车的功能。
 6. sku_list画面回车无法查询，并且还会触发其他的绑定事件？？？
 7. 维护customer时记录ctime, utime, uuid
 
 
-# [now]gallery-0.6.3a2     [publish on 2016.08.09xx]
-主题：支付时不再计算customer的clothingPayment
-- 对应数据库版本：db-0.6.3a
-- [now]数据库调整，见lin.sql
-- [now]customer模块，去除clothingPayment相关
+# [now]gallery-0.6.3a2     [publish on 2016.09xx]
+主题1：支付时不再计算customer的clothingPayment(不再考虑历史成交金额)
+主题2：打折策略改为按order折扣，discountRule更新
+- 对应数据库版本：db-0.6.3a2
+- 数据库调整，见lin.sql
+- customer模块，去除clothingPayment相关
+- order_buy.jsp去掉admin_breadcrumb。给当前菜单增加背景色。
+- [测试中]订单支付子模块。去除clothingPayment相关。
+  添加购物车测试完成。购物车使用为测试，结账及orderlist未测试
+- [开发中]购物车大改造，dprice特惠
+
+- OrderService.returnItem
+- DiscountRule
 
 
-- OrderService.pay, OrderService.returnItem, DiscountRule
-
-- 打折策略改为按order满减，不再考虑历史成交金额。
-- 满减
-- 特惠商品。在sku编辑时，更改价格，勾选特价。系统自动把所有同goods的sku全部更改价格并勾选特惠。
-  特惠商品在结算时，不参与订单折扣。
-
+- 特惠商品在结算时不参与订单折扣。
+- 在sku编辑时，更改价格，勾选转为特惠。系统自动把所有同goods的sku全部更改价格并勾选特惠。
+- 生产环境已将【J文具】作为特惠服装的catecode。需要把J文具改为特惠
 
 
 # gallery-0.6.3a1     [publish on 2016.08.0910]

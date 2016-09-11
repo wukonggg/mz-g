@@ -46,11 +46,13 @@
     <form id="frmMain" name="frmMain" class="am-form" method="post">
 
     <div class="admin-content">
+<%--
         <jsp:include page="../base/admin_breadcrumb.jsp">
             <jsp:param name="info1" value="Sale"/>
             <jsp:param name="info2" value="Choose Goods"/>
         </jsp:include>
-
+--%>
+        <br>
         <div class="am-g">
             <div class="am-u-md-6 am-cf">
                 <div class="am-fl am-cf">
@@ -140,7 +142,8 @@
 
 <script>
     $(function () {
-        mess.sidebar.load(mess.sidebar.bars.SALE);
+//        mess.sidebar.load(mess.sidebar.bars.SALE);
+        mess.sidebar.load(mess.sidebar.bars.SALE, mess.sidebar.bars.SALE_BUY);
         mess.pagination.load();
         $('.mz-tooltip').poshytip({
             className: 'tip-yellowsimple',
