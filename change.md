@@ -13,6 +13,7 @@
 - 对应数据库版本：db-0.6.3a2
 - 数据库调整，见lin.sql
 - customer模块，去除clothingPayment相关
+- 解决CustomerService.autoComplete方法当没有数据时的bug
 - order_buy.jsp去掉admin_breadcrumb。给当前菜单增加背景色。
 - [测试中]订单支付子模块。去除clothingPayment相关。
   添加购物车测试完成。购物车使用为测试，结账及orderlist未测试

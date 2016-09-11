@@ -184,14 +184,20 @@ public class CustomerService {
         }
 
         Condition c = Cnd
-                .where("name", "like", keyword + "%")
-                .or("msisdn", "like", keyword + "%")
+                .where("name", "like", "%" + keyword + "%")
+                .or("msisdn", "like", "%" + keyword + "%")
                 .or("cid", "like", keyword + "%");
         List<Customer> custList = dao.query(Customer.class, c);
 
+
         StringBuilder custs = new StringBuilder();
-        for (Customer cust : custList) {
+        if (null == custList || custList.size() == 0) {
+            Customer cust = dao.fetch(Customer.class, 1);
             custs.append(", \"" + cust.getCid() + "/" + cust.getName() + "/" + cust.getMsisdn() + "\"");
+        } else {
+            for (Customer cust : custList) {
+                custs.append(", \"" + cust.getCid() + "/" + cust.getName() + "/" + cust.getMsisdn() + "\"");
+            }
         }
 
         return "[\n" + custs.toString().substring(2) + "\n]";
