@@ -10,7 +10,11 @@ window.mess.sidebar.bars = {
     SALE_BUY : "collapse-nav-sale-buy",
     SALE_CART : "collapse-nav-sale-cart",
     SALE_ORDER : "collapse-nav-sale-order",
-    SKU : "collapse-nav-sku"
+    SKU : "collapse-nav-sku",
+    SKU_GOODS : "collapse-nav-sku-goods",
+    SKU_STOCK : "collapse-nav-sku-stock",
+    SKU_REST : "collapse-nav-sku-rest",
+    CUSTOMER : "collapse-nav-cust"
 };
 
 /**

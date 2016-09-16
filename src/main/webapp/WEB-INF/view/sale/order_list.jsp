@@ -51,11 +51,7 @@
     <form id="frmMain" name="frmMain" class="am-form am-form-inline" method="post">
     <input type="hidden" id="id" name="id" value="">
     <div class="admin-content">
-        <jsp:include page="../base/admin_breadcrumb.jsp">
-            <jsp:param name="info1" value="SALE"/>
-            <jsp:param name="info2" value="Order"/>
-        </jsp:include>
-
+        <br>
         <div class="am-g">
             <div class="am-u-md-2 am-cf">
                 <div class="am-form-group am-input-group-sm">
@@ -192,7 +188,7 @@
 <script src="${base}/assets/js/mess.pagination.js"></script>
 <script>
     $(function () {
-        mess.sidebar.load(mess.sidebar.bars.SALE);
+        mess.sidebar.load(mess.sidebar.bars.SALE, mess.sidebar.bars.SALE_ORDER);
         mess.pagination.load(); <%-- //CASE 页面分页组件 --%>
         $("#btnList").click(function() {
             var form = $("#frmMain");

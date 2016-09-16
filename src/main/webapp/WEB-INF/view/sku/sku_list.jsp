@@ -51,11 +51,7 @@
     <input type="hidden" id="id" name="id" value="">
     <input type="hidden" id="barcode" name="barcode" value="">
     <div class="admin-content">
-        <jsp:include page="../base/admin_breadcrumb.jsp">
-            <jsp:param name="info1" value="Stock"/>
-            <jsp:param name="info2" value="SKU"/>
-        </jsp:include>
-
+        <br>
         <div class="am-g">
             <div class="am-u-md-5 am-cf">
                 <div class="am-fl am-cf">
@@ -168,7 +164,7 @@
 
 <script>
     $(function () {
-        mess.sidebar.load(mess.sidebar.bars.SKU);
+        mess.sidebar.load(mess.sidebar.bars.SKU, mess.sidebar.bars.SKU_STOCK);
         $('.mz-tooltip').poshytip({
             className: 'tip-yellowsimple',
             showTimeout: 300,

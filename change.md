@@ -1,15 +1,12 @@
 # gallery-0.6.x
-3. 支持直接扫澳洲产品条码
-5. 新增BUY菜单增加扫码枪加购物车的功能。
-6. sku_list画面回车无法查询，并且还会触发其他的绑定事件？？？
-7. 维护customer时记录ctime, utime, uuid
-
-主题A1:
-- 在sku编辑时，更改价格，勾选转为特惠。系统自动把所有同goods的sku全部更改价格并勾选特惠。
+1. 支持直接扫澳洲产品条码
+2. 新增BUY菜单增加扫码枪加购物车的功能。
+3. sku_list画面回车无法查询，并且还会触发其他的绑定事件？？？
+4. 维护customer时记录ctime, utime, uuid
+5. order&特惠
+5.1. 在sku编辑时，更改价格，勾选转为特惠。系统自动把所有同goods的sku全部更改价格并勾选特惠。
 - 特惠商品在结算时不参与订单折扣。
-- 生产环境已将【J文具】作为特惠服装的catecode。需要把J文具改为特惠
-
-主题A2：打折策略改为按order折扣，discountRule更新
+5.2. 打折策略改为按order折扣，discountRule更新
 - OrderService.returnItem
 - DiscountRule
 - 购物车需要改造。
@@ -17,13 +14,25 @@
 
 
 # [now]gallery-0.6.3a3     [publish on 2016.09xx]
-## 1. 数据库
+
+## [doing]1. 数据库
 - 对应数据库版本：db-0.6.3a3
-- update: 数据库调整，见lin.sql
+- update: 数据库调整，见lin.sql。注意：有外部sql。
+
 ## 2. 程序
-2.1. 仅考虑销售员和老板的不同菜单。营业员只有order模块
+### [ok]2.1. 菜单改造
+- update: order_list.jsp去掉breadcrumb，增加sidebar高亮。
+- update: goods_list.jsp去掉breadcrumb，增加sidebar高亮。
+- update: sku_list.jsp去掉breadcrumb，增加sidebar高亮。
+- update: rest_list.jsp去掉breadcrumb，增加sidebar高亮。
+- update: cust_list.jsp去掉breadcrumb，增加sidebar高亮。
+
+### [ok]2.2. 仅考虑销售员和老板的不同菜单。营业员只有order模块
 - update: 在admin_sidebar.jsp增加简单权限。反正就两个用户。。
 
+### [next]2.3. SimpleCateConst改造
+- update: 生产环境已将【J文具】作为特惠服装的catecode。需要把J文具改为特惠
+- update:
 
 
 

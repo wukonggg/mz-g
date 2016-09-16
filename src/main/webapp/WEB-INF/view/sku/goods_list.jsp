@@ -45,11 +45,7 @@
     <form id="frmMain" name="frmMain" class="am-form" method="post">
     <input type="hidden" id="id" name="id" value="">
     <div class="admin-content">
-        <jsp:include page="../base/admin_breadcrumb.jsp">
-            <jsp:param name="info1" value="STOCK"/>
-            <jsp:param name="info2" value="Goods"/>
-            <jsp:param name="info3" value="list"/>
-        </jsp:include>
+        <br>
 
         <div class="am-g">
             <div class="am-u-md-5 am-cf">
@@ -150,7 +146,7 @@
 <script src="${base}/assets/js/mz.select_category.js"></script>
 <script>
     $(function () {
-        mess.sidebar.load(mess.sidebar.bars.SKU);
+        mess.sidebar.load(mess.sidebar.bars.SKU, mess.sidebar.bars.SKU_GOODS);
         <%-- //CASE 页面分页组件 --%>
         mess.pagination.load();
         <%-- //CASE 品类查询组件 --%>

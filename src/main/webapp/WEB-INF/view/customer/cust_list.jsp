@@ -41,11 +41,7 @@
     <form id="frmMain" name="frmMain" class="am-form" method="post">
     <input type="hidden" id="id" name="id" value="">
     <div class="admin-content">
-        <jsp:include page="../base/admin_breadcrumb.jsp">
-            <jsp:param name="info1" value="Customer"/>
-            <jsp:param name="info2" value="粑粑麻麻"/>
-        </jsp:include>
-
+        <br>
         <div class="am-g">
             <div class="am-u-md-6 am-cf">
                 <div class="am-fl am-cf">
@@ -130,9 +126,11 @@
 <script src="${base}/component/amazeui/2.2.1/dist/js/amazeui.min.js"></script>
 <script src="${base}/component/amazeui/2.2.1/assets/js/app.js"></script>
 <script src="${base}/assets/js/mess.pagination.js"></script>
+<script src="${base}/assets/js/mess.sidebar.js"></script>
 
 <script>
     $(function () {
+        mess.sidebar.load(mess.sidebar.bars.CUSTOMER, mess.sidebar.bars.CUSTOMER);
         <%-- //CASE 页面分页组件 --%>
         mess.pagination.load();
         $("#btnAdd").click(function() {

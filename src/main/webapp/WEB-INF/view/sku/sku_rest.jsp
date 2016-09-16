@@ -6,6 +6,7 @@
 <%@ page import="org.nutz.dao.QueryResult" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Arrays" %>
+<%@ page import="band.wukong.mz.g.category.bean.Category" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="one" uri="/WEB-INF/tld/one.tld"  %>
@@ -39,11 +40,7 @@
     <form id="frmMain" name="frmMain" class="am-form" method="post">
         <input type="hidden" id="cateCodes" name="cateCodes" value="">
         <div class="admin-content">
-            <jsp:include page="../base/admin_breadcrumb.jsp">
-                <jsp:param name="info1" value="STOCK"/>
-                <jsp:param name="info2" value="Rest"/>
-            </jsp:include>
-
+            <br>
             <div class="am-g">
                 <div class="am-u-md-8">
                     <div id="btnGroupCateCodes" class="am-btn-group" data-am-button>
@@ -108,7 +105,7 @@
 <script>
     $(function () {
         <%-- //CASE sidebar --%>
-        mess.sidebar.load(mess.sidebar.bars.SKU);
+        mess.sidebar.load(mess.sidebar.bars.SKU, mess.sidebar.bars.SKU_REST);
         <%-- //CASE 页面分页组件 --%>
         mess.pagination.load();
         <%-- //CASE 品类查询组件 --%>
