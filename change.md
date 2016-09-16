@@ -13,27 +13,27 @@
 - 购物车有要考虑特惠商品不参与折扣
 
 
-# [now]gallery-0.6.3a3     [publish on 2016.09xx]
+# [now]gallery-0.6.3a4     [publish on 2016.09xx]
+### [next]2.3. SimpleCateConst改造
+- update: 生产环境已将【J文具】作为特惠服装的catecode。需要把J文具改为特惠
+- update:
 
-## [doing]1. 数据库
+
+
+# gallery-0.6.3a3     [publish on 2016.0916]
+## 1. 数据库
 - 对应数据库版本：db-0.6.3a3
 - update: 数据库调整，见lin.sql。注意：有外部sql。
 
 ## 2. 程序
-### [ok]2.1. 菜单改造
+### 2.1. 菜单改造
 - update: order_list.jsp去掉breadcrumb，增加sidebar高亮。
 - update: goods_list.jsp去掉breadcrumb，增加sidebar高亮。
 - update: sku_list.jsp去掉breadcrumb，增加sidebar高亮。
 - update: rest_list.jsp去掉breadcrumb，增加sidebar高亮。
 - update: cust_list.jsp去掉breadcrumb，增加sidebar高亮。
-
-### [ok]2.2. 仅考虑销售员和老板的不同菜单。营业员只有order模块
+### 2.2. 仅考虑销售员和老板的不同菜单。营业员只有order模块
 - update: 在admin_sidebar.jsp增加简单权限。反正就两个用户。。
-
-### [next]2.3. SimpleCateConst改造
-- update: 生产环境已将【J文具】作为特惠服装的catecode。需要把J文具改为特惠
-- update:
-
 
 
 # gallery-0.6.3a2     [publish on 2016.0916]
