@@ -14,7 +14,6 @@ import band.wukong.mz.g.sale.dao.ItemDao;
 import band.wukong.mz.g.sale.dao.OrderDao;
 import band.wukong.mz.g.sale.exception.OutOfStockException;
 import band.wukong.mz.g.sale.service.CartService;
-import band.wukong.mz.g.sale.service.DiscountRule;
 import band.wukong.mz.g.sale.service.OrderService;
 import band.wukong.mz.g.sale.service.OrderServiceValidator;
 import band.wukong.mz.g.sku.bean.SkuMoreView;
@@ -103,54 +102,36 @@ public class OrderServiceImpl implements OrderService {
 
         Trans.exec(new Atom() {
             public void run() {
-                long nowPaymentClothing = cust.getPaymentClothing();
-                long newPaymentClothing = cust.getPaymentClothing();
-
-                //2、查询产品的库存是否都足够
-                //3、创建订单
-                //4、更新库存
+                // 2、查询产品的库存是否都足够, 如库存不足时抛出OutOfStockException
+                // 3、创建订单
+                // 4、更新库存
+                // 5、判断goods所有的sku的count是否为0，为0自动下架sku，不为0不做操作。
                 Order o = new Order();
                 o.setUserId(userId);
                 o.setCustId(carts[0].getCustId());
                 o.setDtime(new Date());
-                List<Item> items = new ArrayList<Item>();
+                o.setItems(new ArrayList<Item>());  // 订单中的item
                 for (Cart c : carts) {
-                    //查出对应的skuMore
+                    //查出对应的skuMore，库存不够就抛出异常
                     SkuMoreView smv = smvService.find(c.getSkuMoreId());
-                    //库存不够就抛出异常
                     if (smv.getCount() < c.getCount()) {
                         throw new OutOfStockException("库存不够");
                     }
-                    Item item = assembleItem(smv, c, nowPaymentClothing);
-                    items.add(item);
-                    //计算paymentClothing。
-                    if (DiscountRule.hasClothingDiscount(smv.getCateCode())) {
-//                  if (DiscountRule.discount(smv.getCateCode(), nowPaymentClothing) < 1) {
-                        // newPaymentClothing > nowPaymentClothing - 证明是服装类
-                        // newPaymentClothing = nowPaymentClothing - 有可能不是服装类，也有可能是首次购买服装
-                        newPaymentClothing += item.getPayment();
-                    }
 
-                    //减少库存
+                    Item item = assembleItem(smv, c);
+                    o.getItems().add(item);
+
+                    //更新库存（减少）
                     skuService.reduceStock(smv.getSkuMoreId(), c.getCount());
 
-
-                    //7、判断goods所有的sku的count是否为0，为0自动下架sku，不为0不做操作。
+                    // 5、判断goods所有的sku的count是否为0，为0自动下架sku，不为0不做操作。
                     boolean isCount0 = skuDao.countByGoodsId_STATE_NOT_RM(smv.getGoodsId()) == 0;
                     if (isCount0) {
                         skuService.offShelf(smv.getGoodsId());
                     }
                 }
-                o.setItems(items);
-                order[0] = orderDao.insertWithItems(o);    //创建订单
 
-                // 5、看cust是不是非会员顾客，
-                //    看下单内容中有无服装类(newPaymentClothing > nowPaymentClothing证明是服装类)。
-                //    都满足就更新用户表paymentclothing的值，新值为原有值+新单中服装类商品的成交价
-                if (o.getCustId() != Customer.NON_MEMBER_ID && newPaymentClothing > nowPaymentClothing) {
-                    cust.setPaymentClothing(newPaymentClothing);
-                    custService.updatePayment(cust);
-                }
+                order[0] = orderDao.insertWithItems(o);    //创建订单
 
                 //6、删除购物车中已下单的产品
                 for (Cart c : carts) {
@@ -185,15 +166,6 @@ public class OrderServiceImpl implements OrderService {
 
                 //3、恢复库存
                 skuService.addStock(item.getSkuMoreId(), item.getDcount());
-
-                //4、如果商品是服装类，就更新用户表服装paymentClothing的值，新值为原有值-新单中服装类商品的成交价
-                //4.1、如果是非会员顾客就不用算paymentClothing了
-                Order order = orderDao.find(item.getOid());
-                if (order.getCustId() != Customer.NON_MEMBER_ID) {
-                    Customer cust = custService.find(order.getCustId());
-                    cust.setPaymentClothing(cust.getPaymentClothing() - item.getPayment());
-                    custService.updatePayment(cust);
-                }
             }
         });
 
@@ -205,16 +177,15 @@ public class OrderServiceImpl implements OrderService {
      *
      * @param smv             skuMoreView
      * @param cart            cart
-     * @param paymentClothing paymentClothing
      * @return
      */
-    private Item assembleItem(SkuMoreView smv, Cart cart, long paymentClothing) {
+    private Item assembleItem(SkuMoreView smv, Cart cart) {
         Item item = new Item();
         item.setSkuid(smv.getSkuId());
         item.setSkuMoreId(smv.getSkuMoreId());
         item.setCateCode(smv.getCateCode());
         item.setSprice(smv.getSprice());
-        item.setDprice((long) (DiscountRule.calcDprice(smv.getCateCode(), paymentClothing, smv.getSprice(), 0)));
+        item.setDprice(smv.getSprice());
         item.setDcount(cart.getCount());
         item.setPayment(Double.valueOf(cart.getPayment()).longValue());
         item.setState(Item.STATE_OK);

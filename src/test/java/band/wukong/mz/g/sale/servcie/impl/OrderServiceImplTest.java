@@ -3,13 +3,10 @@ package band.wukong.mz.g.sale.servcie.impl;
 import band.wukong.mz.base.bean.Period;
 import band.wukong.mz.common.privilege.bean.User;
 import band.wukong.mz.g.AppConst;
-import band.wukong.mz.g.category.SimpleCateConst;
-import band.wukong.mz.g.customer.service.CustomerService;
 import band.wukong.mz.g.sale.bean.Cart;
 import band.wukong.mz.g.sale.bean.Item;
 import band.wukong.mz.g.sale.bean.Order;
 import band.wukong.mz.g.sale.service.CartService;
-import band.wukong.mz.g.sale.service.DiscountRule;
 import band.wukong.mz.g.sale.service.OrderService;
 import band.wukong.mz.g.sku.dao.SkuMoreDao;
 import band.wukong.mz.nutz.test.NutzTestHelper;
@@ -35,7 +32,6 @@ public class OrderServiceImplTest {
     private Ioc ioc;
     private OrderService orderService;
     private SkuMoreDao skuMoreDao;
-    private CustomerService custService;
     private CartService cartService;
 
     @Before
@@ -43,7 +39,6 @@ public class OrderServiceImplTest {
         ioc = NutzTestHelper.createIoc();
         orderService = ioc.get(OrderService.class);
         skuMoreDao = ioc.get(SkuMoreDao.class);
-        custService = ioc.get(CustomerService.class);
         cartService = ioc.get(CartService.class);
     }
 
@@ -74,22 +69,18 @@ public class OrderServiceImplTest {
         // 1、pay方法是否返回了新生成的order
         // 2、库存数量变化
         // 3、购物车变化
-        // 4、paymentClothing变化
 
 
         final Long CUST_ID = 2L;
         final Long CUST_CID = 99999999999L;
         final Long USER_ID = 1L;
         final Long SKU_MORE_ID = 93L;
-        final String CATE_CODE = SimpleCateConst.CATE_CODE_A_SYTZ;
         final int SPRICE = 120;
         final int DCOUNT = 1;
         final double PAYMENT = 108;
 
 
         int pre_skuMore_count = skuMoreDao.find(SKU_MORE_ID).getCount();
-        long pre_paymentClothing = custService.find(CUST_ID).getPaymentClothing();
-
 
         Cart[] carts = new Cart[1];
         Cart cart = new Cart();
@@ -120,13 +111,6 @@ public class OrderServiceImplTest {
                 Assert.assertTrue(SKU_MORE_ID != c.getSkuMoreId());
             }
         }   // 如果carsOfCust为null，则说明ok。所以就不用else了。
-
-        // 4、paymentClothing变化
-        if(DiscountRule.hasClothingDiscount(CATE_CODE)) {
-            long payment = order.getItems().get(0).getPayment();
-            long curr_paymentClothing = custService.find(CUST_ID).getPaymentClothing();
-            Assert.assertTrue(payment + pre_paymentClothing == curr_paymentClothing);
-        }
 
         // FIXME 补充失败情况的单元测试用例
         // 1、用户是否存在
@@ -166,10 +150,8 @@ public class OrderServiceImplTest {
         i.setReturnReason(DT_RET_REASON);
         i.setReturnDesc(DT_RET_DESC);
 
-        //2、记录原始数据：order.item.state/dcount/payment, order.cust.paymentClothing
+        //2、记录原始数据：order.item.state/dcount/payment
         Item item_original = orderService.findItemWithOrder(DT_ITEM_ID);
-        long custId = orderService.find(item_original.getOid()).getCustId();
-        long item_original_paymentClothing = custService.find(custId).getPaymentClothing();
         long skuMore_original_count = skuMoreDao.find(item_original.getSkuMoreId()).getCount();
 
 
@@ -189,10 +171,7 @@ public class OrderServiceImplTest {
         Assert.assertEquals(item_returned.getSkuMoreId(), item_original.getSkuMoreId());
         long skuMore_now_count = skuMoreDao.find(item_returned.getSkuMoreId()).getCount();
         Assert.assertEquals(skuMore_original_count, skuMore_now_count + item_returned.getDcount()); //return的dcount是负值
-
-        //6、检查变化情况4：cust：     order.cust.paymentClothing
-        long next_paymentclothing = custService.find(custId).getPaymentClothing();
-        Assert.assertEquals(item_original_paymentClothing + item_returned.getPayment(), next_paymentclothing);
+        
 
     }
 }

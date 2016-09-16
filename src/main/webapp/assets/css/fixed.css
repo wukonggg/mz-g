@@ -92,5 +92,6 @@
 }
 .mz-order-dprice-highlight {
     font-family: verdana,monospace !important;
-    color: #f40;
+    font-weight: bold !important;;
+    color: #000000;
 }

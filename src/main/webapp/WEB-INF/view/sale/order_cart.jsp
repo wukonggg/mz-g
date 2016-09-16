@@ -64,11 +64,13 @@
     <form id="frmMain" name="frmMain" action="${base}/sale/order/pay.io" class="am-form am-form-inline" method="post">
         <input type="hidden" id="carts" name="carts" value="">
         <div class="admin-content">
+<%--
             <jsp:include page="../base/admin_breadcrumb.jsp">
                 <jsp:param name="info1" value="SALE"/>
                 <jsp:param name="info2" value="Cart"/>
             </jsp:include>
-
+--%>
+            <br>
             <div class="am-g">
                 <div class="am-u-md-6 am-cf">
                     <div class="am-fl am-cf">
@@ -101,6 +103,9 @@
                             <div class="am-panel-hd mz-ic-cust-panel">
                                 <span class="am-icon-minus">&nbsp;&nbsp;</span>
                                 <span class="mz-panel-text">&nbsp;&nbsp;会员：&nbsp;&nbsp;${cartsKV.value[0].cid} / ${cartsKV.value[0].msisdn} / ${cartsKV.value[0].name}</span>
+                                <span class="mz-panel-text">&nbsp;&nbsp;</span>
+                                <span class="mz-panel-text">总价：</span>
+                                <span class="mz-ic-total-payment-${cartsKV.key}" style="font-weight: bold">???</span>
                                 <span class="am-fr" style="padding-top: 2px; margin-right: 4px;">
                                     <a id="btn_cust_clear_${cartsKV.key}_${cartsKV.value[0].custId}" href="#">清空</a>
                                 </span>
@@ -117,7 +122,7 @@
                                     <th>款型</th>
                                     <th>尺码</th>
                                     <th>库存</th>
-                                    <th>零售价</th>
+                                    <th>单价（￥）</th>
                                     <th class="am-text-left" style="width: 150px">数量</th>
                                     <th class="am-text-left" style="width: 30px"></th>
                                     <th class="am-text-left" style="width: 150px">金额</th>
@@ -139,20 +144,14 @@
                                         <td>${c.size}</td>
                                         <td>${c.scount}</td>
                                         <td>
-                                            <%--有折扣--%>
-                                            <c:if test="${o:discountInDouble(c.cateCode, c.paymentClothing) != 1.0}">
-                                                <span class="mz-order-sprice">
-                                                    <fmt:formatNumber type="number" value="${c.sprice}" pattern="0.00" maxFractionDigits="2"/>
-                                                </span><br>
-                                                <span class="mz-order-dprice-highlight">${o:calcDpriceInString(c.cateCode, c.paymentClothing, c.sprice, 2, "0.00")}</span>
-                                                <span>(${o:discountInText(c.cateCode, c.paymentClothing)})</span>
-                                            </c:if>
-                                            <%--无折扣--%>
-                                            <c:if test="${o:discountInDouble(c.cateCode, c.paymentClothing) == 1.0}">
-                                                <span class="mz-order-dprice">
-                                                    <fmt:formatNumber type="number" value="${c.sprice}" pattern="0.00" maxFractionDigits="2"/>
-                                                </span>
-                                            </c:if>
+                                            <%-- sprice 零售价 --%>
+                                            <span class="mz-order-sprice">
+                                                <fmt:formatNumber type="number" value="${c.sprice}" pattern="0.00" maxFractionDigits="2"/>
+                                            </span><br>
+                                            <%-- dprice 折扣价 --%>
+                                            <span class="mz-order-dprice-highlight">
+                                                <fmt:formatNumber type="number" value="${c.sprice}" pattern="0.00" maxFractionDigits="2"/>
+                                            </span>
                                         </td>
                                         <td class="am-text-center">
                                             <div class="am-input-group am-input-group-sm">
@@ -164,15 +163,16 @@
                                                 <input id="inp_count_${cartsKV.key}_${c.skuMoreId}" name="count" type="text" readonly style="background-color: mintcream"
                                                        value="${c.count}" class="am-form-field mz-ic-cart-tbody-count mz-ic-carts-count"/>
                                                 <span class="am-input-group-btn">
-                                                  <button name="btn_count_add"
-                                                          class="am-btn am-btn-default mz-admin-qcond-fixed" type="button">+
-                                                  </button>
+                                                    <button name="btn_count_add"
+                                                            class="am-btn am-btn-default mz-admin-qcond-fixed" type="button">+
+                                                    </button>
                                                 </span>
                                             </div>
                                             <input type="hidden" id="inp_cart_id_${cartsKV.key}_${c.skuMoreId}" value="${c.id}" class="mz-ic-cart-id"/>
                                             <input type="hidden" id="inp_custId_${cartsKV.key}_${c.skuMoreId}" value="${c.custId}"/>
                                             <input type="hidden" name="_skuMoreId" value="${c.skuMoreId}" class="mz-ic-carts-skuMoreId"/>
-                                            <input type="hidden" name="_dprice" value="${o:calcDpriceInString(c.cateCode, c.paymentClothing, c.sprice, 2, "0.00")}" class="mz-ic-carts-dprice"/>
+                                            <%--<input type="hidden" name="_dprice" value="${o:calcDpriceInString(c.cateCode, c.sprice, 2, "0.00")}" class="mz-ic-carts-dprice"/>--%>
+                                            <input type="hidden" name="_dprice" value="${c.sprice}" class="mz-ic-carts-dprice"/>
                                             <input type="hidden" name="_cid" value="${cartsKV.key}" class="mz-ic-carts-cid"/>
                                             <input type="hidden" name="_scount" value="${c.scount}" class="mz-ic-carts-scount"/>
                                         </td>
@@ -181,7 +181,7 @@
                                             <input id="inp_payment_${cartsKV.key}_${c.skuMoreId}" name="payment"
                                                    type="text"
                                                    class="am-form-field am-input-sm mz-ic-cart-tbody-payment"
-                                                   value="${o:calcPaymentInString(c.cateCode, c.paymentClothing, c.sprice, c.count, 2, "0.00")}"/>
+                                                   value="${o:calcSkuPaymentInString(c.sprice, c.count, 2, "0.00")}"/>
                                         </td>
                                         <td>
                                             <a id="btn_cart_rm_${cartsKV.key}_${c.custId}_${c.skuMoreId}" href="#">删除</a>
@@ -212,6 +212,7 @@
 <script src="${base}/component/raw/raw.util.js"></script>
 <script src="${base}/component/raw/raw.re.js"></script>
 <script src="${base}/assets/js/mess.sidebar.js"></script>
+<script src="${base}/assets/js/mz.cart.js"></script>
 <script>
     // var cart
     // key: skuMoreId
@@ -232,7 +233,7 @@
     }
 
     $(function () {
-        mess.sidebar.load(mess.sidebar.bars.SALE);
+        mess.sidebar.load(mess.sidebar.bars.SALE, mess.sidebar.bars.SALE_CART);
         //折叠购物车所有内容
         $("#btn_collapse").click(function () {
             var iconNode = $(this).children(":first");
@@ -324,7 +325,6 @@
             var countNode = $(this).parent().prev();
             var count = countNode.val();
             var scount = $(this).parent().parent().nextAll(".mz-ic-carts-scount").val();
-
             if (scount < parseInt(count) + 1) {
                 alert("已达到最大库存数量");
                 return false;
@@ -338,6 +338,8 @@
             var skuMoreId = $(this).parent().parent().nextAll(".mz-ic-carts-skuMoreId").val();
             var dprice = $(this).parent().parent().nextAll(".mz-ic-carts-dprice").val();
             var payment = dprice * $(countNode).val();
+
+//            console.log("cid: " + cid + ", skuMoreId: " + skuMoreId + ", dprice: " + dprice + ", payment: " + payment);
             $("#inp_payment_" + cid + "_" + skuMoreId).val(payment.toFixed(2));
         });
 

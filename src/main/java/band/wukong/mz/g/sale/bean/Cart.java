@@ -72,10 +72,6 @@ public class Cart {
     @Readonly
     private String sid;
 
-    @Column("payment_clothing")
-    @Readonly
-    private long paymentClothing;
-
     public Cart() {
     }
 
@@ -222,14 +218,6 @@ public class Cart {
         this.sid = sid;
     }
 
-    public long getPaymentClothing() {
-        return paymentClothing;
-    }
-
-    public void setPaymentClothing(long paymentClothing) {
-        this.paymentClothing = paymentClothing;
-    }
-
     @Override
     public String toString() {
         return "Cart{" +
@@ -250,7 +238,6 @@ public class Cart {
                 ", size='" + size + '\'' +
                 ", scount=" + scount +
                 ", sid='" + sid + '\'' +
-                ", paymentClothing=" + paymentClothing +
                 '}';
     }
 }

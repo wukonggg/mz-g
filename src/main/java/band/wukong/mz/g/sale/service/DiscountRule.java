@@ -1,7 +1,6 @@
 package band.wukong.mz.g.sale.service;
 
 import band.wukong.mz.g.category.SimpleCateConst;
-import band.wukong.util.Calculator;
 
 /**
  * 优惠规则
@@ -11,11 +10,12 @@ import band.wukong.util.Calculator;
 public class DiscountRule {
 
     /* ********** M...为人民币 ********** */
-    public static final double M100 = 100;
-    public static final double M1000 = 1000;
-    public static final double M3000 = 3000;
-    public static final double M5000 = 5000;
-    public static final double M10000 = 10000;
+    public static final double M0 = 0.00;
+    public static final double M100 = 100.00;
+    public static final double M200 = 200.00;
+    public static final double M300 = 300.00;
+    public static final double M400 = 400.00;
+    public static final double M500 = 500.00;
 
     /* ********** D...为折扣 ********** */
     private static final double D100 = 1;
@@ -28,16 +28,10 @@ public class DiscountRule {
     /**
      * 计算（预）成交价。
      *
-     * @param cateCode cateCode
-     * @param fee      历史购买服装类商品支付的总金额
-     * @param sprice   商品零售价
-     * @param scale    小数点后保留n位
      * @return 保留n位小数的（预）成交价
      */
-    public static double calcDprice(String cateCode, double fee, double sprice, int scale) {
-        double discount = discount(cateCode, fee);
-        double dprice = Calculator.mul(sprice, discount);
-        return Calculator.round(dprice, scale);
+    public static double calcDprice() {
+        return 0L;
     }
 
     /**
@@ -49,7 +43,7 @@ public class DiscountRule {
      */
     public static double discount(String cateCode, double fee) {
         if (hasClothingDiscount(cateCode)) {
-            return discountClothing(fee);
+            return discount4Clothing(fee);
         } else {
             return 1;
         }
@@ -86,33 +80,23 @@ public class DiscountRule {
     /**
      * 服装类商品的优惠折扣
      *
-     * @param paymentClothing 历史购买服装类商品支付的总金额
+     * @param payment4Clothing 历史购买服装类商品支付的总金额
      * @return 返回折扣
      */
-    private static double discountClothing(double paymentClothing) {
-        if (paymentClothing >= M10000) {
+    private static double discount4Clothing(double payment4Clothing) {
+        if (payment4Clothing >= M500) {
             return D80;
-        } else if (paymentClothing >= M5000) {
+        } else if (payment4Clothing >= M400) {
             return D85;
-        } else if (paymentClothing >= M3000) {
+        } else if (payment4Clothing >= M300) {
             return D88;
-        } else if (paymentClothing >= M1000) {
+        } else if (payment4Clothing >= M200) {
             return D90;
-        } else if (paymentClothing >= M100) {
+        } else if (payment4Clothing >= M100) {
             return D95;
         } else {
             return D100;
         }
-        /*
-        服装类：
-        历史消费             优惠                 会员等级
-        =============       =============       =============
-        100                 95%                 V1-普通
-        1000                90%                 V2-中级
-        3000                88%                 V3-高级
-        5000                85%                 V4-资深
-        10000               80%                 V5-传说
-         */
     }
 
     /**
@@ -123,18 +107,18 @@ public class DiscountRule {
      */
     private static String discountClothingInTextCN(double fee) {
 
-        if (fee >= 10000) {
+        if (fee >= M500) {
             return "八折";
-        } else if (fee >= 5000) {
+        } else if (fee >= M400) {
             return "八五折";
-        } else if (fee >= 3000) {
+        } else if (fee >= M300) {
             return "八八折";
-        } else if (fee >= 1000) {
+        } else if (fee >= M200) {
             return "九折";
-        } else if (fee >= 100) {
+        } else if (fee >= M100) {
             return "九五折";
         } else {
-            return "";
+            return "无折扣";
         }
     }
 
