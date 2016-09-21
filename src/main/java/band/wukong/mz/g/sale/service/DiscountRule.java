@@ -12,10 +12,11 @@ public class DiscountRule {
     /* ********** M...为人民币 ********** */
     public static final double M0 = 0.00;
     public static final double M100 = 100.00;
+    public static final double M150 = 150.00;
     public static final double M200 = 200.00;
     public static final double M300 = 300.00;
     public static final double M400 = 400.00;
-    public static final double M500 = 500.00;
+    public static final double M600 = 600.00;
 
     /* ********** D...为折扣 ********** */
     private static final double D100 = 1;
@@ -84,7 +85,7 @@ public class DiscountRule {
      * @return 返回折扣
      */
     private static double discount4Clothing(double payment4Clothing) {
-        if (payment4Clothing >= M500) {
+        if (payment4Clothing >= M600) {
             return D80;
         } else if (payment4Clothing >= M400) {
             return D85;
@@ -107,7 +108,7 @@ public class DiscountRule {
      */
     private static String discountClothingInTextCN(double fee) {
 
-        if (fee >= M500) {
+        if (fee >= M600) {
             return "八折";
         } else if (fee >= M400) {
             return "八五折";
