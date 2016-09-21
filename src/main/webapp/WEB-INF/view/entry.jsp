@@ -17,10 +17,10 @@
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
         <form id="frm_login" method="post" class="am-form" >
             <label for="name">账号:</label>
-            <input type="text" name="name" id="name" value="test">
+            <input type="text" name="name" id="name" value="">
             <br>
             <label for="password">密码:</label>
-            <input type="password" name="password" id="password" value="000000">
+            <input type="password" name="password" id="password" value="">
             <br>
             <div class="am-cf">
                 <input type="submit" id="btn_login" value="登 录"
