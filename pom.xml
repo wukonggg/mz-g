@@ -6,7 +6,7 @@
     <groupId>band.wukong.mz</groupId>
     <artifactId>mz-gallery</artifactId>
     <packaging>war</packaging>
-    <version>0.6.3a3</version>
+    <version>0.6.3</version>
     <name>wukong-mz-gallery</name>
     <description>CRM on Retail</description>
     <url>http://www.wukong.band/p/mz-gallery</url>
