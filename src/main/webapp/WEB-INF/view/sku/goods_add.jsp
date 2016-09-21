@@ -2,6 +2,7 @@
   Desc: goods add
   User: wukong(wukonggg@139.com)
 --%>
+<%@ page import="band.wukong.mz.g.category.bean.Category" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
