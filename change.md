@@ -20,6 +20,10 @@
 
 
 # gallery-0.6.3     [publish on 2016.0921]
+- move: administrator-guide.docx renamed from DEV-GUIDE.TXT
+- move: developer-guide.txt renamed from DEV-GUIDE.TXT
+- move: change-maybe.txt renamed from ROADMAP.TXT
+- del: change
 - db: db-0.6.3-20160920.sql
 - fixed: 修复goods添加时报错的问题
 - fixed: 修复sku查询时只能看到第一页的问题
