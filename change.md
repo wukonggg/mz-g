@@ -13,7 +13,7 @@
 - 购物车有要考虑特惠商品不参与折扣
 
 
-# [now]gallery-0.6.4     [publish on 2016.09xx]
+# [now]gallery-0.6.4a1     [publish on 2016.09xx]
 ### [next]2.3. SimpleCateConst改造
 - update: 生产环境已将【J文具】作为特惠服装的catecode。需要把J文具改为特惠
 - update:
@@ -23,7 +23,7 @@
 - move: administrator-guide.docx renamed from DEV-GUIDE.TXT
 - move: developer-guide.txt renamed from DEV-GUIDE.TXT
 - move: change-maybe.txt renamed from ROADMAP.TXT
-- del: change
+- move: change.md renamed from VERSION.TXT
 - db: db-0.6.3-20160920.sql
 - fixed: 修复goods添加时报错的问题
 - fixed: 修复sku查询时只能看到第一页的问题
