@@ -14,6 +14,7 @@
 
 
 # [now]gallery-0.6.4a1     [publish on 2016.09xx]
+- add: 增加数据备份脚本dump-data.bat。
 ### [next]2.3. SimpleCateConst改造
 - update: 生产环境已将【J文具】作为特惠服装的catecode。需要把J文具改为特惠
 - update:
